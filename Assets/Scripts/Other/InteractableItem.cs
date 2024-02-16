@@ -10,6 +10,11 @@ public class InteractableItem : MonoBehaviour, IInteractable
     Pickup();
   }
 
+  public string Tooltip
+  {
+    get { return "Pick up " + item.itemName; }
+  }
+
   private void Pickup()
   {
     Debug.Log("Picking up " + item.itemName);

@@ -33,7 +33,7 @@ public class PlayerInventory : MonoBehaviour
 
   private void CreateInventoryGrid()
   {
-    GameObject UI_Canvas_GO = GameObject.Find("UI_Canvas");
+    GameObject UI_Canvas_GO = GetComponentInChildren<Canvas>().gameObject;
 
     if (UI_Canvas_GO != null)
     {
