@@ -118,6 +118,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b7548f4afb4af6418919b127b199001, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: Branch
-  description: Branch
-  icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  inventoryItem: {fileID: 11400000, guid: fee30db7020baaa478b13ba35d8117c5, type: 2}

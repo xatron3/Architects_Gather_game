@@ -1,4 +1,5 @@
 using UnityEngine;
+using SpellStone.Inventory;
 
 public class PlayerInventory : MonoBehaviour
 {
@@ -7,18 +8,7 @@ public class PlayerInventory : MonoBehaviour
 
   private void Start()
   {
-    GameObject UI_Canvas_GO = GameObject.Find("UI_Canvas");
-
-    if (UI_Canvas_GO != null)
-    {
-      inventoryGrid = Instantiate(inventoryGridPrefab, inventoryGridPrefab.transform.position, Quaternion.identity);
-      inventoryGrid.transform.SetParent(UI_Canvas_GO.transform, false);
-
-      // Hide the inventory grid by default
-      inventoryGrid.gameObject.SetActive(false);
-    }
-    else
-      Debug.LogError("UI_Canvas not found");
+    CreateInventoryGrid();
   }
 
   private void Update()
@@ -38,18 +28,34 @@ public class PlayerInventory : MonoBehaviour
 
   private void AddItemToInventory()
   {
-    Item resourceItem;
-    // Example of adding an item to the player's inventory
-    resourceItem = FindAnyObjectByType<Item>();
+    Item resourceItem = FindObjectOfType<Item>();
 
     if (resourceItem == null)
       Debug.LogError("resourceItem item not found");
     else
     {
-      inventoryGrid.AddItem(resourceItem);
+      // Add the item to the inventory
+      InventoryItem inventoryItem = resourceItem.inventoryItem;
+      inventoryGrid.AddItem(inventoryItem);
+
+      // Destroy the item in the scene
       Destroy(resourceItem.gameObject);
-      Debug.Log("Added " + resourceItem.itemName + " to inventory");
-      Debug.Log("Total items in inventory: " + inventoryGrid.GetTotalItems() + " / Free slots: " + inventoryGrid.GetFreeSlots());
     }
+  }
+
+  private void CreateInventoryGrid()
+  {
+    GameObject UI_Canvas_GO = GameObject.Find("UI_Canvas");
+
+    if (UI_Canvas_GO != null)
+    {
+      inventoryGrid = Instantiate(inventoryGridPrefab, inventoryGridPrefab.transform.position, Quaternion.identity);
+      inventoryGrid.transform.SetParent(UI_Canvas_GO.transform, false);
+
+      // Hide the inventory grid by default
+      inventoryGrid.gameObject.SetActive(false);
+    }
+    else
+      Debug.LogError("UI_Canvas not found. Could not create inventory grid.");
   }
 }
