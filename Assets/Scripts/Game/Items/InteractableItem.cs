@@ -1,7 +1,7 @@
 using SpellStone.Inventory;
 using UnityEngine;
 
-public class InteractableItem : MonoBehaviour, IInteractable
+public class InteractableItem : Item, IInteractable
 {
   public InventoryItem item;
 
