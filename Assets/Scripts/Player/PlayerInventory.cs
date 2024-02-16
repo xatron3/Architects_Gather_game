@@ -9,40 +9,25 @@ public class PlayerInventory : MonoBehaviour
   private void Start()
   {
     CreateInventoryGrid();
+    ItemEventManager.Instance.onItemPickedUp.AddListener(OnItemPickedUp);
+  }
+
+  private void OnDestroy()
+  {
+    ItemEventManager.Instance.onItemPickedUp.RemoveListener(OnItemPickedUp);
+  }
+
+  private void OnItemPickedUp(InventoryItem item)
+  {
+    inventoryGrid.AddItem(item);
   }
 
   private void Update()
   {
-    if (Input.GetKeyDown(KeyCode.I))
-    {
-      // For testing purposes, add an item to the player's inventory when pressing "I"
-      AddItemToInventory();
-    }
-
     if (Input.GetKeyDown(KeyCode.B))
     {
       // Toggle the inventory grid when pressing "B"
       inventoryGrid.gameObject.SetActive(!inventoryGrid.gameObject.activeSelf);
-    }
-  }
-
-  private void AddItemToInventory()
-  {
-    Item resourceItem = FindObjectOfType<Item>();
-
-    if (resourceItem == null)
-      Debug.LogError("resourceItem item not found");
-    else
-    {
-      // Add the item to the inventory
-      InventoryItem inventoryItem = resourceItem.inventoryItem;
-      inventoryGrid.AddItem(inventoryItem);
-
-      // Destroy the item in the scene
-      Destroy(resourceItem.gameObject);
-
-      Debug.Log("Added " + inventoryItem.itemName + " to inventory");
-      Debug.Log("Total items in inventory: " + inventoryGrid.GetTotalItems() + " / Free slots: " + inventoryGrid.GetFreeSlots());
     }
   }
 
