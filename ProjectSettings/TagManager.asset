@@ -3,22 +3,24 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Coin
+  - Experience
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
+  - Ground
+  - Environment
+  - Projectile
+  - Enemy
+  - Pickup
+  - EnemyProjectile
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Environment Collision
   - 
   - 
   - 
