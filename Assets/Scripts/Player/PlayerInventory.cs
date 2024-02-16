@@ -40,6 +40,9 @@ public class PlayerInventory : MonoBehaviour
 
       // Destroy the item in the scene
       Destroy(resourceItem.gameObject);
+
+      Debug.Log("Added " + inventoryItem.itemName + " to inventory");
+      Debug.Log("Total items in inventory: " + inventoryGrid.GetTotalItems() + " / Free slots: " + inventoryGrid.GetFreeSlots());
     }
   }
 
