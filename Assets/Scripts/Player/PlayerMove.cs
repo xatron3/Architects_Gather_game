@@ -18,7 +18,7 @@ namespace SpellStone.Player
       float moveHorizontal = InputManager.instance.GetHorizontalAxisValue();
       float moveVertical = InputManager.instance.GetVerticalAxisValue();
 
-      Vector3 moveVector = new Vector3(moveHorizontal * (-1), 0.0f, moveVertical * (-1)) * speed * Time.deltaTime;
+      Vector3 moveVector = new Vector3(moveHorizontal, 0.0f, moveVertical) * speed * Time.deltaTime;
       transform.position = transform.position + moveVector;
     }
 
