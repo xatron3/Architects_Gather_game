@@ -67,16 +67,29 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
     inventoryGrid.RemoveItem(item);
   }
 
-  public int GetTotalItemsOfName(string itemName)
+  public void RemoveItems(List<InventoryItem> items)
   {
-    return inventoryGrid.GetTotalItemsOfName(itemName);
+    foreach (InventoryItem item in items)
+    {
+      RemoveItem(item);
+    }
   }
 
-  public bool HasIngredients(List<InventoryItem> ingredients)
+  public bool ContainsItem(InventoryItem item)
   {
-    foreach (InventoryItem ingredient in ingredients)
+    return GetTotalItemsOfName(item.itemName) > 0;
+  }
+
+  public bool ContainsItem(string itemName)
+  {
+    return GetTotalItemsOfName(itemName) > 0;
+  }
+
+  public bool ContainsItems(List<InventoryItem> items)
+  {
+    foreach (InventoryItem item in items)
     {
-      if (GetTotalItemsOfName(ingredient.itemName) < 1)
+      if (GetTotalItemsOfName(item.itemName) < 1)
       {
         return false;
       }
@@ -85,11 +98,8 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
     return true;
   }
 
-  public void RemoveIngredients(List<InventoryItem> ingredients)
+  public int GetTotalItemsOfName(string itemName)
   {
-    foreach (InventoryItem ingredient in ingredients)
-    {
-      RemoveItem(ingredient);
-    }
+    return inventoryGrid.GetTotalItemsOfName(itemName);
   }
 }

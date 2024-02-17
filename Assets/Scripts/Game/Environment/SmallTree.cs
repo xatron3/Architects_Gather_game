@@ -5,9 +5,18 @@ public class SmallTree : MonoBehaviour, IInteractable, ISkillProvider
   public ItemPickupable logPrefab;
   public string Tooltip => "Chop down tree";
 
+  private PlayerInventory playerInventory;
+
   public void Interact()
   {
     PlayerSkills skill = FindObjectOfType<PlayerSkills>();
+    playerInventory = FindObjectOfType<PlayerInventory>();
+
+    if (!HasRequiredItem)
+    {
+      Debug.Log("You need a stone axe to chop down this tree.");
+      return;
+    }
 
     if (skill.GetSkill("Woodcutting").GetSkillLevel() < RequiredLevel)
     {
@@ -41,4 +50,6 @@ public class SmallTree : MonoBehaviour, IInteractable, ISkillProvider
   }
 
   public int RequiredLevel => 1;
+
+  public bool HasRequiredItem => playerInventory.ContainsItem("Stone Axe");
 }

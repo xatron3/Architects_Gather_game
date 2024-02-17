@@ -6,9 +6,18 @@ public class BigStoneRock : MonoBehaviour, IInteractable, ISkillProvider
   public ItemPickupable stonePrefab;
   public string Tooltip => "Mine Big Stone Rock";
 
+  private PlayerInventory playerInventory;
+
   public void Interact()
   {
     PlayerSkills skill = FindObjectOfType<PlayerSkills>();
+    playerInventory = FindObjectOfType<PlayerInventory>();
+
+    if (!HasRequiredItem)
+    {
+      Debug.Log("You need a stone pickaxe to mine this rock.");
+      return;
+    }
 
     if (skill.GetSkill("Mining").GetSkillLevel() < RequiredLevel)
     {
@@ -43,4 +52,6 @@ public class BigStoneRock : MonoBehaviour, IInteractable, ISkillProvider
   }
 
   public int RequiredLevel => 2;
+
+  public bool HasRequiredItem => playerInventory.ContainsItem("Stone Pickaxe");
 }

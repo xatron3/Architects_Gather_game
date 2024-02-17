@@ -3,7 +3,11 @@ using SpellStone.Inventory;
 
 public interface IPlayerInventory
 {
-  bool HasIngredients(List<InventoryItem> items);
-  void RemoveIngredients(List<InventoryItem> items);
+  bool ContainsItem(InventoryItem item);
+  bool ContainsItems(List<InventoryItem> items);
+
   void AddItem(InventoryItem item);
+
+  void RemoveItem(InventoryItem item);
+  void RemoveItems(List<InventoryItem> items);
 }

@@ -91,17 +91,16 @@ namespace SpellStone.Crafting
         return;
       }
 
-      if (!playerInventory.HasIngredients(item.ingredients))
+      if (!playerInventory.ContainsItems(item.ingredients))
       {
         Debug.Log("PlayerInventory does not have the required ingredients to craft this item.");
         return;
       }
 
-      playerInventory.RemoveIngredients(item.ingredients);
+      playerInventory.RemoveItems(item.ingredients);
       playerInventory.AddItem(item.craftableItem);
       playerSkills.PerformSkillAction(this);
     }
-
 
     private void ClearPreviewContainer()
     {
@@ -129,6 +128,10 @@ namespace SpellStone.Crafting
     }
 
     public int RequiredLevel => GetRequiredCraftingLevel(selectedCraftingItem);
+
+    public InventoryItem RequiredItem { get; set; }
+
+    public bool HasRequiredItem => true;
   }
 
   [Serializable]
