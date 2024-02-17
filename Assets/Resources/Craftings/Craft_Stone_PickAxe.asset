@@ -17,3 +17,5 @@ MonoBehaviour:
   ingredients:
   - {fileID: 11400000, guid: 90465517a14a9674da520a3f47516f37, type: 2}
   - {fileID: 11400000, guid: fee30db7020baaa478b13ba35d8117c5, type: 2}
+  craftingExperienceGain: 50
+  craftingSkillLevelRequirement: 2

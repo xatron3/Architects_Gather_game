@@ -45,6 +45,16 @@ public class PlayerSkills : MonoBehaviour
     return skills.Find(s => s.GetName() == skillName);
   }
 
+  public void AddExperienceToSkill(string skillName, int experience)
+  {
+    SkillBase skill = skills.Find(s => s.GetName() == skillName);
+    if (skill != null)
+    {
+      skill.AddExperience(experience);
+      skillContainer.UpdateSkillRow(skill);
+    }
+  }
+
   private void CreateSkillContainer()
   {
     GameObject UI_Canvas_GO = GetComponentInChildren<Canvas>().gameObject;

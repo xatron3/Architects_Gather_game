@@ -25,7 +25,7 @@ namespace SpellStone.Skills
         if (row.GetSkillName() == skill.GetName())
         {
           row.SetSkillLevelText(skill.GetSkillLevel());
-          row.SetExperienceSlider(skill.GetExperience(), 1000);
+          row.SetExperienceSlider(skill.GetExperience(), skill.GetNextLevelExperience());
           break;
         }
       }
@@ -37,7 +37,7 @@ namespace SpellStone.Skills
       skillRow.transform.SetParent(skillRowsListParent, false);
       skillRow.SetSkillName(skill.GetName());
       skillRow.SetSkillLevelText(skill.GetSkillLevel());
-      skillRow.SetExperienceSlider(skill.GetExperience(), 1000);
+      skillRow.SetExperienceSlider(skill.GetExperience(), skill.GetNextLevelExperience());
       skillRows.Add(skillRow);
     }
   }

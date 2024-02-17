@@ -42,5 +42,5 @@ public class BigStoneRock : MonoBehaviour, IInteractable, ISkillProvider
     return 30;
   }
 
-  public int RequiredLevel => 5;
+  public int RequiredLevel => 2;
 }

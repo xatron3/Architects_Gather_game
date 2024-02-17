@@ -38,7 +38,7 @@ public class StoneRock : MonoBehaviour, IInteractable, ISkillProvider
 
   public int GetExperienceGain()
   {
-    return 10;
+    return 50;
   }
 
   public int RequiredLevel => 1;

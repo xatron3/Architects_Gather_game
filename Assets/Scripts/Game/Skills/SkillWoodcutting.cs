@@ -2,9 +2,6 @@ using UnityEngine;
 
 public class SkillWoodcutting : SkillBase
 {
-  private int experience;
-  private int skillLevel;
-
   public override void SetupSkill(int experience, int skillLevel)
   {
     this.experience = experience;
@@ -13,7 +10,7 @@ public class SkillWoodcutting : SkillBase
 
   public override void PerformSkillAction(int experienceGain)
   {
-    experience += experienceGain;
+    base.PerformSkillAction(experienceGain);
   }
 
   public override bool HasRequirementsMet()

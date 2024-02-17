@@ -10,5 +10,8 @@ namespace SpellStone.Crafting
     public string craftingName = "New Item";
     public InventoryItem craftableItem;
     public List<InventoryItem> ingredients;
+
+    public int craftingExperienceGain;
+    public int craftingSkillLevelRequirement;
   }
 }
