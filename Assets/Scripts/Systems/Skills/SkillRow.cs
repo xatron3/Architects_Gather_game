@@ -1,28 +1,26 @@
 using UnityEngine;
 using TMPro;
-using System;
 
 namespace SpellStone.Skills
 {
   public class SkillRow : MonoBehaviour
   {
-    public SkillRowElements elements;
+    public TMP_Text skillNameText;
+    public TMP_Text skillExperienceText;
 
     public void SetSkillName(string skillName)
     {
-      elements.skillName.text = skillName;
+      skillNameText.text = skillName;
     }
 
     public void SetSkillExperience(int experience)
     {
-      elements.skillExperience.text = experience.ToString();
+      skillExperienceText.text = experience.ToString();
     }
-  }
 
-  [Serializable]
-  public class SkillRowElements
-  {
-    public TMP_Text skillName;
-    public TMP_Text skillExperience;
+    public string GetSkillName()
+    {
+      return skillNameText.text;
+    }
   }
 }

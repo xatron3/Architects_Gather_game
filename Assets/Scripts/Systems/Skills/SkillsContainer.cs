@@ -8,24 +8,35 @@ namespace SpellStone.Skills
     public SkillRow skillRowPrefab;
     public Transform skillRowsListParent;
 
-    private List<SkillRow> skillRows;
+    private List<SkillRow> skillRows = new List<SkillRow>();
 
-    private void Start()
+    public void CreateSkillRows(List<SkillBase> skills)
     {
-      skillRows = new List<SkillRow>();
-      CreateSkillRows();
+      foreach (var skill in skills)
+      {
+        CreateSkillRow(skill);
+      }
     }
 
-    private void CreateSkillRows()
+    public void UpdateSkillRow(SkillBase skill)
     {
-      for (int i = 0; i < 5; i++)
+      foreach (var row in skillRows)
       {
-        SkillRow skillRow = Instantiate(skillRowPrefab, skillRowPrefab.transform.position, Quaternion.identity);
-        skillRow.transform.SetParent(skillRowsListParent, false);
-        skillRow.SetSkillName("Skill " + i);
-        skillRow.SetSkillExperience(i * 100);
-        skillRows.Add(skillRow);
+        if (row.GetSkillName() == skill.GetName())
+        {
+          row.SetSkillExperience(skill.GetExperience());
+          break;
+        }
       }
+    }
+
+    private void CreateSkillRow(SkillBase skill)
+    {
+      SkillRow skillRow = Instantiate(skillRowPrefab, skillRowPrefab.transform.position, Quaternion.identity);
+      skillRow.transform.SetParent(skillRowsListParent, false);
+      skillRow.SetSkillName(skill.GetName());
+      skillRow.SetSkillExperience(skill.GetExperience());
+      skillRows.Add(skillRow);
     }
   }
 }
