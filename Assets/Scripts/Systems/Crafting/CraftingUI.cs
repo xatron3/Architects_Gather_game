@@ -10,7 +10,7 @@ namespace SpellStone.Crafting
 
     public Transform ItemsToCraftContainerTransform;
 
-    private void Start()
+    private void Awake()
     {
 
       foreach (CraftingItem item in craftingItems)

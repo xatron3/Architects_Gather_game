@@ -26,6 +26,18 @@ namespace SpellStone.Inventory
       icon.sprite = sprite;
     }
 
+    public InventoryItem GetItem()
+    {
+      if (item != null)
+      {
+        return item;
+      }
+      else
+      {
+        return null;
+      }
+    }
+
     public void SetItem(InventoryItem newItem)
     {
       item = newItem;

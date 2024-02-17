@@ -21,9 +21,10 @@ namespace SpellStone.Inventory
 
     public void RemoveItem(InventoryItem item)
     {
+      Debug.Log("Removing item: " + item.itemName + " from inventory grid");
       foreach (InventorySlot slot in slots)
       {
-        if (slot.GetComponentInChildren<InventoryItemPrefab>() == item)
+        if (slot.GetComponentInChildren<InventoryItemPrefab>().item.itemName == item.itemName)
         {
           slot.ClearSlot();
           return;
@@ -55,6 +56,21 @@ namespace SpellStone.Inventory
       }
 
       return freeSlots;
+    }
+
+    public int GetTotalItemsOfName(string itemName)
+    {
+      int totalItems = 0;
+
+      foreach (InventorySlot slot in slots)
+      {
+        InventoryItemPrefab itemPrefab = slot.GetComponentInChildren<InventoryItemPrefab>();
+
+        if (itemPrefab != null && itemPrefab.GetItem().itemName == itemName)
+          totalItems++;
+      }
+
+      return totalItems;
     }
   }
 }

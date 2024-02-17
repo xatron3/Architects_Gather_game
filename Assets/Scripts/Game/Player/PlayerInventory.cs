@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 using SpellStone.Inventory;
 
 public class PlayerInventory : MonoBehaviour
@@ -19,7 +20,7 @@ public class PlayerInventory : MonoBehaviour
 
   private void OnItemPickedUp(InventoryItem item)
   {
-    inventoryGrid.AddItem(item, itemIconPrefab);
+    AddItem(item);
   }
 
   private void Update()
@@ -48,5 +49,42 @@ public class PlayerInventory : MonoBehaviour
     }
     else
       Debug.LogError("UI_Canvas not found. Could not create inventory grid.");
+  }
+
+  public void AddItem(InventoryItem item)
+  {
+    inventoryGrid.AddItem(item, itemIconPrefab);
+  }
+
+  public void RemoveItem(InventoryItem item)
+  {
+    Debug.Log("Removing item: " + item.itemName + " from player inventory");
+    inventoryGrid.RemoveItem(item);
+  }
+
+  public int GetTotalItemsOfName(string itemName)
+  {
+    return inventoryGrid.GetTotalItemsOfName(itemName);
+  }
+
+  public bool HasIngredients(List<InventoryItem> ingredients)
+  {
+    foreach (InventoryItem ingredient in ingredients)
+    {
+      if (GetTotalItemsOfName(ingredient.itemName) < 1)
+      {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  public void RemoveIngredients(List<InventoryItem> ingredients)
+  {
+    foreach (InventoryItem ingredient in ingredients)
+    {
+      RemoveItem(ingredient);
+    }
   }
 }

@@ -13,7 +13,12 @@ namespace SpellStone.Inventory
     }
 
     public void ClearSlot()
-    { }
+    {
+      if (transform.childCount > 0)
+      {
+        Destroy(transform.GetChild(0).gameObject);
+      }
+    }
 
     public void OnDrop(PointerEventData eventData)
     {
