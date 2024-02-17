@@ -6,14 +6,10 @@ namespace SpellStone.Inventory
 {
   public class InventorySlot : MonoBehaviour, IDropHandler
   {
-    public void AddItem(InventoryItem newItem)
+    public void AddItem(InventoryItem newItem, InventoryItemPrefab itemIconPrefab)
     {
-      InventoryItemPrefab itemIconPrefab = Resources.Load<InventoryItemPrefab>("Prefabs/Player/Inventory/InventoryItemPrefab");
-
       InventoryItemPrefab itemPrefab = Instantiate(itemIconPrefab, transform);
-      itemPrefab.item = newItem;
-      itemPrefab.icon.sprite = newItem.icon;
-      itemPrefab.icon.enabled = true;
+      itemPrefab.SetItem(newItem);
     }
 
     public void ClearSlot()

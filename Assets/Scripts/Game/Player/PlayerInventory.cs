@@ -5,11 +5,11 @@ public class PlayerInventory : MonoBehaviour
 {
   public InventoryGrid inventoryGridPrefab;
   private InventoryGrid inventoryGrid;
+  private InventoryItemPrefab itemIconPrefab;
 
   private void Start()
   {
     CreateInventoryGrid();
-    ItemEventManager.Instance.onItemPickedUp.AddListener(OnItemPickedUp);
   }
 
   private void OnDestroy()
@@ -19,7 +19,7 @@ public class PlayerInventory : MonoBehaviour
 
   private void OnItemPickedUp(InventoryItem item)
   {
-    inventoryGrid.AddItem(item);
+    inventoryGrid.AddItem(item, itemIconPrefab);
   }
 
   private void Update()
@@ -40,7 +40,11 @@ public class PlayerInventory : MonoBehaviour
       inventoryGrid = Instantiate(inventoryGridPrefab, inventoryGridPrefab.transform.position, Quaternion.identity);
       inventoryGrid.transform.SetParent(UI_Canvas_GO.transform, false);
 
-      // Hide the inventory grid by default
+      ItemEventManager.Instance.onItemPickedUp.AddListener(OnItemPickedUp);
+      itemIconPrefab = Resources.Load<InventoryItemPrefab>("Prefabs/Player/Inventory/InventoryItemPrefab");
+      Debug.Log(itemIconPrefab.name);
+
+      inventoryGrid.gameObject.SetActive(true);
       inventoryGrid.gameObject.SetActive(false);
     }
     else

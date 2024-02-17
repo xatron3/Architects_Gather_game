@@ -11,9 +11,7 @@ namespace SpellStone.Inventory
       InventoryItemPrefab itemIconPrefab = Resources.Load<InventoryItemPrefab>("Prefabs/Player/ActionBar/ActionBarItemPrefab");
 
       InventoryItemPrefab itemPrefab = Instantiate(itemIconPrefab, transform);
-      itemPrefab.item = newItem;
-      itemPrefab.icon.sprite = newItem.icon;
-      itemPrefab.icon.enabled = true;
+      itemPrefab.SetItem(newItem);
     }
 
     public void RemoveItem()

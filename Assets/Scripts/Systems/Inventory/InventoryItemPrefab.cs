@@ -8,12 +8,7 @@ namespace SpellStone.Inventory
   {
     [HideInInspector] public Transform parentToReturnTo = null;
     public Image icon { get; private set; }
-    public InventoryItem item;
-
-    private void Awake()
-    {
-      icon = GetComponent<Image>();
-    }
+    public InventoryItem item { get; private set; }
 
     public void UseItem()
     {
@@ -25,7 +20,17 @@ namespace SpellStone.Inventory
 
     public void SetIconSprite(Sprite sprite)
     {
+      if (icon == null)
+        icon = GetComponent<Image>();
+
       icon.sprite = sprite;
+    }
+
+    public void SetItem(InventoryItem newItem)
+    {
+      item = newItem;
+      Debug.Log("Setting item: " + item.itemName);
+      SetIconSprite(item.icon);
     }
 
     public void OnBeginDrag(PointerEventData eventData)

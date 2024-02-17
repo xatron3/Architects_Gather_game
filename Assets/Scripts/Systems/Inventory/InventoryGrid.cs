@@ -7,13 +7,13 @@ namespace SpellStone.Inventory
   {
     public List<InventorySlot> slots = new List<InventorySlot>();
 
-    public void AddItem(InventoryItem newItem)
+    public void AddItem(InventoryItem newItem, InventoryItemPrefab itemIconPrefab)
     {
       foreach (InventorySlot slot in slots)
       {
         if (slot.GetComponentInChildren<InventoryItemPrefab>() == null)
         {
-          slot.AddItem(newItem);
+          slot.AddItem(newItem, itemIconPrefab);
           return;
         }
       }
