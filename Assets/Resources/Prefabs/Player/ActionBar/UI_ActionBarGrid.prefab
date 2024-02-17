@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 271312124440711955}
   - component: {fileID: 9214164746101266018}
   m_Layer: 0
-  m_Name: UI_PlayerActionBar
+  m_Name: UI_ActionBarGrid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

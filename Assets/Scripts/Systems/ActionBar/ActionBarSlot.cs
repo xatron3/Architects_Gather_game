@@ -8,6 +8,12 @@ namespace SpellStone.ActionBar
   {
     public void OnDrop(PointerEventData eventData)
     {
+      if (transform.childCount > 0)
+      {
+        Debug.Log("Slot is not empty");
+        return;
+      }
+
       GameObject droppedItem = eventData.pointerDrag;
 
       if (droppedItem != null)
@@ -21,6 +27,12 @@ namespace SpellStone.ActionBar
             inventoryItemPrefab.parentToReturnTo = transform;
         }
       }
+    }
+
+    public void AddItem(InventoryItem newItem, InventoryItemPrefab itemIconPrefab)
+    {
+      InventoryItemPrefab itemPrefab = Instantiate(itemIconPrefab, transform);
+      itemPrefab.SetItem(newItem);
     }
   }
 }

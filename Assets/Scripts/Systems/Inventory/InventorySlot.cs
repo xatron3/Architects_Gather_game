@@ -14,10 +14,15 @@ namespace SpellStone.Inventory
 
     public void ClearSlot()
     {
-      if (transform.childCount > 0)
+      if (!IsSlotEmpty())
       {
-        Destroy(transform.GetChild(0).gameObject);
+        DestroyImmediate(transform.GetChild(0).gameObject);
       }
+    }
+
+    public bool IsSlotEmpty()
+    {
+      return transform.childCount == 0;
     }
 
     public void OnDrop(PointerEventData eventData)

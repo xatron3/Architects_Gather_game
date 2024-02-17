@@ -7,21 +7,22 @@ namespace SpellStone.Inventory
   {
     public List<InventorySlot> slots = new List<InventorySlot>();
 
-    public void AddItem(InventoryItem newItem, InventoryItemPrefab itemIconPrefab)
+    public bool AddItem(InventoryItem newItem, InventoryItemPrefab itemIconPrefab)
     {
       foreach (InventorySlot slot in slots)
       {
-        if (slot.GetComponentInChildren<InventoryItemPrefab>() == null)
+        if (slot.IsSlotEmpty())
         {
           slot.AddItem(newItem, itemIconPrefab);
-          return;
+          return true;
         }
       }
+
+      return false;
     }
 
     public void RemoveItem(InventoryItem item)
     {
-      Debug.Log("Removing item: " + item.itemName + " from inventory grid");
       foreach (InventorySlot slot in slots)
       {
         if (slot.GetComponentInChildren<InventoryItemPrefab>() != null &&

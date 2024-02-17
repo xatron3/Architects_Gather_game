@@ -41,7 +41,6 @@ namespace SpellStone.Inventory
     public void SetItem(InventoryItem newItem)
     {
       item = newItem;
-      Debug.Log("Setting item: " + item.itemName);
       SetIconSprite(item.icon);
     }
 

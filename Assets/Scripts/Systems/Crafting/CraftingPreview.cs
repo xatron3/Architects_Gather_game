@@ -3,6 +3,7 @@ using SpellStone.Inventory;
 using System.Collections.Generic;
 using System;
 using UnityEngine.UI;
+using SpellStone.ActionBar;
 
 namespace SpellStone.Crafting
 {
@@ -98,8 +99,16 @@ namespace SpellStone.Crafting
       }
 
       playerInventory.RemoveItems(item.ingredients);
-      playerInventory.AddItem(item.craftableItem);
       playerSkills.PerformSkillAction(this);
+
+      if (playerInventory.AddItem(item.craftableItem))
+      {
+        Debug.Log("Item crafted and added to inventory");
+      }
+      else
+      {
+        Debug.Log("Could not add crafted item to inventory");
+      }
     }
 
     private void ClearPreviewContainer()

@@ -56,9 +56,9 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
       Debug.LogError("UI_Canvas not found. Could not create inventory grid.");
   }
 
-  public void AddItem(InventoryItem item)
+  public bool AddItem(InventoryItem item)
   {
-    inventoryGrid.AddItem(item, itemIconPrefab);
+    return inventoryGrid.AddItem(item, itemIconPrefab);
   }
 
   public void RemoveItem(InventoryItem item)
@@ -101,5 +101,15 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
   public int GetTotalItemsOfName(string itemName)
   {
     return inventoryGrid.GetTotalItemsOfName(itemName);
+  }
+
+  public int GetTotalItems()
+  {
+    return inventoryGrid.GetTotalItems();
+  }
+
+  public int GetFreeSlots()
+  {
+    return inventoryGrid.GetFreeSlots();
   }
 }
