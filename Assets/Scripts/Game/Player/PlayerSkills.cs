@@ -2,7 +2,7 @@ using UnityEngine;
 using SpellStone.Skills;
 using System.Collections.Generic;
 
-public class PlayerSkills : MonoBehaviour
+public class PlayerSkills : MonoBehaviour, IPlayerSkills
 {
   public SkillsContainer skillContainerPrefab;
   private SkillsContainer skillContainer;

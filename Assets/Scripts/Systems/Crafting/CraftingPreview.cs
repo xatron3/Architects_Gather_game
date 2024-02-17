@@ -8,19 +8,38 @@ namespace SpellStone.Crafting
 {
   public class CraftingPreviewUI : MonoBehaviour, ISkillProvider
   {
-    public CraftingPreviewUIElements elements;
-
+    private IPlayerSkills playerSkills;
+    private IPlayerInventory playerInventory;
     private CraftingItem selectedCraftingItem;
     private List<CraftingRowUI> craftingRowsList = new List<CraftingRowUI>();
 
-    private void Start()
+    public CraftingPreviewUIElements elements;
+
+    public void SetPlayerSkills(IPlayerSkills playerSkills)
+    {
+      this.playerSkills = playerSkills;
+    }
+
+    public void SetPlayerInventory(IPlayerInventory playerInventory)
+    {
+      this.playerInventory = playerInventory;
+    }
+
+    public void SetupUI()
     {
       CraftingRowUI[] craftingRows = transform.parent.Find("LeftSideHolder").Find("ItemsToCraftContainer").GetComponentsInChildren<CraftingRowUI>();
 
       foreach (CraftingRowUI craftingRow in craftingRows)
       {
-        craftingRow.PreviewCraftEvent += OnPreviewCraft;
         craftingRowsList.Add(craftingRow);
+      }
+    }
+
+    public void AddEventListners()
+    {
+      foreach (CraftingRowUI craftingRow in craftingRowsList)
+      {
+        craftingRow.PreviewCraftEvent += OnPreviewCraft;
       }
     }
 
@@ -49,49 +68,40 @@ namespace SpellStone.Crafting
 
     private void CheckAndCraft(CraftingItem item)
     {
-      PlayerSkills playerSkills = FindObjectOfType<PlayerSkills>();
+      if (playerSkills.GetSkill("Crafting").GetSkillLevel() < GetRequiredCraftingLevel(item))
+      {
+        Debug.Log("You need a higher crafting level to craft this item.");
+        return;
+      }
 
-      if (playerSkills.GetSkill("Crafting").GetSkillLevel() >= item.craftingSkillLevelRequirement)
-      {
-        CraftItem(item, playerSkills);
-      }
-      else
-      {
-        Debug.Log("Player does not have the required crafting skill level to craft this item.");
-      }
+      CraftItem(item);
     }
 
-    private void CraftItem(CraftingItem item, PlayerSkills playerSkills)
+    private void CraftItem(CraftingItem item)
     {
-      PlayerInventory playerInventory = FindObjectOfType<PlayerInventory>();
-
-      if (playerInventory != null)
-      {
-        if (playerInventory.HasIngredients(item.ingredients))
-        {
-          playerInventory.RemoveIngredients(item.ingredients);
-          playerInventory.AddItem(item.craftableItem);
-
-          // Increase the player's crafting skill
-          if (playerSkills != null)
-          {
-            playerSkills.PerformSkillAction(this);
-          }
-          else
-          {
-            Debug.LogError("PlayerSkills not found. Could not increase crafting skill.");
-          }
-        }
-        else
-        {
-          Debug.Log("PlayerInventory does not have the required ingredients to craft this item.");
-        }
-      }
-      else
+      if (playerInventory == null)
       {
         Debug.LogError("PlayerInventory not found. Could not craft item.");
+        return;
       }
+
+      if (playerSkills == null)
+      {
+        Debug.LogError("PlayerSkills not found. Could not increase crafting skill.");
+        return;
+      }
+
+      if (!playerInventory.HasIngredients(item.ingredients))
+      {
+        Debug.Log("PlayerInventory does not have the required ingredients to craft this item.");
+        return;
+      }
+
+      playerInventory.RemoveIngredients(item.ingredients);
+      playerInventory.AddItem(item.craftableItem);
+      playerSkills.PerformSkillAction(this);
     }
+
 
     private void ClearPreviewContainer()
     {

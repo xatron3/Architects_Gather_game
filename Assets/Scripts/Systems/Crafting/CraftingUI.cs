@@ -5,14 +5,11 @@ namespace SpellStone.Crafting
 {
   public class CraftingUI : MonoBehaviour
   {
-    public List<CraftingItem> craftingItems = new List<CraftingItem>();
     public CraftingRowUI craftingRowPrefab;
-
     public Transform ItemsToCraftContainerTransform;
 
-    private void Awake()
+    public void SetupUI(List<CraftingItem> craftingItems)
     {
-
       foreach (CraftingItem item in craftingItems)
       {
         CraftingRowUI row = Instantiate(craftingRowPrefab, ItemsToCraftContainerTransform);

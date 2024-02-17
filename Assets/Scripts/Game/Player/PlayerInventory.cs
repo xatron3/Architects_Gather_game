@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using SpellStone.Inventory;
 
-public class PlayerInventory : MonoBehaviour
+public class PlayerInventory : MonoBehaviour, IPlayerInventory
 {
   public InventoryGrid inventoryGridPrefab;
   private InventoryGrid inventoryGrid;
