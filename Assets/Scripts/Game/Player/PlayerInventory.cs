@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
 using SpellStone.Inventory;
-using Unity.VisualScripting;
 
 public class PlayerInventory : MonoBehaviour
 {
@@ -51,7 +50,6 @@ public class PlayerInventory : MonoBehaviour
       ItemEventManager.Instance.onItemPickedUp.AddListener(OnItemPickedUp);
       itemIconPrefab = Resources.Load<InventoryItemPrefab>("Prefabs/Player/Inventory/UI_InventoryItemPrefab");
 
-      inventoryGrid.gameObject.SetActive(true);
       inventoryGrid.gameObject.SetActive(false);
     }
     else
