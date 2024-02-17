@@ -17,6 +17,13 @@ namespace SpellStone.Inventory
 
     public void OnDrop(PointerEventData eventData)
     {
+      // Check if there is an item already in the slot
+      if (transform.childCount > 0)
+      {
+        Debug.Log("Slot is already occupied");
+        return;
+      }
+
       GameObject droppedItem = eventData.pointerDrag;
 
       if (droppedItem != null)

@@ -1,23 +1,11 @@
-// ActionBarSlot.cs
 using UnityEngine;
 using UnityEngine.EventSystems;
+using SpellStone.Inventory;
 
-namespace SpellStone.Inventory
+namespace SpellStone.ActionBar
 {
   public class ActionBarSlot : MonoBehaviour, IDropHandler
   {
-    public void AddItem(InventoryItem newItem)
-    {
-      InventoryItemPrefab itemIconPrefab = Resources.Load<InventoryItemPrefab>("Prefabs/Player/ActionBar/ActionBarItemPrefab");
-
-      InventoryItemPrefab itemPrefab = Instantiate(itemIconPrefab, transform);
-      itemPrefab.SetItem(newItem);
-    }
-
-    public void RemoveItem()
-    {
-    }
-
     public void OnDrop(PointerEventData eventData)
     {
       GameObject droppedItem = eventData.pointerDrag;

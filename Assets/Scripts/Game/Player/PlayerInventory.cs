@@ -41,8 +41,7 @@ public class PlayerInventory : MonoBehaviour
       inventoryGrid.transform.SetParent(UI_Canvas_GO.transform, false);
 
       ItemEventManager.Instance.onItemPickedUp.AddListener(OnItemPickedUp);
-      itemIconPrefab = Resources.Load<InventoryItemPrefab>("Prefabs/Player/Inventory/InventoryItemPrefab");
-      Debug.Log(itemIconPrefab.name);
+      itemIconPrefab = Resources.Load<InventoryItemPrefab>("Prefabs/Player/Inventory/UI_InventoryItemPrefab");
 
       inventoryGrid.gameObject.SetActive(true);
       inventoryGrid.gameObject.SetActive(false);

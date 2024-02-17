@@ -1,16 +1,12 @@
-
 using UnityEngine;
 using System.Collections.Generic;
+using SpellStone.Inventory;
 
-namespace SpellStone.Inventory
+namespace SpellStone.ActionBar
 {
   public class ActionBar : MonoBehaviour
   {
     public List<ActionBarSlot> slots = new List<ActionBarSlot>();
-
-    void Start()
-    {
-    }
 
     void Update()
     {
