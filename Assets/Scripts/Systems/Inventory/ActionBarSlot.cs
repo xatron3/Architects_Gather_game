@@ -1,14 +1,14 @@
+// ActionBarSlot.cs
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 namespace SpellStone.Inventory
 {
-  public class InventorySlot : MonoBehaviour, IDropHandler
+  public class ActionBarSlot : MonoBehaviour, IDropHandler
   {
     public void AddItem(InventoryItem newItem)
     {
-      InventoryItemPrefab itemIconPrefab = Resources.Load<InventoryItemPrefab>("Prefabs/Player/Inventory/InventoryItemPrefab");
+      InventoryItemPrefab itemIconPrefab = Resources.Load<InventoryItemPrefab>("Prefabs/Player/ActionBar/ActionBarItemPrefab");
 
       InventoryItemPrefab itemPrefab = Instantiate(itemIconPrefab, transform);
       itemPrefab.item = newItem;
@@ -16,8 +16,9 @@ namespace SpellStone.Inventory
       itemPrefab.icon.enabled = true;
     }
 
-    public void ClearSlot()
-    { }
+    public void RemoveItem()
+    {
+    }
 
     public void OnDrop(PointerEventData eventData)
     {
@@ -25,10 +26,10 @@ namespace SpellStone.Inventory
 
       if (droppedItem != null)
       {
-        InventoryItemPrefab InventoryItemPrefab = droppedItem.GetComponent<InventoryItemPrefab>();
-        if (InventoryItemPrefab != null)
+        InventoryItemPrefab inventoryItemPrefab = droppedItem.GetComponent<InventoryItemPrefab>();
+        if (inventoryItemPrefab != null)
         {
-          InventoryItemPrefab.parentToReturnTo = transform;
+          inventoryItemPrefab.parentToReturnTo = transform;
         }
       }
     }

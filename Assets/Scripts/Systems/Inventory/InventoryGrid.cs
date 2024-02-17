@@ -11,7 +11,7 @@ namespace SpellStone.Inventory
     {
       foreach (InventorySlot slot in slots)
       {
-        if (slot.itemPrefab == null || slot.itemPrefab.item == null)
+        if (slot.GetComponentInChildren<InventoryItemPrefab>() == null)
         {
           slot.AddItem(newItem);
           return;
@@ -23,7 +23,7 @@ namespace SpellStone.Inventory
     {
       foreach (InventorySlot slot in slots)
       {
-        if (slot.itemPrefab.item == item)
+        if (slot.GetComponentInChildren<InventoryItemPrefab>() == item)
         {
           slot.ClearSlot();
           return;
@@ -37,7 +37,7 @@ namespace SpellStone.Inventory
 
       foreach (InventorySlot slot in slots)
       {
-        if (slot.itemPrefab.item != null)
+        if (slot.GetComponentInChildren<InventoryItemPrefab>() != null)
           totalItems++;
       }
 
@@ -50,7 +50,7 @@ namespace SpellStone.Inventory
 
       foreach (InventorySlot slot in slots)
       {
-        if (slot.itemPrefab.item == null)
+        if (slot.GetComponentInChildren<InventoryItemPrefab>() == null)
           freeSlots++;
       }
 

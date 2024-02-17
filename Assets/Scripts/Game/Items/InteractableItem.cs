@@ -17,7 +17,6 @@ public class InteractableItem : Item, IInteractable
 
   private void Pickup()
   {
-    Debug.Log("Picking up " + item.itemName);
     ItemEventManager.Instance.onItemPickedUp.Invoke(item);
     Destroy(gameObject);
   }

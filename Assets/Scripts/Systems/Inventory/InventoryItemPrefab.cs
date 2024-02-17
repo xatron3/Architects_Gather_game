@@ -7,8 +7,13 @@ namespace SpellStone.Inventory
   public class InventoryItemPrefab : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
   {
     [HideInInspector] public Transform parentToReturnTo = null;
-    public Image icon;
+    public Image icon { get; private set; }
     public InventoryItem item;
+
+    private void Awake()
+    {
+      icon = GetComponent<Image>();
+    }
 
     public void UseItem()
     {
@@ -18,9 +23,13 @@ namespace SpellStone.Inventory
       }
     }
 
+    public void SetIconSprite(Sprite sprite)
+    {
+      icon.sprite = sprite;
+    }
+
     public void OnBeginDrag(PointerEventData eventData)
     {
-      Debug.Log("OnBeginDrag");
       parentToReturnTo = transform.parent;
       transform.SetParent(transform.parent.parent);
       transform.SetAsLastSibling();
@@ -29,13 +38,11 @@ namespace SpellStone.Inventory
 
     public void OnDrag(PointerEventData eventData)
     {
-      Debug.Log("OnDrag");
       transform.position = Input.mousePosition;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-      Debug.Log("OnEndDrag");
       transform.SetParent(parentToReturnTo, true);
       icon.raycastTarget = true;
     }

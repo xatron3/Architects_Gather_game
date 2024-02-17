@@ -90,5 +90,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentToReturnTo: {fileID: 0}
-  icon: {fileID: 1609523154183415974}
   item: {fileID: 0}
