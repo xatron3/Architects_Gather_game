@@ -5,6 +5,8 @@ namespace SpellStone.Crafting
 {
   public class CraftingPreviewUI : MonoBehaviour
   {
+    private CraftingItem currentCraftingItem;
+
     private void Start()
     {
       CraftingRowUI[] craftingRows = transform.parent.Find("LeftSideHolder").Find("ItemsToCraftContainer").GetComponentsInChildren<CraftingRowUI>();
@@ -27,6 +29,7 @@ namespace SpellStone.Crafting
 
     private void OnPreviewCraft(CraftingItem craftingItem)
     {
+      currentCraftingItem = craftingItem;
       Debug.Log("Previewing craft: " + craftingItem.craftingName);
 
       foreach (InventoryItem ingredient in craftingItem.ingredients)
