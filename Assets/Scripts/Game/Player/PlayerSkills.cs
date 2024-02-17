@@ -30,8 +30,19 @@ public class PlayerSkills : MonoBehaviour
 
     // Perform the skill action on my skill
     SkillBase mySkill = skills.Find(s => s.GetName() == skill.GetName());
+    if (mySkill == null)
+    {
+      Debug.LogError("Skill not found");
+      return;
+    }
+
     mySkill.PerformSkillAction(experienceGain);
     skillContainer.UpdateSkillRow(mySkill);
+  }
+
+  public SkillBase GetSkill(string skillName)
+  {
+    return skills.Find(s => s.GetName() == skillName);
   }
 
   private void CreateSkillContainer()
@@ -58,6 +69,10 @@ public class PlayerSkills : MonoBehaviour
     SkillMining miningSkill = new SkillMining();
     miningSkill.SetupSkill(0, 1);
     skills.Add(miningSkill);
+
+    SkillCrafting craftingSkill = new SkillCrafting();
+    craftingSkill.SetupSkill(0, 1);
+    skills.Add(craftingSkill);
 
     // Populate UI with WoodcuttingSkill
     skillContainer.CreateSkillRows(skills);

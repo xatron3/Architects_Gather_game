@@ -8,15 +8,18 @@ public class BigStoneRock : MonoBehaviour, IInteractable, ISkillProvider
 
   public void Interact()
   {
-    // Get the player's skill
     PlayerSkills skill = FindObjectOfType<PlayerSkills>();
 
-    // Perform the skill action
+    if (skill.GetSkill("Mining").GetSkillLevel() < RequiredLevel)
+    {
+      Debug.Log("You need a higher mining level to mine this rock.");
+      return;
+    }
+
     skill.PerformSkillAction(this);
 
     Destroy(gameObject);
 
-    // Instantiate 3 logs at random positions around the tree
     for (int i = 0; i < 5; i++)
     {
       Vector3 randomPosition = new Vector3(
@@ -26,6 +29,7 @@ public class BigStoneRock : MonoBehaviour, IInteractable, ISkillProvider
       );
       Instantiate(stonePrefab, transform.position + randomPosition, Quaternion.identity);
     }
+
   }
 
   public SkillBase GetSkill()
@@ -37,4 +41,6 @@ public class BigStoneRock : MonoBehaviour, IInteractable, ISkillProvider
   {
     return 30;
   }
+
+  public int RequiredLevel => 5;
 }

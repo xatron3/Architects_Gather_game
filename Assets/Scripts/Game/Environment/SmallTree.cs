@@ -7,15 +7,18 @@ public class SmallTree : MonoBehaviour, IInteractable, ISkillProvider
 
   public void Interact()
   {
-    // Get the player's skill
     PlayerSkills skill = FindObjectOfType<PlayerSkills>();
 
-    // Perform the skill action
+    if (skill.GetSkill("Woodcutting").GetSkillLevel() < RequiredLevel)
+    {
+      Debug.Log("You need a higher woodcutting level to chop down this tree.");
+      return;
+    }
+
     skill.PerformSkillAction(this);
 
     Destroy(gameObject);
 
-    // Instantiate 3 logs at random positions around the tree
     for (int i = 0; i < 3; i++)
     {
       Vector3 randomPosition = new Vector3(
@@ -36,4 +39,6 @@ public class SmallTree : MonoBehaviour, IInteractable, ISkillProvider
   {
     return 10;
   }
+
+  public int RequiredLevel => 1;
 }
