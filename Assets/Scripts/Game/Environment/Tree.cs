@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Tree : MonoBehaviour, IInteractable
 {
-  public InteractableItem logPrefab;
+  public ItemPickupable logPrefab;
   public string Tooltip => "Chop down tree";
   public void Interact()
   {

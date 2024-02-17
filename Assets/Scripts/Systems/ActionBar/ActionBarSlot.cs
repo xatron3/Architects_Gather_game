@@ -15,7 +15,10 @@ namespace SpellStone.ActionBar
         InventoryItemPrefab inventoryItemPrefab = droppedItem.GetComponent<InventoryItemPrefab>();
         if (inventoryItemPrefab != null)
         {
-          inventoryItemPrefab.parentToReturnTo = transform;
+          InventoryItem item = inventoryItemPrefab.GetItem();
+
+          if (item.canEquip)
+            inventoryItemPrefab.parentToReturnTo = transform;
         }
       }
     }

@@ -7,11 +7,10 @@ namespace SpellStone.Inventory
   {
     public string itemName = "New Item";
     public Sprite icon = null;
+    public bool canEquip = false;
 
     public virtual void Use()
     {
-      // Use the item
-      // Something might happen
       Debug.Log("Using " + itemName);
     }
   }

@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using SpellStone.Inventory;
+using Unity.VisualScripting;
 
 public class PlayerInventory : MonoBehaviour
 {
@@ -18,9 +19,15 @@ public class PlayerInventory : MonoBehaviour
     ItemEventManager.Instance.onItemPickedUp.RemoveListener(OnItemPickedUp);
   }
 
-  private void OnItemPickedUp(InventoryItem item)
+  private void OnItemPickedUp(ItemPickupable item)
   {
-    AddItem(item);
+    if (inventoryGrid.GetTotalItems() < inventoryGrid.slots.Count)
+    {
+      AddItem(item.inventoryItem);
+      Destroy(item.gameObject);
+    }
+    else
+      Debug.Log("Inventory is full. Cannot add item: " + item.inventoryItem.itemName);
   }
 
   private void Update()
@@ -39,7 +46,7 @@ public class PlayerInventory : MonoBehaviour
     if (UI_Canvas_GO != null)
     {
       inventoryGrid = Instantiate(inventoryGridPrefab, inventoryGridPrefab.transform.position, Quaternion.identity);
-      inventoryGrid.transform.SetParent(UI_Canvas_GO.transform, false);
+      inventoryGrid.transform.SetParent(UI_Canvas_GO.transform.Find("Container").transform, false);
 
       ItemEventManager.Instance.onItemPickedUp.AddListener(OnItemPickedUp);
       itemIconPrefab = Resources.Load<InventoryItemPrefab>("Prefabs/Player/Inventory/UI_InventoryItemPrefab");

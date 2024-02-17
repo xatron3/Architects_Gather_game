@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class Stone : MonoBehaviour, IInteractable
+public class StoneRock : MonoBehaviour, IInteractable
 {
-  public InteractableItem stonePrefab;
+  public ItemPickupable stonePrefab;
   public string Tooltip => "Mine stone";
   public void Interact()
   {
