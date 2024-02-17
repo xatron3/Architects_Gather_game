@@ -1,12 +1,18 @@
 using UnityEngine;
 
-public class Tree : MonoBehaviour, IInteractable
+public class SmallTree : MonoBehaviour, IInteractable, ISkillProvider
 {
   public ItemPickupable logPrefab;
   public string Tooltip => "Chop down tree";
+
   public void Interact()
   {
-    Debug.Log("Tree chopped down");
+    // Get the player's skill
+    PlayerSkills skill = FindObjectOfType<PlayerSkills>();
+
+    // Perform the skill action
+    skill.PerformSkillAction(this);
+
     Destroy(gameObject);
 
     // Instantiate 3 logs at random positions around the tree
@@ -19,5 +25,10 @@ public class Tree : MonoBehaviour, IInteractable
       );
       Instantiate(logPrefab, transform.position + randomPosition, Quaternion.identity);
     }
+  }
+
+  public SkillBase GetSkill()
+  {
+    return new SkillWoodcutting();
   }
 }

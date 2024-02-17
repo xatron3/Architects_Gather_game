@@ -21,20 +21,17 @@ public class PlayerSkills : MonoBehaviour
     {
       skillContainer.gameObject.SetActive(!skillContainer.gameObject.activeSelf);
     }
-
-    if (Input.GetMouseButtonDown(0))
-    {
-      PerformSkillAction();
-    }
   }
 
-  private void PerformSkillAction()
+
+  public void PerformSkillAction(ISkillProvider skillProvider)
   {
-    foreach (var skill in skills)
-    {
-      skill.PerformSkillAction();
-      skillContainer.UpdateSkillRow(skill);
-    }
+    SkillBase skill = skillProvider.GetSkill();
+
+    // Perform the skill action on my skill
+    SkillBase mySkill = skills.Find(s => s.GetName() == skill.GetName());
+    mySkill.PerformSkillAction();
+    skillContainer.UpdateSkillRow(mySkill);
   }
 
   private void CreateSkillContainer()
@@ -54,10 +51,12 @@ public class PlayerSkills : MonoBehaviour
   private void InitializeSkills()
   {
     // Instantiate WoodcuttingSkill
-    SkillWoodcutting woodcuttingSkill = new SkillWoodcutting(0, 1);
+    SkillWoodcutting woodcuttingSkill = new SkillWoodcutting();
+    woodcuttingSkill.SetupSkill(0, 1);
     skills.Add(woodcuttingSkill);
 
-    SkillMining miningSkill = new SkillMining(0, 1);
+    SkillMining miningSkill = new SkillMining();
+    miningSkill.SetupSkill(0, 1);
     skills.Add(miningSkill);
 
     // Populate UI with WoodcuttingSkill
