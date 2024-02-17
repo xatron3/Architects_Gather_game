@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SkillWoodcutting : SkillBase
+public class SkillCrafting : SkillBase
 {
   private int experience;
   private int skillLevel;
@@ -33,7 +33,6 @@ public class SkillWoodcutting : SkillBase
 
   public override string GetName()
   {
-    return "Woodcutting";
+    return "Crafting";
   }
 }
-

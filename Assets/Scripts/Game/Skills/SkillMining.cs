@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class SkillMining : SkillBase
 {
   private int experience;
@@ -9,14 +11,9 @@ public class SkillMining : SkillBase
     this.skillLevel = skillLevel;
   }
 
-  public override void PerformSkillAction()
+  public override void PerformSkillAction(int experienceGain)
   {
-    this.experience += CalculateExperienceGain();
-  }
-
-  public override int CalculateExperienceGain()
-  {
-    return 10;
+    experience += experienceGain;
   }
 
   public override bool HasRequirementsMet()

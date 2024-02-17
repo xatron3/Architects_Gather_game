@@ -23,14 +23,14 @@ public class PlayerSkills : MonoBehaviour
     }
   }
 
-
   public void PerformSkillAction(ISkillProvider skillProvider)
   {
     SkillBase skill = skillProvider.GetSkill();
+    int experienceGain = skillProvider.GetExperienceGain();
 
     // Perform the skill action on my skill
     SkillBase mySkill = skills.Find(s => s.GetName() == skill.GetName());
-    mySkill.PerformSkillAction();
+    mySkill.PerformSkillAction(experienceGain);
     skillContainer.UpdateSkillRow(mySkill);
   }
 

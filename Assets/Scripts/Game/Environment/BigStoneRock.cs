@@ -1,10 +1,10 @@
 using UnityEngine;
 using SpellStone.Skills;
 
-public class StoneRock : MonoBehaviour, IInteractable, ISkillProvider
+public class BigStoneRock : MonoBehaviour, IInteractable, ISkillProvider
 {
   public ItemPickupable stonePrefab;
-  public string Tooltip => "Mine Stone Rock";
+  public string Tooltip => "Mine Big Stone Rock";
 
   public void Interact()
   {
@@ -17,7 +17,7 @@ public class StoneRock : MonoBehaviour, IInteractable, ISkillProvider
     Destroy(gameObject);
 
     // Instantiate 3 logs at random positions around the tree
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < 5; i++)
     {
       Vector3 randomPosition = new Vector3(
         Random.Range(-1f, 1f),
@@ -35,6 +35,6 @@ public class StoneRock : MonoBehaviour, IInteractable, ISkillProvider
 
   public int GetExperienceGain()
   {
-    return 10;
+    return 30;
   }
 }

@@ -31,4 +31,9 @@ public class SmallTree : MonoBehaviour, IInteractable, ISkillProvider
   {
     return new SkillWoodcutting();
   }
+
+  public int GetExperienceGain()
+  {
+    return 10;
+  }
 }
