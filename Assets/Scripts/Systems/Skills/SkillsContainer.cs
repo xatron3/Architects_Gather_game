@@ -24,7 +24,8 @@ namespace SpellStone.Skills
       {
         if (row.GetSkillName() == skill.GetName())
         {
-          row.SetSkillExperience(skill.GetExperience());
+          row.SetSkillLevelText(skill.GetSkillLevel());
+          row.SetExperienceSlider(skill.GetExperience(), 1000);
           break;
         }
       }
@@ -35,7 +36,8 @@ namespace SpellStone.Skills
       SkillRow skillRow = Instantiate(skillRowPrefab, skillRowPrefab.transform.position, Quaternion.identity);
       skillRow.transform.SetParent(skillRowsListParent, false);
       skillRow.SetSkillName(skill.GetName());
-      skillRow.SetSkillExperience(skill.GetExperience());
+      skillRow.SetSkillLevelText(skill.GetSkillLevel());
+      skillRow.SetExperienceSlider(skill.GetExperience(), 1000);
       skillRows.Add(skillRow);
     }
   }
