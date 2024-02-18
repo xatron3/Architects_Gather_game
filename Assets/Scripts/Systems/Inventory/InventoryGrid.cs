@@ -17,7 +17,7 @@ namespace SpellStone.Inventory
       }
     }
 
-    public bool AddItem(InventoryItem newItem, InventoryItemPrefab itemIconPrefab, int quantity = 1)
+    public bool AddItem(InventoryItem newItem, InventoryItemPrefab itemIconPrefab, int quantity = 1, bool lookForUnique = false)
     {
       foreach (InventorySlot slot in slots)
       {
@@ -30,8 +30,19 @@ namespace SpellStone.Inventory
           InventoryItemPrefab _inventoryItemPrefab = slot.GetComponentInChildren<InventoryItemPrefab>();
           InventoryItem _inventoryItem = _inventoryItemPrefab.GetItem();
 
-          isStackable = _inventoryItem.itemName == newItem.itemName;
-          isMaxStackSize = _inventoryItem.currentStackSize + quantity > _inventoryItem.maxStackSize;
+          if (lookForUnique)
+          {
+            if (_inventoryItem.uniqueID == newItem.uniqueID)
+            {
+              isStackable = true;
+              isMaxStackSize = _inventoryItem.currentStackSize + quantity > _inventoryItem.maxStackSize;
+            }
+          }
+          else
+          {
+            isStackable = _inventoryItem.itemName == newItem.itemName;
+            isMaxStackSize = _inventoryItem.currentStackSize + quantity > _inventoryItem.maxStackSize;
+          }
         }
 
         if (IsSlotEmpty || isStackable && !isMaxStackSize)

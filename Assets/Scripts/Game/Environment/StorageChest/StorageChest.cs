@@ -22,7 +22,7 @@ public class StorageChest : MonoBehaviour, IInteractable
 
     foreach (InventoryItem item in playerStorageItems)
     {
-      playerStorageUI.AddItem(item, Resources.Load<InventoryItemPrefab>("Prefabs/Player/Inventory/UI_InventoryItem"), item.currentStackSize);
+      playerStorageUI.AddItem(item, Resources.Load<InventoryItemPrefab>("Prefabs/Player/Inventory/UI_InventoryItem"), item.currentStackSize, true);
     }
 
     foreach (var itemPrefab in playerStorageUI.GetComponentsInChildren<InventoryItemPrefab>())

@@ -33,24 +33,45 @@ namespace SpellStone.Inventory
       return transform.childCount == 0;
     }
 
-    public virtual void OnDrop(PointerEventData eventData)
+    public void OnDrop(PointerEventData eventData)
+    {
+      if (!DropItem(eventData))
+      {
+        Debug.Log("Slot is already occupied or drop failed");
+        return;
+      }
+
+      // Call a protected method to allow child classes to perform additional logic
+      OnDropSuccess(eventData);
+    }
+
+    // Protected method that can be overridden by child classes to perform additional logic
+    protected virtual void OnDropSuccess(PointerEventData eventData)
+    {
+      // Default implementation does nothing
+    }
+
+    // Internal method to handle dropping an item
+    private bool DropItem(PointerEventData eventData)
     {
       if (transform.childCount > 0)
       {
-        Debug.Log("Slot is already occupied");
-        return;
+        return false; // Drop failed if the slot is already occupied
       }
 
       GameObject droppedItem = eventData.pointerDrag;
 
       if (droppedItem != null)
       {
-        InventoryItemPrefab InventoryItemPrefab = droppedItem.GetComponent<InventoryItemPrefab>();
-        if (InventoryItemPrefab != null)
+        InventoryItemPrefab inventoryItemPrefab = droppedItem.GetComponent<InventoryItemPrefab>();
+        if (inventoryItemPrefab != null)
         {
-          InventoryItemPrefab.parentToReturnTo = transform;
+          inventoryItemPrefab.parentToReturnTo = transform;
+          return true; // Drop successful
         }
       }
+
+      return false; // Drop failed if no item was dropped
     }
   }
 }
