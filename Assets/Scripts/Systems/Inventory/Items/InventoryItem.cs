@@ -17,7 +17,6 @@ namespace SpellStone.Inventory
 
     private void OnEnable()
     {
-      Debug.Log("InventoryItem OnEnable");
       uniqueID = Guid.NewGuid();
     }
 

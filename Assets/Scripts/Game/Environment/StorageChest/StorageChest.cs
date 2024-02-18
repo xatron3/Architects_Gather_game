@@ -2,13 +2,13 @@ using System.Collections.Generic;
 using SpellStone.Inventory;
 using UnityEngine;
 
-public class EnvPlayerStorage : MonoBehaviour, IInteractable
+public class StorageChest : MonoBehaviour, IInteractable
 {
   public InventoryGrid playerStorageUIPrefab;
-  public StorageInventorySlot playerStorageSlotPrefab;
+  public StorageChestSlot playerStorageSlotPrefab;
 
   private InventoryGrid playerStorageUI;
-  public static List<InventoryItem> playerStorageItems = new List<InventoryItem>();
+  public List<InventoryItem> playerStorageItems = new List<InventoryItem>();
 
   public string Tooltip => "Open player storage";
 
@@ -25,7 +25,7 @@ public class EnvPlayerStorage : MonoBehaviour, IInteractable
       playerStorageUI.AddItem(item, Resources.Load<InventoryItemPrefab>("Prefabs/Player/Inventory/UI_InventoryItem"));
     }
 
-    foreach (var slot in playerStorageUI.GetComponentsInChildren<StorageInventorySlot>())
+    foreach (var slot in playerStorageUI.GetComponentsInChildren<StorageChestSlot>())
     {
       slot.OnItemDropped += AddItem;
     }
@@ -57,7 +57,7 @@ public class EnvPlayerStorage : MonoBehaviour, IInteractable
     {
       if (playerStorageUI != null)
       {
-        foreach (var slot in playerStorageUI.GetComponentsInChildren<StorageInventorySlot>())
+        foreach (var slot in playerStorageUI.GetComponentsInChildren<StorageChestSlot>())
         {
           slot.OnItemDropped -= AddItem;
         }

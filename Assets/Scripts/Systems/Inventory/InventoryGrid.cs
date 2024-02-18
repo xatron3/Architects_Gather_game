@@ -37,7 +37,7 @@ namespace SpellStone.Inventory
       foreach (InventorySlot slot in slots)
       {
         if (slot.GetComponentInChildren<InventoryItemPrefab>() != null &&
-            slot.GetComponentInChildren<InventoryItemPrefab>().GetItem() == item)
+            slot.GetComponentInChildren<InventoryItemPrefab>().GetItem().itemName == item.itemName)
         {
           slot.ClearSlot();
           items.Remove(item);

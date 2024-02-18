@@ -70,7 +70,7 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
   public void RemoveItem(InventoryItem item)
   {
     Debug.Log("Removing item: " + item.itemName + " from player inventory");
-    inventoryGrid.RemoveItem(item);
+    inventoryManager.RemoveItem(inventoryGrid, item);
   }
 
   public void RemoveItems(List<InventoryItem> items)

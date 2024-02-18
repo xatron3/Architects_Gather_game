@@ -3,10 +3,9 @@ using UnityEngine.EventSystems;
 using UnityEngine;
 using System;
 
-public class StorageInventorySlot : InventorySlot
+public class StorageChestSlot : InventorySlot
 {
   public event Action<InventoryItem> OnItemDropped;
-  public event Action<InventoryItem> OnItemChanged;
 
   public override void OnDrop(PointerEventData eventData)
   {
