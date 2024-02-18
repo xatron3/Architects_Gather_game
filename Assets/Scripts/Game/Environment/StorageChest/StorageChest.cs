@@ -25,6 +25,11 @@ public class StorageChest : MonoBehaviour, IInteractable
       playerStorageUI.AddItem(item, Resources.Load<InventoryItemPrefab>("Prefabs/Player/Inventory/UI_InventoryItem"));
     }
 
+    foreach (var itemPrefab in playerStorageUI.GetComponentsInChildren<InventoryItemPrefab>())
+    {
+      itemPrefab.OnItemDroppedToInventory += RemoveItem;
+    }
+
     foreach (var slot in playerStorageUI.GetComponentsInChildren<StorageChestSlot>())
     {
       slot.OnItemDropped += AddItem;
@@ -43,6 +48,7 @@ public class StorageChest : MonoBehaviour, IInteractable
 
   public void RemoveItem(InventoryItem item)
   {
+    Debug.Log("Removing item from storage: " + item.uniqueID);
     // Remove the item from the storage based on its unique identifier
     InventoryItem itemToRemove = playerStorageItems.Find(i => i.uniqueID == item.uniqueID);
     if (itemToRemove != null)
