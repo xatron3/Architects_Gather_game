@@ -42,7 +42,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7537816872828539898}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: -6200502243224066735, guid: f4984a207130d10439334939035278d1, type: 3}
 --- !u!23 &4238434249480297579
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 871061146b00caf4b946145f7d8c64b9, type: 2}
+  - {fileID: 2100000, guid: 5663fe6ac6c00c54fb082518f56b64a6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -118,5 +118,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3897ce3ab1f2d3458e10f734f0d5bad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  craftingItems: []
+  craftingItems:
+  - {fileID: 11400000, guid: 41901a6a9f744b943b88b337f6d4009e, type: 2}
+  - {fileID: 11400000, guid: 4e4f6a41d9494f04d9a27ffdae4577eb, type: 2}
+  - {fileID: 11400000, guid: 8365e1dffdb825749b9541ec2d59a19f, type: 2}
   craftingTableUIPrefab: {fileID: 1745568042582775960, guid: a70d3d74ded87e24fbe03ed699f19768, type: 3}

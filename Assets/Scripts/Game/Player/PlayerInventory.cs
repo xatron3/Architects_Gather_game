@@ -5,8 +5,10 @@ using SpellStone.Inventory;
 public class PlayerInventory : MonoBehaviour, IPlayerInventory
 {
   public InventoryGrid inventoryGridPrefab;
+  public InventorySlot inventorySlotPrefab;
+
   private InventoryGrid inventoryGrid;
-  private InventoryItemPrefab itemIconPrefab;
+  public InventoryItemPrefab itemIconPrefab;
 
   private void Start()
   {
@@ -47,8 +49,10 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
       inventoryGrid = Instantiate(inventoryGridPrefab, inventoryGridPrefab.transform.position, Quaternion.identity);
       inventoryGrid.transform.SetParent(UI_Canvas_GO.transform.Find("Container").transform, false);
 
+      inventoryGrid.InitializeGrid(12, inventorySlotPrefab, inventoryGrid.transform);
+
       ItemEventManager.Instance.onItemPickedUp.AddListener(OnItemPickedUp);
-      itemIconPrefab = Resources.Load<InventoryItemPrefab>("Prefabs/Player/Inventory/UI_InventoryItemPrefab");
+      itemIconPrefab = Resources.Load<InventoryItemPrefab>("Prefabs/Player/Inventory/UI_InventoryItem");
 
       inventoryGrid.gameObject.SetActive(false);
     }

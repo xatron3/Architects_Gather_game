@@ -118,4 +118,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9aeeba02ec31494383aeb03b6d64f54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerStorageUIPrefab: {fileID: 4842133683437372172, guid: 8c9cb0e7f65c8af479c61a213478b027, type: 3}
+  playerStorageUIPrefab: {fileID: -6845496258407744897, guid: 8c9cb0e7f65c8af479c61a213478b027, type: 3}
+  playerStorageSlotPrefab: {fileID: -4168349851582135985, guid: 73fcbb0c4ad7c0741871359221127a02, type: 3}

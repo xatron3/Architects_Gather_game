@@ -8,6 +8,8 @@ namespace SpellStone.Inventory
   {
     public void AddItem(InventoryItem newItem, InventoryItemPrefab itemIconPrefab)
     {
+      Debug.Log("Adding item: " + newItem.itemName + " to inventory slot");
+      Debug.Log("Item icon prefab: " + itemIconPrefab);
       InventoryItemPrefab itemPrefab = Instantiate(itemIconPrefab, transform);
       itemPrefab.SetItem(newItem);
     }
@@ -25,7 +27,7 @@ namespace SpellStone.Inventory
       return transform.childCount == 0;
     }
 
-    public void OnDrop(PointerEventData eventData)
+    public virtual void OnDrop(PointerEventData eventData)
     {
       if (transform.childCount > 0)
       {

@@ -19,7 +19,7 @@ public class PlayerActionBar : MonoBehaviour
       playerActionBarGrid = Instantiate(actionBarGrid, transform);
       playerActionBarGrid.transform.SetParent(UI_Canvas_GO.transform.Find("Container").transform, false);
 
-      itemIconPrefab = Resources.Load<InventoryItemPrefab>("Prefabs/Player/Inventory/UI_InventoryItemPrefab");
+      itemIconPrefab = Resources.Load<InventoryItemPrefab>("Prefabs/Player/Inventory/UI_InventoryItem");
 
       foreach (ActionBarSlot slot in playerActionBarGrid.slots)
       {

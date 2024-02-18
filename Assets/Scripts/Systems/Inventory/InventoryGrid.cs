@@ -7,6 +7,15 @@ namespace SpellStone.Inventory
   {
     public List<InventorySlot> slots = new List<InventorySlot>();
 
+    public void InitializeGrid(int slotCount, InventorySlot inventorySlotPrefab, Transform parent)
+    {
+      for (int i = 0; i < slotCount; i++)
+      {
+        InventorySlot slot = Instantiate(inventorySlotPrefab, parent, false);
+        slots.Add(slot);
+      }
+    }
+
     public bool AddItem(InventoryItem newItem, InventoryItemPrefab itemIconPrefab)
     {
       foreach (InventorySlot slot in slots)
