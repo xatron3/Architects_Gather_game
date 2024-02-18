@@ -2970,7 +2970,7 @@ PrefabInstance:
       objectReference: {fileID: 1745568042582775960, guid: a70d3d74ded87e24fbe03ed699f19768, type: 3}
     - target: {fileID: 1578275675971060736, guid: 3d34c9991ec76fc449d2962dc4c0f8ca, type: 3}
       propertyPath: craftingItems.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1578275675971060736, guid: 3d34c9991ec76fc449d2962dc4c0f8ca, type: 3}
       propertyPath: craftingItems.Array.data[0]
@@ -2980,6 +2980,10 @@ PrefabInstance:
       propertyPath: craftingItems.Array.data[1]
       value: 
       objectReference: {fileID: 11400000, guid: 4e4f6a41d9494f04d9a27ffdae4577eb, type: 2}
+    - target: {fileID: 1578275675971060736, guid: 3d34c9991ec76fc449d2962dc4c0f8ca, type: 3}
+      propertyPath: craftingItems.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 8365e1dffdb825749b9541ec2d59a19f, type: 2}
     - target: {fileID: 5186982916624734167, guid: 3d34c9991ec76fc449d2962dc4c0f8ca, type: 3}
       propertyPath: m_RootOrder
       value: -1

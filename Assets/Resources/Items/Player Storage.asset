@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf49ebedbc90a8942b3eb9ca65f12f0f, type: 3}
+  m_Name: Player Storage
+  m_EditorClassIdentifier: 
+  itemName: Player Storage
+  icon: {fileID: 21300000, guid: ad844979d770b9348bd764df11866808, type: 3}
+  canEquip: 1
+  itemToPlace: {fileID: 3775620780728583451, guid: 3d8e713bb93af5a49878e3a4176b9a9a, type: 3}

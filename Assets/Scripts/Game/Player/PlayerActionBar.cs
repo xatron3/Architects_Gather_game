@@ -8,6 +8,7 @@ public class PlayerActionBar : MonoBehaviour
   private ActionBarGrid playerActionBarGrid;
 
   private InventoryItemPrefab itemIconPrefab;
+  public InventoryItem equppedItem;
 
   void Start()
   {
@@ -37,7 +38,30 @@ public class PlayerActionBar : MonoBehaviour
     {
       if (Input.GetKeyDown(KeyCode.Alpha1 + i)) // Assuming keys 1-8
       {
+        if (equppedItem != null)
+          UnequipItem();
+
         EquipItem(i);
+      }
+    }
+
+    // Handle mouse input for equipped item usage
+    if (Input.GetMouseButtonDown(0))
+    {
+      if (equppedItem != null)
+      {
+        // If the equipped item is a placeable item, place it on the ground in front of the player
+        if (equppedItem is PlaceOnGroundItem)
+        {
+          PlaceOnGroundItem placeableItem = (PlaceOnGroundItem)equppedItem;
+          Instantiate(placeableItem.itemToPlace, transform.position + transform.forward, Quaternion.identity);
+          playerActionBarGrid.RemoveItem(equppedItem);
+          UnequipItem();
+        }
+        else
+        {
+          equppedItem.Use();
+        }
       }
     }
   }
@@ -59,8 +83,12 @@ public class PlayerActionBar : MonoBehaviour
 
     if (itemPrefab != null)
     {
-      // Use the item
-      itemPrefab.UseItem();
+      equppedItem = itemPrefab.GetItem();
     }
+  }
+
+  private void UnequipItem()
+  {
+    equppedItem = null;
   }
 }
