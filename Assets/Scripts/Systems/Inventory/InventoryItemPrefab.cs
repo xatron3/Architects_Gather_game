@@ -50,6 +50,7 @@ namespace SpellStone.Inventory
       transform.SetParent(transform.parent.parent);
       transform.SetAsLastSibling();
       icon.raycastTarget = false;
+      Debug.Log("OnBeginDrag");
     }
 
     public void OnDrag(PointerEventData eventData)

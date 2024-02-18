@@ -20,7 +20,13 @@ public class PlayerActionBar : MonoBehaviour
 
       itemIconPrefab = Resources.Load<InventoryItemPrefab>("Prefabs/Player/Inventory/UI_InventoryItemPrefab");
 
+      foreach (ActionBarSlot slot in playerActionBarGrid.slots)
+      {
+        slot.SetSlotText((playerActionBarGrid.slots.IndexOf(slot) + 1).ToString());
+      }
+
       playerActionBarGrid.gameObject.SetActive(true);
+
     }
   }
 
@@ -36,9 +42,14 @@ public class PlayerActionBar : MonoBehaviour
     }
   }
 
-  public void AddItem(InventoryItem item)
+  public bool AddItem(InventoryItem item)
   {
-    playerActionBarGrid.AddItem(item, itemIconPrefab);
+    if (playerActionBarGrid.AddItem(item, itemIconPrefab))
+    {
+      return true;
+    }
+
+    return false;
   }
 
   private void EquipItem(int slotIndex)
@@ -46,7 +57,6 @@ public class PlayerActionBar : MonoBehaviour
     ActionBarSlot slot = playerActionBarGrid.slots[slotIndex];
     InventoryItemPrefab itemPrefab = slot.GetComponentInChildren<InventoryItemPrefab>();
 
-    // Check if slot has an item
     if (itemPrefab != null)
     {
       // Use the item
