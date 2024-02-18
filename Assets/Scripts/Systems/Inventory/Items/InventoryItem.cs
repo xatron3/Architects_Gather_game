@@ -14,6 +14,7 @@ namespace SpellStone.Inventory
     [Header("Stackable")]
     public bool isStackable = false;
     public int maxStackSize = 1;
+    public int currentStackSize = 1;
 
     private void OnEnable()
     {

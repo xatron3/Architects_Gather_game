@@ -63,7 +63,12 @@ namespace SpellStone.Inventory
     {
       item = newItem;
       SetIconSprite(item.icon);
-      // SetStackSizeText(StackSize);
+      SetStackSizeText(item.currentStackSize);
+    }
+
+    public void UpdateStackSize()
+    {
+      SetStackSizeText(item.currentStackSize);
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -93,7 +98,8 @@ namespace SpellStone.Inventory
       if (currentSlot != null && currentSlot.GetType() == typeof(StorageChestSlot) && eventData.pointerCurrentRaycast.gameObject != null && eventData.pointerCurrentRaycast.gameObject.GetComponent<InventorySlot>() != null)
       {
         InventorySlot slot = eventData.pointerCurrentRaycast.gameObject.GetComponent<InventorySlot>();
-        if (slot != null)
+        // Also check so the type of the inventory slot is not storage chest slot
+        if (slot != null && slot.GetType() != typeof(StorageChestSlot))
         {
           if (item != null)
           {

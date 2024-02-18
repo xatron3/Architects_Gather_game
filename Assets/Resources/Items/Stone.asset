@@ -17,4 +17,4 @@ MonoBehaviour:
   canEquip: 0
   isStackable: 1
   maxStackSize: 100
-  currentStackSize: 3
+  currentStackSize: 1

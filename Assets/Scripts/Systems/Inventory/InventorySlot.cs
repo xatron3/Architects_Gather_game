@@ -6,8 +6,16 @@ namespace SpellStone.Inventory
 {
   public class InventorySlot : MonoBehaviour, IDropHandler
   {
-    public void AddItem(InventoryItem newItem, InventoryItemPrefab itemIconPrefab)
+    public void AddItem(InventoryItem newItem, InventoryItemPrefab itemIconPrefab, int quantity = 1)
     {
+      // Check if the item is stackable and if it's already in the slot
+      if (newItem.isStackable && !IsSlotEmpty() && transform.GetChild(0).GetComponent<InventoryItemPrefab>().GetItem().itemName == newItem.itemName)
+      {
+        transform.GetChild(0).GetComponent<InventoryItemPrefab>().GetItem().currentStackSize += quantity;
+        transform.GetChild(0).GetComponent<InventoryItemPrefab>().UpdateStackSize();
+        return;
+      }
+
       InventoryItemPrefab itemPrefab = Instantiate(itemIconPrefab, transform);
       itemPrefab.SetItem(newItem);
     }

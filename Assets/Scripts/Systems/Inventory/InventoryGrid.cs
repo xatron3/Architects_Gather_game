@@ -17,11 +17,24 @@ namespace SpellStone.Inventory
       }
     }
 
-    public bool AddItem(InventoryItem newItem, InventoryItemPrefab itemIconPrefab)
+    public bool AddItem(InventoryItem newItem, InventoryItemPrefab itemIconPrefab, int quantity = 1)
     {
       foreach (InventorySlot slot in slots)
       {
-        if (slot.IsSlotEmpty())
+        bool IsSlotEmpty = slot.IsSlotEmpty();
+        bool isStackable = false;
+        bool isMaxStackSize = true;
+
+        if (slot.GetComponentInChildren<InventoryItemPrefab>() != null)
+        {
+          InventoryItemPrefab _inventoryItemPrefab = slot.GetComponentInChildren<InventoryItemPrefab>();
+          InventoryItem _inventoryItem = _inventoryItemPrefab.GetItem();
+
+          isStackable = _inventoryItem.itemName == newItem.itemName;
+          isMaxStackSize = _inventoryItem.currentStackSize + quantity > _inventoryItem.maxStackSize;
+        }
+
+        if (IsSlotEmpty || isStackable && !isMaxStackSize)
         {
           slot.AddItem(newItem, itemIconPrefab);
           items.Add(newItem);
@@ -32,16 +45,30 @@ namespace SpellStone.Inventory
       return false;
     }
 
-    public void RemoveItem(InventoryItem item)
+    public void RemoveItem(InventoryItem item, int quantity = 1)
     {
       foreach (InventorySlot slot in slots)
       {
-        if (slot.GetComponentInChildren<InventoryItemPrefab>() != null &&
-            slot.GetComponentInChildren<InventoryItemPrefab>().GetItem().itemName == item.itemName)
+        if (slot.GetComponentInChildren<InventoryItemPrefab>() != null)
         {
-          slot.ClearSlot();
-          items.Remove(item);
-          return;
+          InventoryItemPrefab _inventoryItemPrefab = slot.GetComponentInChildren<InventoryItemPrefab>();
+          InventoryItem _inventoryItem = _inventoryItemPrefab.GetItem();
+
+          if (_inventoryItem.itemName == item.itemName)
+          {
+            if (_inventoryItem.currentStackSize > quantity)
+            {
+              _inventoryItem.currentStackSize -= quantity;
+              _inventoryItemPrefab.UpdateStackSize();
+              return;
+            }
+            else
+            {
+              slot.ClearSlot();
+              items.Remove(item);
+              return;
+            }
+          }
         }
       }
     }
