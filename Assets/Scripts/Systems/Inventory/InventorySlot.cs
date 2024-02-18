@@ -8,8 +8,6 @@ namespace SpellStone.Inventory
   {
     public void AddItem(InventoryItem newItem, InventoryItemPrefab itemIconPrefab)
     {
-      Debug.Log("Adding item: " + newItem.itemName + " to inventory slot");
-      Debug.Log("Item icon prefab: " + itemIconPrefab);
       InventoryItemPrefab itemPrefab = Instantiate(itemIconPrefab, transform);
       itemPrefab.SetItem(newItem);
     }

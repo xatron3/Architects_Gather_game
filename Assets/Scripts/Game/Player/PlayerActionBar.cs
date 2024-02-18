@@ -54,7 +54,11 @@ public class PlayerActionBar : MonoBehaviour
         if (equppedItem is PlaceOnGroundItem)
         {
           PlaceOnGroundItem placeableItem = (PlaceOnGroundItem)equppedItem;
-          Instantiate(placeableItem.itemToPlace, transform.position + transform.forward, Quaternion.identity);
+          // Set the Y position of the item to be at 0 but in front of the player
+          Vector3 itemPosition = new Vector3(transform.position.x, 0, transform.position.z) + transform.forward;
+
+          Instantiate(placeableItem.itemToPlace, itemPosition, placeableItem.itemToPlace.transform.rotation);
+
           playerActionBarGrid.RemoveItem(equppedItem);
           UnequipItem();
         }

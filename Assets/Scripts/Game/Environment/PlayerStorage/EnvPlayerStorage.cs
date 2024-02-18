@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using SpellStone.Inventory;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class EnvPlayerStorage : MonoBehaviour, IInteractable
 {
@@ -31,7 +30,11 @@ public class EnvPlayerStorage : MonoBehaviour, IInteractable
   {
     if (other.CompareTag("Player"))
     {
-      Destroy(playerStorageUI.gameObject);
+      if (playerStorageUI != null)
+      {
+        Destroy(playerStorageUI.gameObject);
+        playerStorageUI = null;
+      }
     }
   }
 }

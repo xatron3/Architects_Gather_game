@@ -32,8 +32,11 @@ public class CraftingTable : MonoBehaviour, IInteractable
   {
     if (other.CompareTag("Player"))
     {
-      Destroy(craftingTableUI.gameObject);
-      craftingTableUI = null;
+      if (craftingTableUI != null)
+      {
+        Destroy(craftingTableUI.gameObject);
+        craftingTableUI = null;
+      }
     }
   }
 }
