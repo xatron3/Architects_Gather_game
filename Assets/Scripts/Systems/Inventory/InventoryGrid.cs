@@ -6,6 +6,7 @@ namespace SpellStone.Inventory
   public class InventoryGrid : MonoBehaviour
   {
     public List<InventorySlot> slots = new List<InventorySlot>();
+    public List<InventoryItem> items = new List<InventoryItem>();
 
     public void InitializeGrid(int slotCount, InventorySlot inventorySlotPrefab, Transform parent)
     {
@@ -23,6 +24,7 @@ namespace SpellStone.Inventory
         if (slot.IsSlotEmpty())
         {
           slot.AddItem(newItem, itemIconPrefab);
+          items.Add(newItem);
           return true;
         }
       }
@@ -38,6 +40,7 @@ namespace SpellStone.Inventory
             slot.GetComponentInChildren<InventoryItemPrefab>().GetItem() == item)
         {
           slot.ClearSlot();
+          items.Remove(item);
           return;
         }
       }

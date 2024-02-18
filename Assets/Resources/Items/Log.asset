@@ -14,3 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Log
   icon: {fileID: 21300000, guid: 2d9a6447f7d4b18478b2946e8cfc6423, type: 3}
+  canEquip: 0
+  isStackable: 1
+  maxStackSize: 100
+  currentStackSize: 3

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace SpellStone.Inventory
@@ -8,6 +9,10 @@ namespace SpellStone.Inventory
     public string itemName = "New Item";
     public Sprite icon = null;
     public bool canEquip = false;
+
+    [Header("Stackable")]
+    public bool isStackable = false;
+    public int maxStackSize = 1;
 
     public virtual void Use()
     {

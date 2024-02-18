@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 
 namespace SpellStone.Inventory
 {
@@ -8,6 +9,7 @@ namespace SpellStone.Inventory
   {
     [HideInInspector] public Transform parentToReturnTo = null;
     public Image icon { get; private set; }
+    public TMP_Text stackSizeText { get; private set; }
     public InventoryItem item { get; private set; }
 
     public void UseItem()
@@ -26,6 +28,20 @@ namespace SpellStone.Inventory
       icon.sprite = sprite;
     }
 
+    private void SetStackSizeText(int stackSize)
+    {
+      if (stackSizeText == null)
+        stackSizeText = GetComponentInChildren<TMP_Text>();
+
+      if (item.isStackable == false)
+      {
+        stackSizeText.gameObject.SetActive(false);
+        return;
+      }
+
+      stackSizeText.text = $"{stackSize}";
+    }
+
     public InventoryItem GetItem()
     {
       if (item != null)
@@ -42,6 +58,7 @@ namespace SpellStone.Inventory
     {
       item = newItem;
       SetIconSprite(item.icon);
+      // SetStackSizeText(StackSize);
     }
 
     public void OnBeginDrag(PointerEventData eventData)
