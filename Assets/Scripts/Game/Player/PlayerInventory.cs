@@ -10,6 +10,8 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
   private InventoryGrid inventoryGrid;
   public InventoryItemPrefab itemIconPrefab;
 
+  private InventoryManager inventoryManager = new();
+
   private void Start()
   {
     CreateInventoryGrid();
@@ -62,7 +64,7 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
 
   public bool AddItem(InventoryItem item)
   {
-    return inventoryGrid.AddItem(item, itemIconPrefab);
+    return inventoryManager.AddItem(inventoryGrid, item.GetCopy(), itemIconPrefab);
   }
 
   public void RemoveItem(InventoryItem item)

@@ -8,12 +8,19 @@ public class CraftingTable : MonoBehaviour, IInteractable
   public CraftingUI craftingTableUIPrefab;
   private CraftingUI craftingTableUI;
 
+  private PlayerSkills playerSkills;
+  private PlayerInventory playerInventory;
+
   public string Tooltip => "Open crafting table";
+
   public void Interact()
   {
     // Find the player skills and inventory
-    PlayerSkills playerSkills = FindObjectOfType<PlayerSkills>();
-    PlayerInventory playerInventory = FindObjectOfType<PlayerInventory>();
+    if (playerSkills == null)
+      playerSkills = FindObjectOfType<PlayerSkills>();
+
+    if (playerInventory == null)
+      playerInventory = FindObjectOfType<PlayerInventory>();
 
     Transform UI_Container = GameObject.Find("UI_Elements/Container").transform;
     craftingTableUI = Instantiate(craftingTableUIPrefab, UI_Container, false);

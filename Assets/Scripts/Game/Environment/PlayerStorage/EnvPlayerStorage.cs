@@ -5,10 +5,10 @@ using UnityEngine;
 public class EnvPlayerStorage : MonoBehaviour, IInteractable
 {
   public InventoryGrid playerStorageUIPrefab;
-  public StorageInventorySlot playerStorageSlotPrefab; // Change to StorageInventorySlot
+  public StorageInventorySlot playerStorageSlotPrefab;
 
   private InventoryGrid playerStorageUI;
-  public static List<InventoryItem> playerStorageItems = new List<InventoryItem>(); // Static list
+  public static List<InventoryItem> playerStorageItems = new List<InventoryItem>();
 
   public string Tooltip => "Open player storage";
 
@@ -24,6 +24,31 @@ public class EnvPlayerStorage : MonoBehaviour, IInteractable
     {
       playerStorageUI.AddItem(item, Resources.Load<InventoryItemPrefab>("Prefabs/Player/Inventory/UI_InventoryItem"));
     }
+
+    foreach (var slot in playerStorageUI.GetComponentsInChildren<StorageInventorySlot>())
+    {
+      slot.OnItemDropped += AddItem;
+    }
+  }
+
+  public void AddItem(InventoryItem item)
+  {
+    Debug.Log("Adding item to storage: " + item.uniqueID);
+    // Check if the item is already in the storage
+    if (!playerStorageItems.Exists(i => i.uniqueID == item.uniqueID))
+    {
+      playerStorageItems.Add(item);
+    }
+  }
+
+  public void RemoveItem(InventoryItem item)
+  {
+    // Remove the item from the storage based on its unique identifier
+    InventoryItem itemToRemove = playerStorageItems.Find(i => i.uniqueID == item.uniqueID);
+    if (itemToRemove != null)
+    {
+      playerStorageItems.Remove(itemToRemove);
+    }
   }
 
   private void OnTriggerExit(Collider other)
@@ -32,10 +57,14 @@ public class EnvPlayerStorage : MonoBehaviour, IInteractable
     {
       if (playerStorageUI != null)
       {
+        foreach (var slot in playerStorageUI.GetComponentsInChildren<StorageInventorySlot>())
+        {
+          slot.OnItemDropped -= AddItem;
+        }
+
         Destroy(playerStorageUI.gameObject);
         playerStorageUI = null;
       }
     }
   }
 }
-

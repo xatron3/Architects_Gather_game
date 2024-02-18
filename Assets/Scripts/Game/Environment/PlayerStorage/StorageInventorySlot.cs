@@ -1,9 +1,13 @@
 using SpellStone.Inventory;
 using UnityEngine.EventSystems;
 using UnityEngine;
+using System;
 
 public class StorageInventorySlot : InventorySlot
 {
+  public event Action<InventoryItem> OnItemDropped;
+  public event Action<InventoryItem> OnItemChanged;
+
   public override void OnDrop(PointerEventData eventData)
   {
     base.OnDrop(eventData);
@@ -12,8 +16,8 @@ public class StorageInventorySlot : InventorySlot
 
     if (droppedItem != null)
     {
-      InventoryItemPrefab InventoryItemPrefab = droppedItem.GetComponent<InventoryItemPrefab>();
-      EnvPlayerStorage.playerStorageItems.Add(InventoryItemPrefab.GetItem());
+      InventoryItemPrefab inventoryItemPrefab = droppedItem.GetComponent<InventoryItemPrefab>();
+      OnItemDropped?.Invoke(inventoryItemPrefab.GetItem());
     }
   }
 }
