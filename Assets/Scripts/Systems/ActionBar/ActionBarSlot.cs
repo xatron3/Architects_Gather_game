@@ -4,7 +4,7 @@ using SpellStone.Inventory;
 
 namespace SpellStone.ActionBar
 {
-  public class ActionBarSlot : MonoBehaviour, IDropHandler
+  public class ActionBarSlot : InventorySlot, IDropHandler
   {
     public TMPro.TextMeshProUGUI slotText;
 
@@ -19,7 +19,7 @@ namespace SpellStone.ActionBar
       itemPrefab.SetItem(newItem);
     }
 
-    public void ClearSlot()
+    public override void ClearSlot()
     {
       if (IsSlotEmpty() == false)
       {
@@ -27,7 +27,7 @@ namespace SpellStone.ActionBar
       }
     }
 
-    public bool IsSlotEmpty()
+    public override bool IsSlotEmpty()
     {
       if (transform.Find("ItemContainer").transform.childCount > 0)
         return false;
@@ -35,7 +35,7 @@ namespace SpellStone.ActionBar
       return true;
     }
 
-    public void OnDrop(PointerEventData eventData)
+    public override void OnDrop(PointerEventData eventData)
     {
       if (IsSlotEmpty() == false)
       {

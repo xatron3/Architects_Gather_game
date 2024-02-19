@@ -5,7 +5,7 @@ using SpellStone.Inventory;
 public class PlaceOnGroundItem : InventoryItem
 {
   [Header("Placeable Item")]
-  public GameObject itemToPlace;
+  public PlayerPlacedItem itemToPlace;
 
   public override void Use()
   {

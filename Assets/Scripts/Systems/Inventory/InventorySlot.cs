@@ -20,7 +20,7 @@ namespace SpellStone.Inventory
       itemPrefab.SetItem(newItem);
     }
 
-    public void ClearSlot()
+    public virtual void ClearSlot()
     {
       if (!IsSlotEmpty())
       {
@@ -28,12 +28,12 @@ namespace SpellStone.Inventory
       }
     }
 
-    public bool IsSlotEmpty()
+    public virtual bool IsSlotEmpty()
     {
       return transform.childCount == 0;
     }
 
-    public void OnDrop(PointerEventData eventData)
+    public virtual void OnDrop(PointerEventData eventData)
     {
       if (!DropItem(eventData))
       {

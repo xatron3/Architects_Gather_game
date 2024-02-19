@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 using System;
+using SpellStone.ActionBar;
 
 namespace SpellStone.Inventory
 {
@@ -78,6 +79,8 @@ namespace SpellStone.Inventory
         currentSlot = transform.parent.GetComponent<InventorySlot>();
       else if (transform.parent.GetComponent<StorageChestSlot>() != null)
         currentSlot = transform.parent.GetComponent<StorageChestSlot>();
+      else if (transform.parent.GetComponent<ActionBarSlot>() != null)
+        currentSlot = transform.parent.GetComponent<ActionBarSlot>();
       else
         Debug.LogError("The parent of the item is not a storage or inventory slot");
 

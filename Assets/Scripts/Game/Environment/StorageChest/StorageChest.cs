@@ -2,8 +2,10 @@ using System.Collections.Generic;
 using SpellStone.Inventory;
 using UnityEngine;
 
-public class StorageChest : MonoBehaviour, IInteractable
+public class StorageChest : PlayerPlacedItem, IInteractable
 {
+  public override string ItemName => "Storage Chest";
+
   public InventoryGrid playerStorageUIPrefab;
   public StorageChestSlot playerStorageSlotPrefab;
 

@@ -53,13 +53,18 @@ public class PlayerActionBar : MonoBehaviour
         // If the equipped item is a placeable item, place it on the ground in front of the player
         if (equppedItem is PlaceOnGroundItem)
         {
-          PlaceOnGroundItem placeableItem = (PlaceOnGroundItem)equppedItem;
+          PlaceOnGroundItem placeableItem = (PlaceOnGroundItem)equppedItem.GetCopy();
           // Set the Y position of the item to be at 0 but in front of the player
           Vector3 itemPosition = new Vector3(transform.position.x, 0, transform.position.z) + transform.forward;
 
-          Instantiate(placeableItem.itemToPlace, itemPosition, placeableItem.itemToPlace.transform.rotation);
+          PlayerPlacedItem placedItem = Instantiate(placeableItem.itemToPlace, itemPosition, placeableItem.itemToPlace.transform.rotation);
 
+          placedItem.transform.SetParent(PlayerPlacedItems.Instance.itemsParent);
+          PlayerPlacedItems.Instance.items.Add(placedItem);
+
+          // Remove the item from the player's action bar grid
           playerActionBarGrid.RemoveItem(equppedItem);
+
           UnequipItem();
         }
         else
