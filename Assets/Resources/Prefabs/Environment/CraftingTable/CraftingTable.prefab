@@ -13,12 +13,12 @@ GameObject:
   - component: {fileID: 4238434249480297579}
   - component: {fileID: 5835335891750452695}
   - component: {fileID: 1578275675971060736}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: CraftingTable
   m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5186982916624734167
 Transform:
@@ -122,4 +122,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 41901a6a9f744b943b88b337f6d4009e, type: 2}
   - {fileID: 11400000, guid: 4e4f6a41d9494f04d9a27ffdae4577eb, type: 2}
   - {fileID: 11400000, guid: 8365e1dffdb825749b9541ec2d59a19f, type: 2}
+  - {fileID: 11400000, guid: 678e31576e4d4a84fbe2d68fbfe024b7, type: 2}
   craftingTableUIPrefab: {fileID: 1745568042582775960, guid: a70d3d74ded87e24fbe03ed699f19768, type: 3}

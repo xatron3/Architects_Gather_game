@@ -5,7 +5,14 @@ namespace SpellStone.Player
 {
   public class PlayerMove : MonoBehaviour
   {
-    private float speed = 6.0f;
+    private CharacterController characterController;
+    private float speed = 20.0f;
+    public LayerMask environmentLayer;
+
+    void Start()
+    {
+      characterController = GetComponent<CharacterController>();
+    }
 
     void Update()
     {
@@ -19,7 +26,14 @@ namespace SpellStone.Player
       float moveVertical = InputManager.instance.GetVerticalAxisValue();
 
       Vector3 moveVector = new Vector3(moveHorizontal, 0.0f, moveVertical) * speed * Time.deltaTime;
-      transform.position = transform.position + moveVector;
+
+      // Perform raycast to check for obstacles in the way
+      RaycastHit hit;
+      if (!Physics.Raycast(transform.position, moveVector, out hit, moveVector.magnitude, environmentLayer))
+      {
+        // If no obstacles, move the player using CharacterController
+        characterController.Move(moveVector);
+      }
     }
 
     private void UpdateCameraTarget()

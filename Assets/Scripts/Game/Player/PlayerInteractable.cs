@@ -16,6 +16,7 @@ public class PlayerInteractable : MonoBehaviour
     {
       interactablesInRange[0].Interact();
       interactablesInRange.RemoveAt(0);
+      Debug.Log("Interacted with object " + interactablesInRange.Count);
 
       if (interactablesInRange.Count > 0)
         UpdateInteractableText();
@@ -24,26 +25,16 @@ public class PlayerInteractable : MonoBehaviour
     }
   }
 
-  private void OnTriggerEnter(Collider other)
+  private void OnControllerColliderHit(ControllerColliderHit hit)
   {
-    IInteractable interactable = other.GetComponent<IInteractable>();
+    Debug.Log("Hit: " + hit.collider.name);
+    IInteractable interactable = hit.collider.GetComponent<IInteractable>();
     if (interactable != null)
     {
-      interactablesInRange.Add(interactable);
-      UpdateInteractableText();
-    }
-  }
+      if (!interactablesInRange.Contains(interactable))
+        interactablesInRange.Add(interactable);
 
-  private void OnTriggerExit(Collider other)
-  {
-    IInteractable interactable = other.GetComponent<IInteractable>();
-    if (interactable != null)
-    {
-      interactablesInRange.Remove(interactable);
-      if (interactablesInRange.Count == 0)
-        SetCanvasAlpha(0);
-      else
-        UpdateInteractableText();
+      UpdateInteractableText();
     }
   }
 

@@ -11,6 +11,8 @@ public class CraftingTable : MonoBehaviour, IInteractable
   private PlayerSkills playerSkills;
   private PlayerInventory playerInventory;
 
+  private Player player = null;
+
   public string Tooltip => "Open crafting table";
 
   public void Interact()
@@ -35,14 +37,25 @@ public class CraftingTable : MonoBehaviour, IInteractable
     craftingPreviewUI.AddEventListners();
   }
 
-  private void OnTriggerExit(Collider other)
+  private void Update()
   {
-    if (other.CompareTag("Player"))
+    if (player == null)
+    {
+      player = FindObjectOfType<Player>();
+    }
+
+    if (player != null)
     {
       if (craftingTableUI != null)
       {
-        Destroy(craftingTableUI.gameObject);
-        craftingTableUI = null;
+        if (craftingTableUI.gameObject.activeSelf)
+        {
+          if (Vector3.Distance(player.transform.position, transform.position) > 3f)
+          {
+            Destroy(craftingTableUI.gameObject);
+            craftingTableUI = null;
+          }
+        }
       }
     }
   }

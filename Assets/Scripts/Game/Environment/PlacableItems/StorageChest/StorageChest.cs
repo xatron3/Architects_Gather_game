@@ -14,6 +14,8 @@ public class StorageChest : PlayerPlacedItem, IInteractable
   private InventoryGrid playerStorageUI;
   public List<InventoryItem> storageChestItems = new List<InventoryItem>();
 
+  private Player player = null;
+
   public string Tooltip => "Open player storage";
 
   public void Interact()
@@ -54,15 +56,26 @@ public class StorageChest : PlayerPlacedItem, IInteractable
     }
   }
 
-  private void OnTriggerExit(Collider other)
+  private void Update()
   {
-    if (other.CompareTag("Player"))
+    if (player == null)
+    {
+      player = FindObjectOfType<Player>();
+    }
+
+    if (player != null)
     {
       if (playerStorageUI != null)
       {
-        storageChestItems = playerStorageUI.items;
-        Destroy(playerStorageUI.gameObject);
-        playerStorageUI = null;
+        if (playerStorageUI.gameObject.activeSelf)
+        {
+          if (Vector3.Distance(player.transform.position, transform.position) > 3f)
+          {
+            storageChestItems = playerStorageUI.items;
+            Destroy(playerStorageUI.gameObject);
+            playerStorageUI = null;
+          }
+        }
       }
     }
   }
