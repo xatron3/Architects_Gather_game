@@ -130,6 +130,10 @@ public class StorageChest : PlayerPlacedItem, IInteractable
     return newItem;
   }
 
+  public Vector3 GetPosition()
+  {
+    return transform.position;
+  }
 }
 
 [Serializable]

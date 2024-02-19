@@ -50,6 +50,11 @@ public class SmallTree : MonoBehaviour, IInteractable, ISkillProvider
     return 10;
   }
 
+  public Vector3 GetPosition()
+  {
+    return transform.position;
+  }
+
   public int RequiredLevel => 1;
 
   public bool HasRequiredItem => playerInventory.ContainsItem("Stone Axe");

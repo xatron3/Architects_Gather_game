@@ -59,4 +59,9 @@ public class CraftingTable : MonoBehaviour, IInteractable
       }
     }
   }
+
+  public Vector3 GetPosition()
+  {
+    return transform.position;
+  }
 }
