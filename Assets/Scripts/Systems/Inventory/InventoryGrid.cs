@@ -14,6 +14,7 @@ namespace SpellStone.Inventory
       {
         InventorySlot slot = Instantiate(inventorySlotPrefab, parent, false);
         slot.name = $"Slot {i}";
+        slot.SetParentGrid(this);
 
         slots.Add(slot);
       }
@@ -50,9 +51,6 @@ namespace SpellStone.Inventory
         if (IsSlotEmpty || isStackable && !isMaxStackSize)
         {
           slot.AddItem(newItem, itemIconPrefab, quantity);
-
-          if (IsSlotEmpty)
-            items.Add(newItem);
 
           return true;
         }

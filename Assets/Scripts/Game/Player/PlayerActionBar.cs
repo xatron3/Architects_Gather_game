@@ -1,6 +1,7 @@
 using UnityEngine;
 using SpellStone.ActionBar;
 using SpellStone.Inventory;
+using System.Collections.Generic;
 
 public class PlayerActionBar : MonoBehaviour
 {
@@ -25,8 +26,28 @@ public class PlayerActionBar : MonoBehaviour
 
       playerActionBarGrid.InitializeGrid(8, actionBarSlotPrefab, playerActionBarGrid.transform);
 
+      // Load the player's action bar from the save file
+      List<InventoryItem> savedItems = SaveLoadManager.LoadPlayerActionbar();
+      if (savedItems != null)
+      {
+        foreach (var item in savedItems)
+        {
+          playerActionBarGrid.AddItem(item, itemIconPrefab);
+        }
+      }
+      else
+      {
+        Debug.Log("No saved action bar items found");
+      }
+
       playerActionBarGrid.gameObject.SetActive(true);
     }
+  }
+
+  void OnApplicationQuit()
+  {
+    // Save the player's action bar to the save file
+    SaveLoadManager.SavePlayerActionbar(playerActionBarGrid.items);
   }
 
   void Update()
@@ -43,6 +64,7 @@ public class PlayerActionBar : MonoBehaviour
       }
     }
 
+
     // Handle mouse input for equipped item usage
     if (Input.GetMouseButtonDown(0))
     {
@@ -51,19 +73,7 @@ public class PlayerActionBar : MonoBehaviour
         // If the equipped item is a placeable item, place it on the ground in front of the player
         if (equppedItem is PlaceOnGroundItem)
         {
-          PlaceOnGroundItem placeableItem = (PlaceOnGroundItem)equppedItem.GetCopy();
-          // Set the Y position of the item to be at 0 but in front of the player
-          Vector3 itemPosition = new Vector3(transform.position.x, placeableItem.itemToPlace.transform.position.y, transform.position.z) + transform.forward;
-
-          PlayerPlacedItem placedItem = Instantiate(placeableItem.itemToPlace, itemPosition, placeableItem.itemToPlace.transform.rotation);
-
-          placedItem.transform.SetParent(PlayerPlacedItems.Instance.itemsParent);
-          PlayerPlacedItems.Instance.items.Add(placedItem);
-
-          // Remove the item from the player's action bar grid
-          playerActionBarGrid.RemoveItem(equppedItem);
-
-          UnequipItem();
+          PlaceItem();
         }
         else
         {
@@ -71,6 +81,23 @@ public class PlayerActionBar : MonoBehaviour
         }
       }
     }
+  }
+
+  private void PlaceItem()
+  {
+    PlaceOnGroundItem placeableItem = (PlaceOnGroundItem)equppedItem.GetCopy();
+    // Set the Y position of the item to be at 0 but in front of the player
+    Vector3 itemPosition = new Vector3(transform.position.x, placeableItem.itemToPlace.transform.position.y, transform.position.z) + transform.forward;
+
+    PlayerPlacedItem placedItem = Instantiate(placeableItem.itemToPlace, itemPosition, placeableItem.itemToPlace.transform.rotation);
+
+    placedItem.transform.SetParent(PlayerPlacedItems.Instance.itemsParent);
+    PlayerPlacedItems.Instance.items.Add(placedItem);
+
+    // Remove the item from the player's action bar grid
+    playerActionBarGrid.RemoveItem(equppedItem);
+
+    UnequipItem();
   }
 
   public bool AddItem(InventoryItem item)

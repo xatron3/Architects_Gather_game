@@ -1,11 +1,14 @@
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System;
+using System.Collections.Generic;
 
 namespace SpellStone.Inventory
 {
   public class InventorySlot : MonoBehaviour, IInventorySlotHander
   {
+    private InventoryGrid parentGrid;
+
     public void AddItem(InventoryItem newItem, InventoryItemPrefab itemIconPrefab, int quantity = 1)
     {
       // Check if the item is stackable and if it's already in the slot
@@ -18,6 +21,7 @@ namespace SpellStone.Inventory
 
       InventoryItemPrefab itemPrefab = Instantiate(itemIconPrefab, transform);
       itemPrefab.SetItem(newItem);
+      parentGrid.items.Add(newItem);
     }
 
     public virtual void ClearSlot()
@@ -73,11 +77,23 @@ namespace SpellStone.Inventory
         return false; // Drop failed if the item was dropped on a non-slot objec
       }
 
+      // Based on the eventData we know what slot the item was dropped on
+      InventorySlot droppedSlot = droppedTransform.GetComponent<InventorySlot>();
+      InventorySlot previousSlot = itemPrefab.parentToReturnTo.GetComponent<InventorySlot>();
+
+      droppedSlot.parentGrid.items.Add(itemPrefab.GetItem());
+      previousSlot.parentGrid.items.Remove(itemPrefab.GetItem());
+
       Debug.Log("Dropping item to: " + droppedTransform.name);
       itemPrefab.parentToReturnTo = droppedTransform;
       itemPrefab.transform.SetParent(droppedTransform); // Set the parent of the dropped item to the new slot
       itemPrefab.transform.localPosition = Vector3.zero; // Reset local position
       return true; // Drop successful
+    }
+
+    public void SetParentGrid(InventoryGrid grid)
+    {
+      parentGrid = grid;
     }
   }
 }

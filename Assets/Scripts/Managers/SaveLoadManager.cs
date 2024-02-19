@@ -152,6 +152,63 @@ public class SaveLoadManager
     }
   }
   #endregion
+
+  #region Player Actionbar
+  public static void SavePlayerActionbar(List<InventoryItem> items)
+  {
+    BinaryFormatter formatter = new BinaryFormatter();
+    string path = Application.persistentDataPath + "/playerActionbar.data";
+    FileStream stream = new FileStream(path, FileMode.Create);
+
+    List<SerializableInventoryItem> serializableItems = new List<SerializableInventoryItem>();
+    foreach (var item in items)
+    {
+      serializableItems.Add(new SerializableInventoryItem(item.itemName, item.currentStackSize, item.GetType().ToString()));
+    }
+
+    formatter.Serialize(stream, serializableItems);
+    stream.Close();
+  }
+
+  public static List<InventoryItem> LoadPlayerActionbar()
+  {
+    string path = Application.persistentDataPath + "/playerActionbar.data";
+    if (File.Exists(path))
+    {
+      BinaryFormatter formatter = new BinaryFormatter();
+      FileStream stream = new FileStream(path, FileMode.Open);
+
+      List<SerializableInventoryItem> serializableItems = formatter.Deserialize(stream) as List<SerializableInventoryItem>;
+      stream.Close();
+
+      List<InventoryItem> items = new List<InventoryItem>();
+      foreach (var serializableItem in serializableItems)
+      {
+        Type itemType = Type.GetType(serializableItem.ItemType);
+
+        // Find the item prefab in the resources folder
+        InventoryItem item = Resources.Load<InventoryItem>("Items/" + serializableItem.PrefabName);
+        if (item == null)
+        {
+          Debug.LogError("Item not found in Resources/Items/" + serializableItem.PrefabName);
+          continue;
+        }
+
+        // Create a new instance of the item and set its stack size
+        item = item.GetCopy();
+        item.currentStackSize = serializableItem.CurrentStackSize;
+        items.Add(item);
+      }
+
+      return items;
+    }
+    else
+    {
+      Debug.LogError("Save file not found in " + path);
+      return null;
+    }
+  }
+  #endregion
 }
 
 [Serializable]

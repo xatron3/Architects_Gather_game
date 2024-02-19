@@ -11,7 +11,7 @@ public class StorageChest : PlayerPlacedItem, IInteractable
   public IInventorySlotHander playerStorageSlot;
 
   private InventoryGrid playerStorageUI;
-  public List<InventoryItem> playerStorageItems = new List<InventoryItem>();
+  public List<InventoryItem> storageChestItems = new List<InventoryItem>();
 
   public string Tooltip => "Open player storage";
 
@@ -23,7 +23,7 @@ public class StorageChest : PlayerPlacedItem, IInteractable
 
     playerStorageUI.InitializeGrid(20, playerStorageSlotPrefab, playerStorageUI.transform.Find("Container/ItemsGridList").transform);
 
-    foreach (InventoryItem item in playerStorageItems)
+    foreach (InventoryItem item in storageChestItems)
     {
       playerStorageUI.AddItem(item, Resources.Load<InventoryItemPrefab>("Prefabs/Player/Inventory/UI_InventoryItem"), item.currentStackSize, true);
     }
@@ -32,29 +32,24 @@ public class StorageChest : PlayerPlacedItem, IInteractable
     {
       itemPrefab.OnItemDroppedToInventory += RemoveItem;
     }
-
-    foreach (var slot in playerStorageUI.GetComponentsInChildren<StorageChestSlot>())
-    {
-      slot.OnItemDropped += AddItem;
-    }
   }
 
   public void AddItem(InventoryItem item)
   {
     // Check if the item is already in the storage
-    if (!playerStorageItems.Exists(i => i.GetUniqueID() == item.GetUniqueID()))
+    if (!storageChestItems.Exists(i => i.GetUniqueID() == item.GetUniqueID()))
     {
-      playerStorageItems.Add(item);
+      storageChestItems.Add(item);
     }
   }
 
   public void RemoveItem(InventoryItem item)
   {
     // Remove the item from the storage based on its unique identifier
-    InventoryItem itemToRemove = playerStorageItems.Find(i => i.GetUniqueID() == item.GetUniqueID());
+    InventoryItem itemToRemove = storageChestItems.Find(i => i.GetUniqueID() == item.GetUniqueID());
     if (itemToRemove != null)
     {
-      playerStorageItems.Remove(itemToRemove);
+      storageChestItems.Remove(itemToRemove);
     }
   }
 
@@ -64,11 +59,7 @@ public class StorageChest : PlayerPlacedItem, IInteractable
     {
       if (playerStorageUI != null)
       {
-        foreach (var slot in playerStorageUI.GetComponentsInChildren<StorageChestSlot>())
-        {
-          slot.OnItemDropped -= AddItem;
-        }
-
+        storageChestItems = playerStorageUI.items;
         Destroy(playerStorageUI.gameObject);
         playerStorageUI = null;
       }
