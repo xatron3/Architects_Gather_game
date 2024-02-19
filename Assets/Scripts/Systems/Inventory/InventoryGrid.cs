@@ -5,7 +5,7 @@ namespace SpellStone.Inventory
 {
   public class InventoryGrid : MonoBehaviour
   {
-    public List<InventorySlot> slots = new List<InventorySlot>();
+    public List<IInventorySlotHander> slots = new List<IInventorySlotHander>();
     public List<InventoryItem> items = new List<InventoryItem>();
 
     public void InitializeGrid(int slotCount, InventorySlot inventorySlotPrefab, Transform parent)
@@ -13,6 +13,8 @@ namespace SpellStone.Inventory
       for (int i = 0; i < slotCount; i++)
       {
         InventorySlot slot = Instantiate(inventorySlotPrefab, parent, false);
+        slot.name = $"Slot {i}";
+
         slots.Add(slot);
       }
     }

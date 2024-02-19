@@ -74,15 +74,7 @@ namespace SpellStone.Inventory
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-      // check if it is a storage slot or inventory slot
-      if (transform.parent.GetComponent<InventorySlot>() != null)
-        currentSlot = transform.parent.GetComponent<InventorySlot>();
-      else if (transform.parent.GetComponent<StorageChestSlot>() != null)
-        currentSlot = transform.parent.GetComponent<StorageChestSlot>();
-      else if (transform.parent.GetComponent<ActionBarSlot>() != null)
-        currentSlot = transform.parent.GetComponent<ActionBarSlot>();
-      else
-        Debug.LogError("The parent of the item is not a storage or inventory slot");
+      currentSlot = GetComponentInParent<InventorySlot>();
 
       parentToReturnTo = transform.parent;
       transform.SetParent(transform.parent.parent);
@@ -97,19 +89,7 @@ namespace SpellStone.Inventory
 
     public void OnEndDrag(PointerEventData eventData)
     {
-      if (currentSlot != null && currentSlot.GetType() == typeof(StorageChestSlot) && eventData.pointerCurrentRaycast.gameObject != null && eventData.pointerCurrentRaycast.gameObject.GetComponent<InventorySlot>() != null)
-      {
-        InventorySlot slot = eventData.pointerCurrentRaycast.gameObject.GetComponent<InventorySlot>();
-        // Also check so the type of the inventory slot is not storage chest slot
-        if (slot != null && slot.GetType() != typeof(StorageChestSlot))
-        {
-          if (item != null)
-          {
-            OnItemDroppedToInventory?.Invoke(item);
-          }
-        }
-      }
-
+      currentSlot?.HandleItemDrop(this, eventData);
       transform.SetParent(parentToReturnTo, true);
       icon.raycastTarget = true;
     }

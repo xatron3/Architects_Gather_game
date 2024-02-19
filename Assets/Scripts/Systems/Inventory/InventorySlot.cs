@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 
 namespace SpellStone.Inventory
 {
-  public class InventorySlot : MonoBehaviour, IDropHandler
+  public class InventorySlot : MonoBehaviour, IInventorySlotHander
   {
     public void AddItem(InventoryItem newItem, InventoryItemPrefab itemIconPrefab, int quantity = 1)
     {
@@ -33,45 +33,51 @@ namespace SpellStone.Inventory
       return transform.childCount == 0;
     }
 
-    public virtual void OnDrop(PointerEventData eventData)
+    public virtual void HandleItemDrop(InventoryItemPrefab itemPrefab, PointerEventData eventData)
     {
-      if (!DropItem(eventData))
+      if (!CanDropItem(eventData))
       {
-        Debug.Log("Slot is already occupied or drop failed");
         return;
       }
 
-      // Call a protected method to allow child classes to perform additional logic
-      OnDropSuccess(eventData);
+      if (DropItem(itemPrefab, eventData))
+      {
+        Debug.Log("Item dropped successfully");
+      }
     }
 
-    // Protected method that can be overridden by child classes to perform additional logic
-    protected virtual void OnDropSuccess(PointerEventData eventData)
-    {
-      // Default implementation does nothing
-    }
-
-    // Internal method to handle dropping an item
-    private bool DropItem(PointerEventData eventData)
+    public bool CanDropItem(PointerEventData eventData)
     {
       if (transform.childCount > 0)
       {
+        Debug.Log("Slot is already occupied");
         return false; // Drop failed if the slot is already occupied
       }
 
-      GameObject droppedItem = eventData.pointerDrag;
-
-      if (droppedItem != null)
+      if (eventData.pointerCurrentRaycast.gameObject == null)
       {
-        InventoryItemPrefab inventoryItemPrefab = droppedItem.GetComponent<InventoryItemPrefab>();
-        if (inventoryItemPrefab != null)
-        {
-          inventoryItemPrefab.parentToReturnTo = transform;
-          return true; // Drop successful
-        }
+        Debug.Log("Dropped item on empty space");
+        return false; // Drop failed if the item was dropped on empty space
       }
 
-      return false; // Drop failed if no item was dropped
+      return true;
+    }
+
+    public virtual bool DropItem(InventoryItemPrefab itemPrefab, PointerEventData eventData)
+    {
+      Transform droppedTransform = eventData.pointerCurrentRaycast.gameObject.GetComponent<InventorySlot>()?.transform;
+
+      if (droppedTransform == null)
+      {
+        Debug.Log("Dropped item on non-slot object");
+        return false; // Drop failed if the item was dropped on a non-slot objec
+      }
+
+      Debug.Log("Dropping item to: " + droppedTransform.name);
+      itemPrefab.parentToReturnTo = droppedTransform;
+      itemPrefab.transform.SetParent(droppedTransform); // Set the parent of the dropped item to the new slot
+      itemPrefab.transform.localPosition = Vector3.zero; // Reset local position
+      return true; // Drop successful
     }
   }
 }

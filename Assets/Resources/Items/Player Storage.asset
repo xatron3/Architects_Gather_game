@@ -15,4 +15,7 @@ MonoBehaviour:
   itemName: Player Storage
   icon: {fileID: 21300000, guid: ad844979d770b9348bd764df11866808, type: 3}
   canEquip: 1
-  itemToPlace: {fileID: 3775620780728583451, guid: 3d8e713bb93af5a49878e3a4176b9a9a, type: 3}
+  isStackable: 0
+  maxStackSize: 1
+  currentStackSize: 1
+  itemToPlace: {fileID: 6259083192676429921, guid: 3d8e713bb93af5a49878e3a4176b9a9a, type: 3}

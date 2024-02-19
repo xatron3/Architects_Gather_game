@@ -18,7 +18,6 @@ public class PlayerSkills : MonoBehaviour, IPlayerSkills
   // Save skills when the game is closed
   private void OnApplicationQuit()
   {
-    Debug.Log("Saving skills");
     SaveSkills();
   }
 

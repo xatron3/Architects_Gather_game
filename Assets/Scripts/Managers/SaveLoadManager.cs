@@ -102,8 +102,6 @@ public class SaveLoadManager
 
     foreach (PlayerPlacedItem obj in gameObjects)
     {
-      Debug.Log("Saving " + obj.ItemName + " at " + obj.transform.position + " with rotation " + obj.transform.rotation);
-
       serializedGameObjects.Add(new SerializedPlayerPlacedItems(obj.ItemName, obj.transform.position, obj.transform.rotation));
     }
 

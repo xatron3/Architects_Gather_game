@@ -1,19 +1,28 @@
-using SpellStone.Inventory;
-using UnityEngine.EventSystems;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using System;
 
-public class StorageChestSlot : InventorySlot
-{
-  public event Action<InventoryItem> OnItemDropped;
 
-  protected override void OnDropSuccess(PointerEventData eventData)
+namespace SpellStone.Inventory
+{
+  public class StorageChestSlot : InventorySlot
   {
-    GameObject droppedItem = eventData.pointerDrag;
-    if (droppedItem != null)
+    public event Action<InventoryItem> OnItemDropped;
+
+    public override void HandleItemDrop(InventoryItemPrefab itemPrefab, PointerEventData eventData)
     {
-      InventoryItemPrefab inventoryItemPrefab = droppedItem.GetComponent<InventoryItemPrefab>();
-      OnItemDropped?.Invoke(inventoryItemPrefab.GetItem());
+      base.HandleItemDrop(itemPrefab, eventData);
+      // if (!IsSlotEmpty())
+      // {
+      //   Debug.Log("Slot is not empty");
+      //   return;
+      // }
+
+      // if (itemPrefab != null)
+      // {
+      //   InventoryItem item = itemPrefab.GetItem();
+      //   OnItemDropped?.Invoke(item);
+      // }
     }
   }
 }

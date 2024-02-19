@@ -4,8 +4,10 @@ using SpellStone.Inventory;
 
 public class PlayerActionBar : MonoBehaviour
 {
-  public ActionBarGrid actionBarGrid;
-  private ActionBarGrid playerActionBarGrid;
+  public InventoryGrid actionBarGrid;
+  public InventorySlot actionBarSlotPrefab;
+  public IInventorySlotHander actionBarSlot;
+  private InventoryGrid playerActionBarGrid;
 
   private InventoryItemPrefab itemIconPrefab;
   public InventoryItem equppedItem;
@@ -16,18 +18,23 @@ public class PlayerActionBar : MonoBehaviour
 
     if (UI_Canvas_GO != null)
     {
+
+
       playerActionBarGrid = Instantiate(actionBarGrid, transform);
       playerActionBarGrid.transform.SetParent(UI_Canvas_GO.transform.Find("Container").transform, false);
 
       itemIconPrefab = Resources.Load<InventoryItemPrefab>("Prefabs/Player/Inventory/UI_InventoryItem");
 
-      foreach (ActionBarSlot slot in playerActionBarGrid.slots)
-      {
-        slot.SetSlotText((playerActionBarGrid.slots.IndexOf(slot) + 1).ToString());
-      }
+      playerActionBarGrid.InitializeGrid(8, actionBarSlotPrefab, playerActionBarGrid.transform);
 
       playerActionBarGrid.gameObject.SetActive(true);
 
+      // Set the action bar slot text
+      for (int i = 0; i < playerActionBarGrid.slots.Count; i++)
+      {
+        ActionBarSlot slot = playerActionBarGrid.slots[i] as ActionBarSlot;
+        slot.slotText.text = (i + 1).ToString();
+      }
     }
   }
 
@@ -87,7 +94,7 @@ public class PlayerActionBar : MonoBehaviour
 
   private void EquipItem(int slotIndex)
   {
-    ActionBarSlot slot = playerActionBarGrid.slots[slotIndex];
+    ActionBarSlot slot = playerActionBarGrid.slots[slotIndex] as ActionBarSlot;
     InventoryItemPrefab itemPrefab = slot.GetComponentInChildren<InventoryItemPrefab>();
 
     if (itemPrefab != null)

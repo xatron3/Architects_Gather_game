@@ -7,7 +7,8 @@ public class StorageChest : PlayerPlacedItem, IInteractable
   public override string ItemName => "Storage Chest";
 
   public InventoryGrid playerStorageUIPrefab;
-  public StorageChestSlot playerStorageSlotPrefab;
+  public InventorySlot playerStorageSlotPrefab;
+  public IInventorySlotHander playerStorageSlot;
 
   private InventoryGrid playerStorageUI;
   public List<InventoryItem> playerStorageItems = new List<InventoryItem>();

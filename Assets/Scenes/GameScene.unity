@@ -960,7 +960,15 @@ PrefabInstance:
     - target: {fileID: 3582931893756927383, guid: 3d1ad2a2ad033c94bb17e4df8a0f75e6, type: 3}
       propertyPath: actionBarGrid
       value: 
-      objectReference: {fileID: 9214164746101266018, guid: ca9b392bb4eed8249ba20049d8f34b89, type: 3}
+      objectReference: {fileID: 6239831714070640014, guid: ca9b392bb4eed8249ba20049d8f34b89, type: 3}
+    - target: {fileID: 3582931893756927383, guid: 3d1ad2a2ad033c94bb17e4df8a0f75e6, type: 3}
+      propertyPath: actionBarSlot
+      value: 
+      objectReference: {fileID: 2147895080236625434, guid: 209ad9aef4e8d634dab84a3068516dea, type: 3}
+    - target: {fileID: 3582931893756927383, guid: 3d1ad2a2ad033c94bb17e4df8a0f75e6, type: 3}
+      propertyPath: actionBarSlotPrefab
+      value: 
+      objectReference: {fileID: 2147895080236625434, guid: 209ad9aef4e8d634dab84a3068516dea, type: 3}
     - target: {fileID: 3872832715286899580, guid: 3d1ad2a2ad033c94bb17e4df8a0f75e6, type: 3}
       propertyPath: m_Name
       value: Player

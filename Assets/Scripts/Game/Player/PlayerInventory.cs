@@ -6,6 +6,7 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
 {
   public InventoryGrid inventoryGridPrefab;
   public InventorySlot inventorySlotPrefab;
+  public IInventorySlotHander inventorySlot;
 
   private InventoryGrid inventoryGrid;
   public InventoryItemPrefab itemIconPrefab;
@@ -71,10 +72,10 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
       inventoryGrid = Instantiate(inventoryGridPrefab, inventoryGridPrefab.transform.position, Quaternion.identity);
       inventoryGrid.transform.SetParent(UI_Canvas_GO.transform.Find("Container").transform, false);
 
+      itemIconPrefab = Resources.Load<InventoryItemPrefab>("Prefabs/Player/Inventory/UI_InventoryItem");
       inventoryGrid.InitializeGrid(20, inventorySlotPrefab, inventoryGrid.transform);
 
       ItemEventManager.Instance.onItemPickedUp.AddListener(OnItemPickedUp);
-      itemIconPrefab = Resources.Load<InventoryItemPrefab>("Prefabs/Player/Inventory/UI_InventoryItem");
 
       // Load the player inventory from the save file
       List<InventoryItem> items = SaveLoadManager.LoadPlayerInventory();
