@@ -102,7 +102,7 @@ public class SaveLoadManager
 
     foreach (PlayerPlacedItem obj in gameObjects)
     {
-      serializedGameObjects.Add(new SerializedPlayerPlacedItems(obj.ItemName, obj.transform.position, obj.transform.rotation));
+      serializedGameObjects.Add(obj.Serialize());
     }
 
     BinaryFormatter formatter = new BinaryFormatter();
@@ -128,19 +128,16 @@ public class SaveLoadManager
 
       foreach (SerializedPlayerPlacedItems serializedObj in serializedGameObjects)
       {
-        PlayerPlacedItem prefab = Resources.Load<PlayerPlacedItem>("Prefabs/PlayerPlacedItems/" + serializedObj.name);
+        PlayerPlacedItem prefab = Resources.Load<PlayerPlacedItem>("Prefabs/PlayerPlacedItems/" + serializedObj.Name);
         if (prefab == null)
         {
-          Debug.LogError("Prefab not found in Resources/Prefabs/PlayerPlacedItems/" + serializedObj.name);
+          Debug.LogError("Prefab not found in Resources/Prefabs/PlayerPlacedItems/" + serializedObj.Name);
           continue;
         }
 
-        Debug.Log("Loading " + serializedObj.name + " at " + serializedObj.position.ToVector3() + " with rotation " + serializedObj.rotation.ToQuaternion());
-
-        // Create a new instance of the item and set its position and rotation wihout instantiating it in the scene
-        prefab = GameObject.Instantiate(prefab, serializedObj.position.ToVector3(), serializedObj.rotation.ToQuaternion());
-
-        loadedGameObjects.Add(prefab);
+        PlayerPlacedItem loadedItem = prefab.Deserialize(serializedObj);
+        if (loadedItem != null)
+          loadedGameObjects.Add(loadedItem);
       }
 
       return loadedGameObjects;
@@ -211,20 +208,30 @@ public class SaveLoadManager
   #endregion
 }
 
+#region Serializable Classes
+[Serializable]
+public class CustomAttributesData
+{
+  public List<StorageChestItemData> StorageChestContents;
+}
+
 [Serializable]
 public class SerializedPlayerPlacedItems
 {
-  public string name;
-  public SerializableTransform position;
-  public SerializableQuaternion rotation;
+  public string Name;
+  public SerializableTransform Position;
+  public SerializableQuaternion Rotation;
+  public CustomAttributesData CustomAttributesData; // Custom attributes storage
 
   public SerializedPlayerPlacedItems(string name, Vector3 position, Quaternion rotation)
   {
-    this.name = name;
-    this.position = new SerializableTransform(position);
-    this.rotation = new SerializableQuaternion(rotation);
+    Name = name;
+    Position = new SerializableTransform(position);
+    Rotation = new SerializableQuaternion(rotation);
+    CustomAttributesData = new CustomAttributesData();
   }
 }
+
 
 [Serializable]
 public class SerializableQuaternion
@@ -282,4 +289,4 @@ class SerializableInventoryItem
     ItemType = itemType;
   }
 }
-
+#endregion

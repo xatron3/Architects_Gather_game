@@ -101,7 +101,7 @@ namespace SpellStone.Crafting
       playerInventory.RemoveItems(item.ingredients);
       playerSkills.PerformSkillAction(this);
 
-      if (playerInventory.AddItem(item.craftableItem))
+      if (playerInventory.AddItem(item.craftableItem.GetCopy()))
       {
         Debug.Log("Item crafted and added to inventory");
       }

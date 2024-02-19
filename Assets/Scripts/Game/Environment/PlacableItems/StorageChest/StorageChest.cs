@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using SpellStone.Inventory;
 using UnityEngine;
+using System;
 
 public class StorageChest : PlayerPlacedItem, IInteractable
 {
@@ -64,5 +65,79 @@ public class StorageChest : PlayerPlacedItem, IInteractable
         playerStorageUI = null;
       }
     }
+  }
+
+  public override SerializedPlayerPlacedItems Serialize()
+  {
+    SerializedPlayerPlacedItems serializedItem = new SerializedPlayerPlacedItems(ItemName, transform.position, transform.rotation);
+
+    // Serialize custom attributes
+    if (storageChestItems.Count > 0)
+    {
+      List<StorageChestItemData> itemsData = new List<StorageChestItemData>();
+      foreach (var item in storageChestItems)
+      {
+        // Serialize only the item name and current stack size
+        StorageChestItemData itemData = new StorageChestItemData(item.itemName, item.currentStackSize);
+        itemsData.Add(itemData);
+      }
+
+      serializedItem.CustomAttributesData.StorageChestContents = itemsData;
+    }
+
+    return serializedItem;
+  }
+
+  public override PlayerPlacedItem Deserialize(SerializedPlayerPlacedItems serializedItem)
+  {
+    // Instantiate the item
+    StorageChest newItem = Instantiate(this, serializedItem.Position.ToVector3(), serializedItem.Rotation.ToQuaternion());
+
+    // Deserialize custom attributes
+    if (serializedItem.CustomAttributesData.StorageChestContents != null)
+    {
+      List<StorageChestItemData> itemsData = serializedItem.CustomAttributesData.StorageChestContents;
+      foreach (var itemData in itemsData)
+      {
+        InventoryItem item = Resources.Load<InventoryItem>("Items/" + itemData.itemName);
+        if (item == null)
+        {
+          Debug.LogError("Item not found in Resources/Items/" + itemData.itemName);
+          continue;
+        }
+
+        item = item.GetCopy();
+        item.currentStackSize = itemData.currentStackSize;
+        newItem.storageChestItems.Add(item);
+      }
+    }
+
+    // Other custom attributes deserialization can be added similarly
+    return newItem;
+  }
+
+}
+
+[Serializable]
+public class StorageChestItemData
+{
+  public string itemName;
+  public int currentStackSize;
+
+  public StorageChestItemData(string itemName, int currentStackSize)
+  {
+    this.itemName = itemName;
+    this.currentStackSize = currentStackSize;
+  }
+}
+
+[Serializable]
+public class StorageChestItemsData
+{
+  public List<StorageChestItemData> itemsData;
+
+  public StorageChestItemsData(List<StorageChestItemData> itemsData)
+  {
+    this.itemsData = itemsData;
   }
 }
