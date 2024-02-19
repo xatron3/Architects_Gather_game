@@ -31,7 +31,7 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
   {
     if (inventoryGrid.GetTotalItems() < inventoryGrid.slots.Count)
     {
-      AddItem(item.inventoryItem);
+      AddItem(item.inventoryItem.GetCopy(), item.inventoryItem.currentStackSize);
       Destroy(item.gameObject);
     }
     else
@@ -82,7 +82,7 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
       {
         foreach (InventoryItem item in items)
         {
-          AddItem(item, item.currentStackSize);
+          AddItem(item.GetCopy(), item.currentStackSize);
         }
       }
 
