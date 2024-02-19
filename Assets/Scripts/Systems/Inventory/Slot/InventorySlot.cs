@@ -1,14 +1,11 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
-using System;
-using System.Collections.Generic;
-using SpellStone.ActionBar;
 
 namespace SpellStone.Inventory
 {
   public class InventorySlot : MonoBehaviour, IInventorySlotHander
   {
-    private InventoryGrid parentGrid;
+    public InventoryGrid parentGrid;
 
     public virtual void AddItem(InventoryItem newItem, InventoryItemPrefab itemIconPrefab, int quantity = 1)
     {
@@ -79,27 +76,12 @@ namespace SpellStone.Inventory
         return false; // Drop failed if the item was dropped on a non-slot object
       }
 
-      // Based on the eventData we know what slot the item was dropped on
       InventorySlot droppedSlot = droppedTransform.GetComponent<InventorySlot>();
-      InventorySlot previousSlot = itemPrefab.parentToReturnTo.GetComponent<InventorySlot>();
+      InventorySlotVisitor visitor = new InventorySlotVisitor(itemPrefab);
 
-      // Check if the dropped slot is an ActionBarSlot and the item can't be equipped
-      if (droppedSlot is ActionBarSlot && !itemPrefab.GetItem().canEquip)
-      {
-        Debug.Log("Cannot equip this item to ActionBar because canEquip is false.");
-        return false;
-      }
+      droppedSlot.Accept(visitor);
 
-      droppedSlot.parentGrid.items.Add(itemPrefab.GetItem());
-      previousSlot.parentGrid.items.Remove(itemPrefab.GetItem());
-
-      itemPrefab.GetItem().SetSlotIndex(droppedSlot.GetSlotIndex());
-
-      Debug.Log("Dropping item to: " + droppedTransform.name);
-      itemPrefab.parentToReturnTo = droppedTransform;
-      itemPrefab.transform.SetParent(droppedTransform); // Set the parent of the dropped item to the new slot
-      itemPrefab.transform.localPosition = Vector3.zero; // Reset local position
-      return true; // Drop successful
+      return visitor.DropSuccessful;
     }
 
     public void SetParentGrid(InventoryGrid grid)
@@ -110,6 +92,11 @@ namespace SpellStone.Inventory
     public int GetSlotIndex()
     {
       return transform.GetSiblingIndex();
+    }
+
+    public virtual void Accept(ISlotVisitor visitor)
+    {
+      visitor.Visit(this);
     }
   }
 }

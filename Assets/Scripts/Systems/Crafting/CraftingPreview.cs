@@ -3,7 +3,6 @@ using SpellStone.Inventory;
 using System.Collections.Generic;
 using System;
 using UnityEngine.UI;
-using SpellStone.ActionBar;
 
 namespace SpellStone.Crafting
 {

@@ -1,5 +1,4 @@
 using UnityEngine;
-using SpellStone.ActionBar;
 using SpellStone.Inventory;
 using System.Collections.Generic;
 
