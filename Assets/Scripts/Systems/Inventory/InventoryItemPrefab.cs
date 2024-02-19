@@ -3,7 +3,6 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 using System;
-using SpellStone.ActionBar;
 
 namespace SpellStone.Inventory
 {
