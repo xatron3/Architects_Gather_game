@@ -4,17 +4,5 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes:
-  - enabled: 1
-    path: Assets/Resources/Scenes/MainMenu/MainMenu.unity
-    guid: 99978cf2a85a350488ff55fcd21124d0
-  - enabled: 1
-    path: Assets/Resources/Scenes/PREGame/PREGame.unity
-    guid: dd8f58e6e19ba7544bd9c12a682eac7a
-  - enabled: 1
-    path: Assets/Resources/Scenes/Realms/Realm_1.unity
-    guid: d136239ff18606d4b8be0a2f3b09f068
-  - enabled: 1
-    path: Assets/Resources/Scenes/Realms/Realm_2.unity
-    guid: 73f3dcf0feade74499579b81e7d49ebc
+  m_Scenes: []
   m_configObjects: {}

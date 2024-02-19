@@ -39,7 +39,7 @@ public class StorageChest : MonoBehaviour, IInteractable
   public void AddItem(InventoryItem item)
   {
     // Check if the item is already in the storage
-    if (!playerStorageItems.Exists(i => i.uniqueID == item.uniqueID))
+    if (!playerStorageItems.Exists(i => i.GetUniqueID() == item.GetUniqueID()))
     {
       playerStorageItems.Add(item);
     }
@@ -48,7 +48,7 @@ public class StorageChest : MonoBehaviour, IInteractable
   public void RemoveItem(InventoryItem item)
   {
     // Remove the item from the storage based on its unique identifier
-    InventoryItem itemToRemove = playerStorageItems.Find(i => i.uniqueID == item.uniqueID);
+    InventoryItem itemToRemove = playerStorageItems.Find(i => i.GetUniqueID() == item.GetUniqueID());
     if (itemToRemove != null)
     {
       playerStorageItems.Remove(itemToRemove);

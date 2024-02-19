@@ -1,5 +1,7 @@
 using UnityEngine;
+using System;
 
+[Serializable]
 public class SkillMining : SkillBase
 {
   public override void SetupSkill(int experience, int skillLevel)

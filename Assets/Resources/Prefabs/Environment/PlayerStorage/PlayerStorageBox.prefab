@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6213992740397534196}
   - component: {fileID: 6259083192676429921}
   m_Layer: 0
-  m_Name: PlayerStorage
+  m_Name: PlayerStorageBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

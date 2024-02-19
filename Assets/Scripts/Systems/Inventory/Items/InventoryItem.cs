@@ -21,6 +21,11 @@ namespace SpellStone.Inventory
       uniqueID = Guid.NewGuid();
     }
 
+    public Guid GetUniqueID()
+    {
+      return uniqueID;
+    }
+
     public virtual void Use()
     {
       Debug.Log("Using " + itemName);

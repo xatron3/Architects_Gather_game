@@ -17,9 +17,7 @@ public class Item : MonoBehaviour
       rb.useGravity = false;
       rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezePositionY;
 
-      float yOffset = transform.position.y + transform.localScale.y / 2;
-
-      transform.position = new Vector3(transform.position.x, yOffset, transform.position.z);
+      transform.position = new Vector3(transform.position.x, 0, transform.position.z);
     }
   }
 }

@@ -15,6 +15,13 @@ public class PlayerSkills : MonoBehaviour, IPlayerSkills
     InitializeSkills();
   }
 
+  // Save skills when the game is closed
+  private void OnApplicationQuit()
+  {
+    Debug.Log("Saving skills");
+    SaveSkills();
+  }
+
   private void Update()
   {
     if (Input.GetKeyDown(KeyCode.K))
@@ -71,6 +78,19 @@ public class PlayerSkills : MonoBehaviour, IPlayerSkills
 
   private void InitializeSkills()
   {
+    List<SkillBase> loadedSkills = SaveLoadManager.LoadPlayerSkills();
+
+    if (loadedSkills != null)
+    {
+      skills = loadedSkills;
+      skillContainer.CreateSkillRows(skills);
+      return;
+    }
+    else
+    {
+      Debug.Log("No skills found. Creating new skills.");
+    }
+
     // Instantiate WoodcuttingSkill
     SkillWoodcutting woodcuttingSkill = new SkillWoodcutting();
     woodcuttingSkill.SetupSkill(0, 1);
@@ -86,5 +106,10 @@ public class PlayerSkills : MonoBehaviour, IPlayerSkills
 
     // Populate UI with WoodcuttingSkill
     skillContainer.CreateSkillRows(skills);
+  }
+
+  public void SaveSkills()
+  {
+    SaveLoadManager.SavePlayerSkills(skills);
   }
 }

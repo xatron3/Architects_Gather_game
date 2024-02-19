@@ -1,6 +1,8 @@
 using UnityEngine;
 using SpellStone.Messages;
+using System;
 
+[Serializable]
 public abstract class SkillBase : ISkill
 {
   public int experience
