@@ -3,6 +3,7 @@ using SpellStone.Messages;
 
 public class BigStoneRock : MonoBehaviour, IInteractable, ISkillProvider
 {
+  public float InteractionRadius => 3f;
   public ItemPickupable stonePrefab;
   public string Tooltip => "Mine Big Stone Rock";
 
@@ -59,6 +60,12 @@ public class BigStoneRock : MonoBehaviour, IInteractable, ISkillProvider
   public void OnMoveOutOfRange()
   {
     // Do nothing
+  }
+
+  public void OnDrawGizmos()
+  {
+    Gizmos.color = Color.yellow;
+    Gizmos.DrawWireSphere(transform.position, InteractionRadius);
   }
 
   public int RequiredLevel => 2;

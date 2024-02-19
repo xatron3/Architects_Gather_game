@@ -4,14 +4,13 @@ using System.Collections.Generic;
 
 public class CraftingTable : MonoBehaviour, IInteractable
 {
+  public float InteractionRadius => 4f;
   public List<CraftingItem> craftingItems = new List<CraftingItem>();
   public CraftingUI craftingTableUIPrefab;
   private CraftingUI craftingTableUI;
 
   private PlayerSkills playerSkills;
   private PlayerInventory playerInventory;
-
-  private Player player = null;
 
   public string Tooltip => "Open crafting table";
 
@@ -52,5 +51,11 @@ public class CraftingTable : MonoBehaviour, IInteractable
 
     Destroy(craftingTableUI.gameObject);
     craftingTableUI = null;
+  }
+
+  public void OnDrawGizmos()
+  {
+    Gizmos.color = Color.yellow;
+    Gizmos.DrawWireSphere(transform.position, InteractionRadius);
   }
 }

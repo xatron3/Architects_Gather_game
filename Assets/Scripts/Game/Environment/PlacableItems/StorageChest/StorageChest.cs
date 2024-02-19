@@ -5,6 +5,9 @@ using System;
 
 public class StorageChest : PlayerPlacedItem, IInteractable
 {
+  public float InteractionRadius => 3f;
+  public string Tooltip => "Open player storage";
+
   public override string ItemName => "Storage Chest";
 
   public InventoryGrid playerStorageUIPrefab;
@@ -16,7 +19,6 @@ public class StorageChest : PlayerPlacedItem, IInteractable
 
   private Player player = null;
 
-  public string Tooltip => "Open player storage";
 
   public void Interact()
   {
@@ -32,11 +34,6 @@ public class StorageChest : PlayerPlacedItem, IInteractable
     foreach (InventoryItem item in storageChestItems)
     {
       playerStorageUI.AddItem(item, Resources.Load<InventoryItemPrefab>("Prefabs/Player/Inventory/UI_InventoryItem"), item.currentStackSize, true, item.slotIndex);
-    }
-
-    foreach (var itemPrefab in playerStorageUI.GetComponentsInChildren<InventoryItemPrefab>())
-    {
-      itemPrefab.OnItemDroppedToInventory += RemoveItem;
     }
   }
 
@@ -125,6 +122,12 @@ public class StorageChest : PlayerPlacedItem, IInteractable
   public Vector3 GetPosition()
   {
     return transform.position;
+  }
+
+  public void OnDrawGizmos()
+  {
+    Gizmos.color = Color.yellow;
+    Gizmos.DrawWireSphere(transform.position, InteractionRadius);
   }
 }
 

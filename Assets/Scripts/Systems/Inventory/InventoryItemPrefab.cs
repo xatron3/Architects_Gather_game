@@ -8,8 +8,6 @@ namespace SpellStone.Inventory
 {
   public class InventoryItemPrefab : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
   {
-    public event Action<InventoryItem> OnItemDroppedToInventory;
-
     [HideInInspector] public Transform parentToReturnTo = null;
     public Image icon { get; private set; }
     public TMP_Text stackSizeText { get; private set; }

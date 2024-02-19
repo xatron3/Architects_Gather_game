@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class ItemPickupable : Item, IInteractable
 {
+  public float InteractionRadius => 3f;
   public InventoryItem inventoryItem;
 
   public void Interact()
@@ -28,5 +29,11 @@ public class ItemPickupable : Item, IInteractable
   public Vector3 GetPosition()
   {
     return transform.position;
+  }
+
+  public void OnDrawGizmos()
+  {
+    Gizmos.color = Color.yellow;
+    Gizmos.DrawWireSphere(transform.position, InteractionRadius);
   }
 }

@@ -3,9 +3,10 @@ using SpellStone.Messages;
 
 public class SmallTree : MonoBehaviour, IInteractable, ISkillProvider
 {
-  public ItemPickupable logPrefab;
+  public float InteractionRadius => 3f;
   public string Tooltip => "Chop down tree";
 
+  public ItemPickupable logPrefab;
   private PlayerInventory playerInventory;
 
   public void Interact()
@@ -58,6 +59,12 @@ public class SmallTree : MonoBehaviour, IInteractable, ISkillProvider
   public void OnMoveOutOfRange()
   {
     // Do nothing
+  }
+
+  public void OnDrawGizmos()
+  {
+    Gizmos.color = Color.green;
+    Gizmos.DrawWireSphere(transform.position, InteractionRadius);
   }
 
   public int RequiredLevel => 1;
