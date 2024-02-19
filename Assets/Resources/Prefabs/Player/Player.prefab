@@ -144,7 +144,7 @@ Transform:
   m_Children:
   - {fileID: 7378222639275694406}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6224061894034363879
 MeshFilter:
@@ -215,7 +215,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1.13, y: 1, z: 1.15}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &4971450851080580131
 Rigidbody:
@@ -226,7 +226,7 @@ Rigidbody:
   m_GameObject: {fileID: 3872832715286899580}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 0.1
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -268,6 +268,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdb7d57252af02a4b994d62c48508215, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  environmentLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &8322550625337025433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -297,6 +300,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactionRadius: 3
   interactableText: {fileID: 5642735344281588823}
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 192
 --- !u!114 &1488628964442599802
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -55,6 +55,11 @@ public class SmallTree : MonoBehaviour, IInteractable, ISkillProvider
     return transform.position;
   }
 
+  public void OnMoveOutOfRange()
+  {
+    // Do nothing
+  }
+
   public int RequiredLevel => 1;
 
   public bool HasRequiredItem => playerInventory.ContainsItem("Stone Axe");

@@ -957,25 +957,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2807255351188825395, guid: 3d1ad2a2ad033c94bb17e4df8a0f75e6, type: 3}
-      propertyPath: m_Size.x
-      value: 1.13
-      objectReference: {fileID: 0}
-    - target: {fileID: 2807255351188825395, guid: 3d1ad2a2ad033c94bb17e4df8a0f75e6, type: 3}
-      propertyPath: m_Size.z
-      value: 1.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 2807255351188825395, guid: 3d1ad2a2ad033c94bb17e4df8a0f75e6, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3872832715286899580, guid: 3d1ad2a2ad033c94bb17e4df8a0f75e6, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 4971450851080580131, guid: 3d1ad2a2ad033c94bb17e4df8a0f75e6, type: 3}
-      propertyPath: m_Drag
-      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 8681910300537303083, guid: 3d1ad2a2ad033c94bb17e4df8a0f75e6, type: 3}
       propertyPath: m_RootOrder
@@ -4931,14 +4915,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1280484974}
     m_Modifications:
-    - target: {fileID: 1578275675971060736, guid: 3d34c9991ec76fc449d2962dc4c0f8ca, type: 3}
-      propertyPath: craftingItems.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1578275675971060736, guid: 3d34c9991ec76fc449d2962dc4c0f8ca, type: 3}
-      propertyPath: craftingItems.Array.data[3]
-      value: 
-      objectReference: {fileID: 11400000, guid: 678e31576e4d4a84fbe2d68fbfe024b7, type: 2}
     - target: {fileID: 5186982916624734167, guid: 3d34c9991ec76fc449d2962dc4c0f8ca, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -4949,7 +4925,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5186982916624734167, guid: 3d34c9991ec76fc449d2962dc4c0f8ca, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.4639169
+      value: -1.1
       objectReference: {fileID: 0}
     - target: {fileID: 5186982916624734167, guid: 3d34c9991ec76fc449d2962dc4c0f8ca, type: 3}
       propertyPath: m_LocalPosition.z

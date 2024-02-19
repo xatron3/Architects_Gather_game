@@ -56,6 +56,11 @@ public class BigStoneRock : MonoBehaviour, IInteractable, ISkillProvider
     return transform.position;
   }
 
+  public void OnMoveOutOfRange()
+  {
+    // Do nothing
+  }
+
   public int RequiredLevel => 2;
 
   public bool HasRequiredItem => playerInventory.ContainsItem("Stone Pickaxe");

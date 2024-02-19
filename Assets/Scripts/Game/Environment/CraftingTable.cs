@@ -24,6 +24,9 @@ public class CraftingTable : MonoBehaviour, IInteractable
     if (playerInventory == null)
       playerInventory = FindObjectOfType<PlayerInventory>();
 
+    if (craftingTableUI != null)
+      return;
+
     Transform UI_Container = GameObject.Find("UI_Elements/Container").transform;
     craftingTableUI = Instantiate(craftingTableUIPrefab, UI_Container, false);
 
@@ -37,31 +40,17 @@ public class CraftingTable : MonoBehaviour, IInteractable
     craftingPreviewUI.AddEventListners();
   }
 
-  private void Update()
-  {
-    if (player == null)
-    {
-      player = FindObjectOfType<Player>();
-    }
-
-    if (player != null)
-    {
-      if (craftingTableUI != null)
-      {
-        if (craftingTableUI.gameObject.activeSelf)
-        {
-          if (Vector3.Distance(player.transform.position, transform.position) > 3f)
-          {
-            Destroy(craftingTableUI.gameObject);
-            craftingTableUI = null;
-          }
-        }
-      }
-    }
-  }
-
   public Vector3 GetPosition()
   {
     return transform.position;
+  }
+
+  public void OnMoveOutOfRange()
+  {
+    if (craftingTableUI == null)
+      return;
+
+    Destroy(craftingTableUI.gameObject);
+    craftingTableUI = null;
   }
 }

@@ -20,6 +20,9 @@ public class StorageChest : PlayerPlacedItem, IInteractable
 
   public void Interact()
   {
+    if (playerStorageUI != null)
+      return;
+
     Transform UI_Container = GameObject.Find("UI_Elements/Container").transform;
 
     playerStorageUI = Instantiate(playerStorageUIPrefab, UI_Container, false);
@@ -56,28 +59,17 @@ public class StorageChest : PlayerPlacedItem, IInteractable
     }
   }
 
-  private void Update()
+  public void OnMoveOutOfRange()
   {
     if (player == null)
-    {
       player = FindObjectOfType<Player>();
-    }
 
-    if (player != null)
-    {
-      if (playerStorageUI != null)
-      {
-        if (playerStorageUI.gameObject.activeSelf)
-        {
-          if (Vector3.Distance(player.transform.position, transform.position) > 3f)
-          {
-            storageChestItems = playerStorageUI.items;
-            Destroy(playerStorageUI.gameObject);
-            playerStorageUI = null;
-          }
-        }
-      }
-    }
+    if (playerStorageUI == null)
+      return;
+
+    storageChestItems = playerStorageUI.items;
+    Destroy(playerStorageUI.gameObject);
+    playerStorageUI = null;
   }
 
   public override SerializedPlayerPlacedItems Serialize()

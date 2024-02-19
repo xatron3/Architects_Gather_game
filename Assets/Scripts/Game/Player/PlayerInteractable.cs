@@ -23,7 +23,6 @@ public class PlayerInteractable : MonoBehaviour
     {
       interactablesInRange[0].Interact();
       interactablesInRange.RemoveAt(0);
-      Debug.Log("Interacted with object " + interactablesInRange.Count);
 
       if (interactablesInRange.Count > 0)
         UpdateInteractableText();
@@ -57,6 +56,7 @@ public class PlayerInteractable : MonoBehaviour
       float distance = Vector3.Distance(transform.position, interactablesInRange[i].GetPosition());
       if (distance > interactionRadius)
       {
+        interactablesInRange[i].OnMoveOutOfRange();
         interactablesInRange.RemoveAt(i);
         if (interactablesInRange.Count == 0)
           SetCanvasAlpha(0);

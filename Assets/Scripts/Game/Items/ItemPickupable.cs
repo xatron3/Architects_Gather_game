@@ -20,6 +20,11 @@ public class ItemPickupable : Item, IInteractable
     ItemEventManager.Instance.onItemPickedUp.Invoke(this);
   }
 
+  public void OnMoveOutOfRange()
+  {
+    // Do nothing
+  }
+
   public Vector3 GetPosition()
   {
     return transform.position;
