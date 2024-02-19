@@ -1,3 +1,6 @@
+using UnityEngine;
+using SpellStone.Messages;
+
 public abstract class SkillBase : ISkill
 {
   public int experience
@@ -20,12 +23,14 @@ public abstract class SkillBase : ISkill
     {
       experience -= GetNextLevelExperience();
       skillLevel++;
+      MessagingService.Instance.ShowMessage(GetName() + " leveled up to " + GetSkillLevel(), Color.yellow);
     }
   }
 
   public void AddExperience(int experience)
   {
     this.experience += experience;
+    MessagingService.Instance.ShowMessage("+" + experience + " " + GetName() + " experience", Color.magenta);
   }
 
   public abstract bool HasRequirementsMet();

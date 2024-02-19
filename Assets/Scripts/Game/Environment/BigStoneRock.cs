@@ -1,5 +1,5 @@
 using UnityEngine;
-using SpellStone.Skills;
+using SpellStone.Messages;
 
 public class BigStoneRock : MonoBehaviour, IInteractable, ISkillProvider
 {
@@ -15,13 +15,13 @@ public class BigStoneRock : MonoBehaviour, IInteractable, ISkillProvider
 
     if (!HasRequiredItem)
     {
-      Debug.Log("You need a stone pickaxe to mine this rock.");
+      MessagingService.Instance.ShowMessage("You need a stone pickaxe to mine this rock.", Color.red);
       return;
     }
 
     if (skill.GetSkill("Mining").GetSkillLevel() < RequiredLevel)
     {
-      Debug.Log("You need a higher mining level to mine this rock.");
+      MessagingService.Instance.ShowMessage($"You need level {RequiredLevel} mining to mine this rock.", Color.red);
       return;
     }
 

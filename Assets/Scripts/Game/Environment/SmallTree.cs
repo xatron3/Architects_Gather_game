@@ -1,4 +1,5 @@
 using UnityEngine;
+using SpellStone.Messages;
 
 public class SmallTree : MonoBehaviour, IInteractable, ISkillProvider
 {
@@ -14,13 +15,13 @@ public class SmallTree : MonoBehaviour, IInteractable, ISkillProvider
 
     if (!HasRequiredItem)
     {
-      Debug.Log("You need a stone axe to chop down this tree.");
+      MessagingService.Instance.ShowMessage("You need a stone axe to chop down this tree.", Color.red);
       return;
     }
 
     if (skill.GetSkill("Woodcutting").GetSkillLevel() < RequiredLevel)
     {
-      Debug.Log("You need a higher woodcutting level to chop down this tree.");
+      MessagingService.Instance.ShowMessage($"You need level {RequiredLevel} woodcutting to chop down this tree.", Color.red);
       return;
     }
 
