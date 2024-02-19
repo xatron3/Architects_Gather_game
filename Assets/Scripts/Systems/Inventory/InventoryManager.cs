@@ -5,10 +5,10 @@ namespace SpellStone.Inventory
 {
   public class InventoryManager
   {
-    public bool AddItem(InventoryGrid inventoryGrid, InventoryItem newItem, InventoryItemPrefab itemIconPrefab, int quantity = 1)
+    public bool AddItem(InventoryGrid inventoryGrid, InventoryItem newItem, InventoryItemPrefab itemIconPrefab, int quantity = 1, bool lookForUnique = false, int slotIndex = -1)
     {
       // Add the item instance to the inventory grid
-      return inventoryGrid.AddItem(newItem, itemIconPrefab, quantity);
+      return inventoryGrid.AddItem(newItem, itemIconPrefab, quantity, lookForUnique, slotIndex);
     }
 
     public void RemoveItem(InventoryGrid inventoryGrid, InventoryItem item)

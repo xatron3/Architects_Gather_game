@@ -83,7 +83,7 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
       {
         foreach (InventoryItem item in items)
         {
-          AddItem(item.GetCopy(), item.currentStackSize);
+          AddItem(item.GetCopy(), item.currentStackSize, false, item.slotIndex);
         }
       }
 
@@ -93,9 +93,9 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
       Debug.LogError("UI_Canvas not found. Could not create inventory grid.");
   }
 
-  public bool AddItem(InventoryItem item, int quantity = 1)
+  public bool AddItem(InventoryItem item, int quantity = 1, bool lookForUnique = false, int slotIndex = -1)
   {
-    return inventoryManager.AddItem(inventoryGrid, item, itemIconPrefab, quantity);
+    return inventoryManager.AddItem(inventoryGrid, item, itemIconPrefab, quantity, lookForUnique, slotIndex);
   }
 
   public void RemoveItem(InventoryItem item)

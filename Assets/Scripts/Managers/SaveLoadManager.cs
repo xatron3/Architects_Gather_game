@@ -79,6 +79,7 @@ public class SaveLoadManager
 
         // Create a new instance of the item and set its stack size
         item = item.GetCopy();
+        item.SetSlotIndex(serializableItem.SlotIndex);
         item.currentStackSize = serializableItem.CurrentStackSize;
         items.Add(item);
       }

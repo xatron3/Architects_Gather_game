@@ -26,7 +26,7 @@ public class StorageChest : PlayerPlacedItem, IInteractable
 
     foreach (InventoryItem item in storageChestItems)
     {
-      playerStorageUI.AddItem(item, Resources.Load<InventoryItemPrefab>("Prefabs/Player/Inventory/UI_InventoryItem"), item.currentStackSize, true);
+      playerStorageUI.AddItem(item, Resources.Load<InventoryItemPrefab>("Prefabs/Player/Inventory/UI_InventoryItem"), item.currentStackSize, true, item.slotIndex);
     }
 
     foreach (var itemPrefab in playerStorageUI.GetComponentsInChildren<InventoryItemPrefab>())
@@ -78,7 +78,7 @@ public class StorageChest : PlayerPlacedItem, IInteractable
       foreach (var item in storageChestItems)
       {
         // Serialize only the item name and current stack size
-        StorageChestItemData itemData = new StorageChestItemData(item.itemName, item.currentStackSize);
+        StorageChestItemData itemData = new StorageChestItemData(item.itemName, item.currentStackSize, item.slotIndex);
         itemsData.Add(itemData);
       }
 
@@ -99,15 +99,16 @@ public class StorageChest : PlayerPlacedItem, IInteractable
       List<StorageChestItemData> itemsData = serializedItem.CustomAttributesData.StorageChestContents;
       foreach (var itemData in itemsData)
       {
-        InventoryItem item = Resources.Load<InventoryItem>("Items/" + itemData.itemName);
+        InventoryItem item = Resources.Load<InventoryItem>("Items/" + itemData.ItemName);
         if (item == null)
         {
-          Debug.LogError("Item not found in Resources/Items/" + itemData.itemName);
+          Debug.LogError("Item not found in Resources/Items/" + itemData.ItemName);
           continue;
         }
 
         item = item.GetCopy();
-        item.currentStackSize = itemData.currentStackSize;
+        item.SetSlotIndex(itemData.SlotIndex);
+        item.currentStackSize = itemData.CurrentStackSize;
         newItem.storageChestItems.Add(item);
       }
     }
@@ -121,13 +122,15 @@ public class StorageChest : PlayerPlacedItem, IInteractable
 [Serializable]
 public class StorageChestItemData
 {
-  public string itemName;
-  public int currentStackSize;
+  public string ItemName;
+  public int CurrentStackSize;
+  public int SlotIndex;
 
-  public StorageChestItemData(string itemName, int currentStackSize)
+  public StorageChestItemData(string itemName, int currentStackSize, int slotIndex)
   {
-    this.itemName = itemName;
-    this.currentStackSize = currentStackSize;
+    this.ItemName = itemName;
+    this.CurrentStackSize = currentStackSize;
+    this.SlotIndex = slotIndex;
   }
 }
 

@@ -6,7 +6,7 @@ public interface IPlayerInventory
   bool ContainsItem(InventoryItem item);
   bool ContainsItems(List<InventoryItem> items);
 
-  bool AddItem(InventoryItem item, int quantity = 1);
+  bool AddItem(InventoryItem item, int quantity = 1, bool lookForUnique = false, int slotIndex = -1);
 
   void RemoveItem(InventoryItem item);
   void RemoveItems(List<InventoryItem> items);
