@@ -14,10 +14,15 @@ public class StorageChest : PlayerPlacedItem, IInteractable
   private InventoryGrid playerStorageUI;
   public List<InventoryItem> storageChestItems = new List<InventoryItem>();
 
+  private Player player = null;
+
   public string Tooltip => "Open player storage";
 
   public void Interact()
   {
+    if (playerStorageUI != null)
+      return;
+
     Transform UI_Container = GameObject.Find("UI_Elements/Container").transform;
 
     playerStorageUI = Instantiate(playerStorageUIPrefab, UI_Container, false);
@@ -54,17 +59,17 @@ public class StorageChest : PlayerPlacedItem, IInteractable
     }
   }
 
-  private void OnTriggerExit(Collider other)
+  public void OnMoveOutOfRange()
   {
-    if (other.CompareTag("Player"))
-    {
-      if (playerStorageUI != null)
-      {
-        storageChestItems = playerStorageUI.items;
-        Destroy(playerStorageUI.gameObject);
-        playerStorageUI = null;
-      }
-    }
+    if (player == null)
+      player = FindObjectOfType<Player>();
+
+    if (playerStorageUI == null)
+      return;
+
+    storageChestItems = playerStorageUI.items;
+    Destroy(playerStorageUI.gameObject);
+    playerStorageUI = null;
   }
 
   public override SerializedPlayerPlacedItems Serialize()
@@ -117,6 +122,10 @@ public class StorageChest : PlayerPlacedItem, IInteractable
     return newItem;
   }
 
+  public Vector3 GetPosition()
+  {
+    return transform.position;
+  }
 }
 
 [Serializable]

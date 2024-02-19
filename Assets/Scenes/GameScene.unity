@@ -957,26 +957,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3582931893756927383, guid: 3d1ad2a2ad033c94bb17e4df8a0f75e6, type: 3}
-      propertyPath: actionBarGrid
-      value: 
-      objectReference: {fileID: 6239831714070640014, guid: ca9b392bb4eed8249ba20049d8f34b89, type: 3}
-    - target: {fileID: 3582931893756927383, guid: 3d1ad2a2ad033c94bb17e4df8a0f75e6, type: 3}
-      propertyPath: actionBarSlot
-      value: 
-      objectReference: {fileID: 2147895080236625434, guid: 209ad9aef4e8d634dab84a3068516dea, type: 3}
-    - target: {fileID: 3582931893756927383, guid: 3d1ad2a2ad033c94bb17e4df8a0f75e6, type: 3}
-      propertyPath: actionBarSlotPrefab
-      value: 
-      objectReference: {fileID: 2147895080236625434, guid: 209ad9aef4e8d634dab84a3068516dea, type: 3}
     - target: {fileID: 3872832715286899580, guid: 3d1ad2a2ad033c94bb17e4df8a0f75e6, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 8322550625337025433, guid: 3d1ad2a2ad033c94bb17e4df8a0f75e6, type: 3}
-      propertyPath: inventorySlotPrefab
-      value: 
-      objectReference: {fileID: -4101563308793355892, guid: 45b5662a79641c546bce57ebd3ad3e62, type: 3}
     - target: {fileID: 8681910300537303083, guid: 3d1ad2a2ad033c94bb17e4df8a0f75e6, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -4931,14 +4915,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1280484974}
     m_Modifications:
-    - target: {fileID: 1578275675971060736, guid: 3d34c9991ec76fc449d2962dc4c0f8ca, type: 3}
-      propertyPath: craftingItems.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1578275675971060736, guid: 3d34c9991ec76fc449d2962dc4c0f8ca, type: 3}
-      propertyPath: craftingItems.Array.data[3]
-      value: 
-      objectReference: {fileID: 11400000, guid: 678e31576e4d4a84fbe2d68fbfe024b7, type: 2}
     - target: {fileID: 5186982916624734167, guid: 3d34c9991ec76fc449d2962dc4c0f8ca, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -4949,7 +4925,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5186982916624734167, guid: 3d34c9991ec76fc449d2962dc4c0f8ca, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.4639169
+      value: -1.1
       objectReference: {fileID: 0}
     - target: {fileID: 5186982916624734167, guid: 3d34c9991ec76fc449d2962dc4c0f8ca, type: 3}
       propertyPath: m_LocalPosition.z

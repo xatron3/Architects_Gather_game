@@ -50,6 +50,16 @@ public class StoneRock : MonoBehaviour, IInteractable, ISkillProvider
     return 50;
   }
 
+  public Vector3 GetPosition()
+  {
+    return transform.position;
+  }
+
+  public void OnMoveOutOfRange()
+  {
+    // Do nothing
+  }
+
   public int RequiredLevel => 1;
 
   public bool HasRequiredItem => playerInventory.ContainsItem("Stone Pickaxe");

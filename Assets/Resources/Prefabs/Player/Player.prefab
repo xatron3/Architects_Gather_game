@@ -122,6 +122,7 @@ GameObject:
   - component: {fileID: 7668315351857400377}
   - component: {fileID: 1488628964442599802}
   - component: {fileID: 3582931893756927383}
+  - component: {fileID: 7847786132928760430}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -214,7 +215,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1.13, y: 1, z: 1.15}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &4971450851080580131
 Rigidbody:
@@ -225,7 +226,7 @@ Rigidbody:
   m_GameObject: {fileID: 3872832715286899580}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 0.1
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -267,6 +268,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdb7d57252af02a4b994d62c48508215, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  environmentLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &8322550625337025433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -280,6 +284,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryGridPrefab: {fileID: 1922017668588925091, guid: fbe3faa784ffb2f42addb014f713da51, type: 3}
+  inventorySlotPrefab: {fileID: -4101563308793355892, guid: 45b5662a79641c546bce57ebd3ad3e62, type: 3}
+  itemIconPrefab: {fileID: 0}
 --- !u!114 &7668315351857400377
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,6 +300,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactionRadius: 3
   interactableText: {fileID: 5642735344281588823}
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 192
 --- !u!114 &1488628964442599802
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -319,7 +328,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf0801d4e7de84641b49e45d577f3d99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actionBarGrid: {fileID: 0}
+  actionBarGrid: {fileID: 6239831714070640014, guid: ca9b392bb4eed8249ba20049d8f34b89, type: 3}
+  actionBarSlotPrefab: {fileID: 2147895080236625434, guid: 209ad9aef4e8d634dab84a3068516dea, type: 3}
+  equppedItem: {fileID: 0}
+--- !u!143 &7847786132928760430
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3872832715286899580}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 1
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5642735344281588823
 GameObject:
   m_ObjectHideFlags: 0
