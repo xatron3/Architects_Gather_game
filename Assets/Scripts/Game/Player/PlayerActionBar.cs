@@ -25,19 +25,24 @@ public class PlayerActionBar : MonoBehaviour
 
       playerActionBarGrid.InitializeGrid(8, actionBarSlotPrefab, playerActionBarGrid.transform);
 
-      // Load the player's action bar from the save file
+      for (int i = 0; i < playerActionBarGrid.slots.Count; i++)
+      {
+        ActionBarSlot slot = playerActionBarGrid.slots[i] as ActionBarSlot;
+        slot.SetSlotText((i + 1).ToString());
+      }
+
       List<InventoryItem> savedItems = SaveLoadManager.LoadPlayerActionbar();
       if (savedItems != null)
       {
         foreach (var item in savedItems)
         {
-          Debug.Log("Adding saved item to action bar slot: " + item.slotIndex);
-          playerActionBarGrid.AddItem(item, itemIconPrefab, item.currentStackSize, true, item.slotIndex);
+          InventoryItemPrefab newItemPrefab = playerActionBarGrid.AddItem(item, itemIconPrefab, item.currentStackSize, true, item.slotIndex);
+
+          if (newItemPrefab != null)
+          {
+            newItemPrefab.transform.SetAsFirstSibling();
+          }
         }
-      }
-      else
-      {
-        Debug.Log("No saved action bar items found");
       }
 
       playerActionBarGrid.gameObject.SetActive(true);
@@ -46,13 +51,11 @@ public class PlayerActionBar : MonoBehaviour
 
   void OnApplicationQuit()
   {
-    // Save the player's action bar to the save file
     SaveLoadManager.SavePlayerActionbar(playerActionBarGrid.items);
   }
 
   void Update()
   {
-    // Handle keyboard input for item equipping
     for (int i = 0; i < playerActionBarGrid.slots.Count; i++)
     {
       if (Input.GetKeyDown(KeyCode.Alpha1 + i)) // Assuming keys 1-8
@@ -64,8 +67,6 @@ public class PlayerActionBar : MonoBehaviour
       }
     }
 
-
-    // Handle mouse input for equipped item usage
     if (Input.GetMouseButtonDown(0))
     {
       if (equppedItem != null)

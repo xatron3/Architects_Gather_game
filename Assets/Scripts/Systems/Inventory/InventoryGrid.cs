@@ -20,7 +20,7 @@ namespace SpellStone.Inventory
       }
     }
 
-    public bool AddItem(InventoryItem newItem, InventoryItemPrefab itemIconPrefab, int quantity = 1, bool lookForUnique = false, int slotIndex = -1)
+    public InventoryItemPrefab AddItem(InventoryItem newItem, InventoryItemPrefab itemIconPrefab, int quantity = 1, bool lookForUnique = false, int slotIndex = -1)
     {
       if (slotIndex != -1)
       {
@@ -52,9 +52,9 @@ namespace SpellStone.Inventory
         if (IsSlotEmpty || isStackable && !isMaxStackSize)
         {
           newItem.name = newItem.itemName;
-          slot.AddItem(newItem, itemIconPrefab, quantity);
+          InventoryItemPrefab addedItemPrefab = slot.AddItem(newItem, itemIconPrefab, quantity);
 
-          return true;
+          return addedItemPrefab;
         }
       }
       else
@@ -88,14 +88,14 @@ namespace SpellStone.Inventory
           if (IsSlotEmpty || isStackable && !isMaxStackSize)
           {
             newItem.name = newItem.itemName;
-            slot.AddItem(newItem, itemIconPrefab, quantity);
+            InventoryItemPrefab addedItemPrefab = slot.AddItem(newItem, itemIconPrefab, quantity);
 
-            return true;
+            return addedItemPrefab;
           }
         }
       }
 
-      return false;
+      return null;
     }
 
     public void RemoveItem(InventoryItem item, int quantity = 1)

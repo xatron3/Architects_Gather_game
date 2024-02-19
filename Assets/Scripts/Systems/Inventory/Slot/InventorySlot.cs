@@ -7,20 +7,22 @@ namespace SpellStone.Inventory
   {
     public InventoryGrid parentGrid;
 
-    public virtual void AddItem(InventoryItem newItem, InventoryItemPrefab itemIconPrefab, int quantity = 1)
+    public virtual InventoryItemPrefab AddItem(InventoryItem newItem, InventoryItemPrefab itemIconPrefab, int quantity = 1)
     {
       // Check if the item is stackable and if it's already in the slot
       if (newItem.isStackable && !IsSlotEmpty() && transform.GetChild(0).GetComponent<InventoryItemPrefab>().GetItem().itemName == newItem.itemName)
       {
         transform.GetChild(0).GetComponent<InventoryItemPrefab>().GetItem().currentStackSize += quantity;
         transform.GetChild(0).GetComponent<InventoryItemPrefab>().UpdateStackSize();
-        return;
+        return itemIconPrefab;
       }
 
       InventoryItemPrefab itemPrefab = Instantiate(itemIconPrefab, transform);
       newItem.SetSlotIndex(GetSlotIndex());
       itemPrefab.SetItem(newItem);
       parentGrid.items.Add(newItem);
+
+      return itemPrefab;
     }
 
     public virtual void ClearSlot()
@@ -51,7 +53,7 @@ namespace SpellStone.Inventory
 
     public bool CanDropItem(PointerEventData eventData)
     {
-      if (transform.childCount > 0)
+      if (!IsSlotEmpty())
       {
         Debug.Log("Slot is already occupied");
         return false; // Drop failed if the slot is already occupied
