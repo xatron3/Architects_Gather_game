@@ -53,7 +53,7 @@ public class PlayerActionBar : MonoBehaviour
         {
           PlaceOnGroundItem placeableItem = (PlaceOnGroundItem)equppedItem.GetCopy();
           // Set the Y position of the item to be at 0 but in front of the player
-          Vector3 itemPosition = new Vector3(transform.position.x, 0, transform.position.z) + transform.forward;
+          Vector3 itemPosition = new Vector3(transform.position.x, placeableItem.itemToPlace.transform.position.y, transform.position.z) + transform.forward;
 
           PlayerPlacedItem placedItem = Instantiate(placeableItem.itemToPlace, itemPosition, placeableItem.itemToPlace.transform.rotation);
 
