@@ -22,38 +22,19 @@ namespace SpellStone.Inventory
 
     public InventoryItemPrefab AddItem(InventoryItem newItem, InventoryItemPrefab itemIconPrefab, int quantity = 1, bool lookForUnique = false, int slotIndex = -1)
     {
+      bool IsSlotEmpty;
+      bool isStackable = false;
+      bool isMaxStackSize = true;
+
       if (slotIndex != -1)
       {
         InventorySlot slot = (InventorySlot)slots[slotIndex];
-        bool IsSlotEmpty = slot.IsSlotEmpty();
-        bool isStackable = false;
-        bool isMaxStackSize = true;
-
-        if (slot.GetComponentInChildren<InventoryItemPrefab>() != null)
-        {
-          InventoryItemPrefab _inventoryItemPrefab = slot.GetComponentInChildren<InventoryItemPrefab>();
-          InventoryItem _inventoryItem = _inventoryItemPrefab.GetItem();
-
-          if (lookForUnique)
-          {
-            if (_inventoryItem.uniqueID == newItem.uniqueID)
-            {
-              isStackable = true;
-              isMaxStackSize = _inventoryItem.currentStackSize + quantity > _inventoryItem.maxStackSize;
-            }
-          }
-          else
-          {
-            isStackable = _inventoryItem.itemName == newItem.itemName;
-            isMaxStackSize = _inventoryItem.currentStackSize + quantity > _inventoryItem.maxStackSize;
-          }
-        }
-
-        if (IsSlotEmpty || isStackable && !isMaxStackSize)
+        IsSlotEmpty = slot.IsSlotEmpty();
+        UpdateStackability(slot, newItem, quantity, lookForUnique, ref isStackable, ref isMaxStackSize);
+        if (IsSlotEmpty || (isStackable && newItem.isStackable && !isMaxStackSize))
         {
           newItem.name = newItem.itemName;
           InventoryItemPrefab addedItemPrefab = slot.AddItem(newItem, itemIconPrefab, quantity);
-
           return addedItemPrefab;
         }
       }
@@ -61,41 +42,40 @@ namespace SpellStone.Inventory
       {
         foreach (InventorySlot slot in slots)
         {
-          bool IsSlotEmpty = slot.IsSlotEmpty();
-          bool isStackable = false;
-          bool isMaxStackSize = true;
-
-          if (slot.GetComponentInChildren<InventoryItemPrefab>() != null)
-          {
-            InventoryItemPrefab _inventoryItemPrefab = slot.GetComponentInChildren<InventoryItemPrefab>();
-            InventoryItem _inventoryItem = _inventoryItemPrefab.GetItem();
-
-            if (lookForUnique)
-            {
-              if (_inventoryItem.uniqueID == newItem.uniqueID)
-              {
-                isStackable = true;
-                isMaxStackSize = _inventoryItem.currentStackSize + quantity > _inventoryItem.maxStackSize;
-              }
-            }
-            else
-            {
-              isStackable = _inventoryItem.itemName == newItem.itemName;
-              isMaxStackSize = _inventoryItem.currentStackSize + quantity > _inventoryItem.maxStackSize;
-            }
-          }
-
-          if (IsSlotEmpty || isStackable && !isMaxStackSize)
+          IsSlotEmpty = slot.IsSlotEmpty();
+          UpdateStackability(slot, newItem, quantity, lookForUnique, ref isStackable, ref isMaxStackSize);
+          if (IsSlotEmpty || (isStackable && newItem.isStackable && !isMaxStackSize))
           {
             newItem.name = newItem.itemName;
             InventoryItemPrefab addedItemPrefab = slot.AddItem(newItem, itemIconPrefab, quantity);
-
             return addedItemPrefab;
           }
         }
       }
-
       return null;
+    }
+
+    private void UpdateStackability(InventorySlot slot, InventoryItem newItem, int quantity, bool lookForUnique, ref bool isStackable, ref bool isMaxStackSize)
+    {
+      if (slot.GetComponentInChildren<InventoryItemPrefab>() != null)
+      {
+        InventoryItemPrefab _inventoryItemPrefab = slot.GetComponentInChildren<InventoryItemPrefab>();
+        InventoryItem _inventoryItem = _inventoryItemPrefab.GetItem();
+
+        if (lookForUnique)
+        {
+          if (_inventoryItem.uniqueID == newItem.uniqueID)
+          {
+            isStackable = true;
+            isMaxStackSize = _inventoryItem.currentStackSize + quantity > _inventoryItem.maxStackSize;
+          }
+        }
+        else
+        {
+          isStackable = _inventoryItem.itemName == newItem.itemName && _inventoryItem.isStackable && newItem.isStackable;
+          isMaxStackSize = _inventoryItem.currentStackSize + quantity > _inventoryItem.maxStackSize;
+        }
+      }
     }
 
     public void RemoveItem(InventoryItem item, int quantity = 1)
