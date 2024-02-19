@@ -51,6 +51,7 @@ namespace SpellStone.Inventory
 
         if (IsSlotEmpty || isStackable && !isMaxStackSize)
         {
+          newItem.name = newItem.itemName;
           slot.AddItem(newItem, itemIconPrefab, quantity);
 
           return true;
@@ -86,6 +87,7 @@ namespace SpellStone.Inventory
 
           if (IsSlotEmpty || isStackable && !isMaxStackSize)
           {
+            newItem.name = newItem.itemName;
             slot.AddItem(newItem, itemIconPrefab, quantity);
 
             return true;
@@ -116,7 +118,7 @@ namespace SpellStone.Inventory
             else
             {
               slot.ClearSlot();
-              items.Remove(item);
+              items.Remove(item.itemName == _inventoryItem.itemName ? _inventoryItem : null);
               return;
             }
           }
