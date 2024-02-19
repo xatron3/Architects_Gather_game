@@ -48,7 +48,10 @@ namespace SpellStone.Inventory
         if (IsSlotEmpty || isStackable && !isMaxStackSize)
         {
           slot.AddItem(newItem, itemIconPrefab, quantity);
-          items.Add(newItem);
+
+          if (IsSlotEmpty)
+            items.Add(newItem);
+
           return true;
         }
       }
@@ -123,6 +126,11 @@ namespace SpellStone.Inventory
       }
 
       return totalItems;
+    }
+
+    public List<InventoryItem> GetItems()
+    {
+      return items;
     }
   }
 }

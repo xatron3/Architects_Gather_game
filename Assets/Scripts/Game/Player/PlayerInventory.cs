@@ -17,6 +17,11 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
     CreateInventoryGrid();
   }
 
+  private void OnApplicationQuit()
+  {
+    SaveLoadManager.SavePlayerInventory(GetItems());
+  }
+
   private void OnDestroy()
   {
     ItemEventManager.Instance.onItemPickedUp.RemoveListener(OnItemPickedUp);
@@ -40,6 +45,21 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
       // Toggle the inventory grid when pressing "B"
       inventoryGrid.gameObject.SetActive(!inventoryGrid.gameObject.activeSelf);
     }
+
+    if (Input.GetKeyDown(KeyCode.U))
+    {
+      Debug.Log("Total items: " + GetTotalItems());
+      Debug.Log("Free slots: " + GetFreeSlots());
+    }
+
+    if (Input.GetKeyDown(KeyCode.T))
+    {
+      Debug.Log("Items in inventory:");
+      foreach (InventoryItem item in GetItems())
+      {
+        Debug.Log(item.itemName + " sSize: " + item.currentStackSize);
+      }
+    }
   }
 
   private void CreateInventoryGrid()
@@ -56,20 +76,29 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
       ItemEventManager.Instance.onItemPickedUp.AddListener(OnItemPickedUp);
       itemIconPrefab = Resources.Load<InventoryItemPrefab>("Prefabs/Player/Inventory/UI_InventoryItem");
 
+      // Load the player inventory from the save file
+      List<InventoryItem> items = SaveLoadManager.LoadPlayerInventory();
+      if (items != null)
+      {
+        foreach (InventoryItem item in items)
+        {
+          AddItem(item, item.currentStackSize);
+        }
+      }
+
       inventoryGrid.gameObject.SetActive(false);
     }
     else
       Debug.LogError("UI_Canvas not found. Could not create inventory grid.");
   }
 
-  public bool AddItem(InventoryItem item)
+  public bool AddItem(InventoryItem item, int quantity = 1)
   {
-    return inventoryManager.AddItem(inventoryGrid, item.GetCopy(), itemIconPrefab);
+    return inventoryManager.AddItem(inventoryGrid, item, itemIconPrefab, quantity);
   }
 
   public void RemoveItem(InventoryItem item)
   {
-    Debug.Log("Removing item: " + item.itemName + " from player inventory");
     inventoryManager.RemoveItem(inventoryGrid, item);
   }
 
@@ -117,5 +146,10 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
   public int GetFreeSlots()
   {
     return inventoryGrid.GetFreeSlots();
+  }
+
+  public List<InventoryItem> GetItems()
+  {
+    return inventoryGrid.GetItems();
   }
 }
