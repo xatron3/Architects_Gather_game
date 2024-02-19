@@ -18,8 +18,6 @@ public class PlayerActionBar : MonoBehaviour
 
     if (UI_Canvas_GO != null)
     {
-
-
       playerActionBarGrid = Instantiate(actionBarGrid, transform);
       playerActionBarGrid.transform.SetParent(UI_Canvas_GO.transform.Find("Container").transform, false);
 
@@ -28,13 +26,6 @@ public class PlayerActionBar : MonoBehaviour
       playerActionBarGrid.InitializeGrid(8, actionBarSlotPrefab, playerActionBarGrid.transform);
 
       playerActionBarGrid.gameObject.SetActive(true);
-
-      // Set the action bar slot text
-      for (int i = 0; i < playerActionBarGrid.slots.Count; i++)
-      {
-        ActionBarSlot slot = playerActionBarGrid.slots[i] as ActionBarSlot;
-        slot.slotText.text = (i + 1).ToString();
-      }
     }
   }
 
