@@ -6,8 +6,8 @@ namespace SpellStone.Player
   public class PlayerMove : MonoBehaviour
   {
     private CharacterController characterController;
-    private float speed = 20.0f;
-    private float gravity = 9.81f; // Gravity value
+    private float speed = 8.0f;
+    private float gravity = 5f; // Gravity value
     private Vector3 moveDirection = Vector3.zero;
     public LayerMask environmentLayer;
 

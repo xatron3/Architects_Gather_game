@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 5186982916624734167}
   - component: {fileID: 8368038593312684878}
   - component: {fileID: 4238434249480297579}
-  - component: {fileID: 5835335891750452695}
   - component: {fileID: 1578275675971060736}
+  - component: {fileID: 5099557905372159527}
   m_Layer: 7
   m_Name: CraftingTable
   m_TagString: Environment
@@ -85,27 +85,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &5835335891750452695
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7537816872828539898}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 2.2, y: 2.61, z: 1.31}
-  m_Center: {x: 0, y: 1.3, z: 0.15}
 --- !u!114 &1578275675971060736
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,3 +103,25 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8365e1dffdb825749b9541ec2d59a19f, type: 2}
   - {fileID: 11400000, guid: 678e31576e4d4a84fbe2d68fbfe024b7, type: 2}
   craftingTableUIPrefab: {fileID: 1745568042582775960, guid: a70d3d74ded87e24fbe03ed699f19768, type: 3}
+--- !u!64 &5099557905372159527
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7537816872828539898}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -6200502243224066735, guid: f4984a207130d10439334939035278d1, type: 3}

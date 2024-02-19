@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 5682066939105433040}
   - component: {fileID: 2460985769145618326}
   - component: {fileID: 4639943981646855273}
-  - component: {fileID: 5402108424670801129}
   - component: {fileID: 3707502956922606496}
+  - component: {fileID: 8617643316267360124}
   m_Layer: 7
   m_Name: Tree
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2460985769145618326
 MeshFilter:
@@ -85,8 +85,21 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &5402108424670801129
-BoxCollider:
+--- !u!114 &3707502956922606496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5053099826357190844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bf98b4d6d545544398d89d50896dc2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  logPrefab: {fileID: 1843120234670754994, guid: 439605b67b36de248a299c7aac7da489, type: 3}
+--- !u!136 &8617643316267360124
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -103,19 +116,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 2.5, y: 1, z: 2.5}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3707502956922606496
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5053099826357190844}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bf98b4d6d545544398d89d50896dc2b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  logPrefab: {fileID: 1843120234670754994, guid: 439605b67b36de248a299c7aac7da489, type: 3}
+  serializedVersion: 2
+  m_Radius: 1.21
+  m_Height: 7.68
+  m_Direction: 1
+  m_Center: {x: -0.043961048, y: 3.59, z: 0.15572381}

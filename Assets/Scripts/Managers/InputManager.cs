@@ -16,12 +16,12 @@ namespace SpellStone.Managers
 
     public float GetHorizontalAxisValue()
     {
-      return Input.GetAxis("Horizontal");
+      return Input.GetAxisRaw("Horizontal");
     }
 
     public float GetVerticalAxisValue()
     {
-      return Input.GetAxis("Vertical");
+      return Input.GetAxisRaw("Vertical");
     }
   }
 }

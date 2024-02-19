@@ -9,12 +9,6 @@ public class PlayerInteractable : MonoBehaviour
   public LayerMask interactableLayer; // Define the layer where your interactable objects reside
 
   private List<IInteractable> interactablesInRange = new List<IInteractable>();
-  private CharacterController characterController;
-
-  private void Start()
-  {
-    characterController = GetComponent<CharacterController>();
-  }
 
   private void Update()
   {

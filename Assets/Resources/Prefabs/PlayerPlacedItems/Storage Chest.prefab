@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 3875966722166416133}
   - component: {fileID: 7827082418070798286}
   - component: {fileID: 7596918617948854322}
-  - component: {fileID: 6213992740397534196}
   - component: {fileID: 6259083192676429921}
+  - component: {fileID: 883518785975225914}
   m_Layer: 7
   m_Name: Storage Chest
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &7827082418070798286
 MeshFilter:
@@ -85,8 +85,23 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &6213992740397534196
-BoxCollider:
+--- !u!114 &6259083192676429921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3775620780728583451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9aeeba02ec31494383aeb03b6d64f54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerStorageUIPrefab: {fileID: -6845496258407744897, guid: 8c9cb0e7f65c8af479c61a213478b027, type: 3}
+  playerStorageSlotPrefab: {fileID: -4168349851582135985, guid: 73fcbb0c4ad7c0741871359221127a02, type: 3}
+  storageChestItems: []
+--- !u!64 &883518785975225914
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -103,21 +118,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 150, y: 150, z: 100}
-  m_Center: {x: 0, y: 0, z: -53.05}
---- !u!114 &6259083192676429921
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3775620780728583451}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9aeeba02ec31494383aeb03b6d64f54, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerStorageUIPrefab: {fileID: -6845496258407744897, guid: 8c9cb0e7f65c8af479c61a213478b027, type: 3}
-  playerStorageSlotPrefab: {fileID: -4168349851582135985, guid: 73fcbb0c4ad7c0741871359221127a02, type: 3}
-  storageChestItems: []
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3973449838271043034, guid: 2b60bd78db26b964f8b1cc19e4d03873, type: 3}
