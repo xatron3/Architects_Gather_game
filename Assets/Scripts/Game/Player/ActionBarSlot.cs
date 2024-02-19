@@ -12,5 +12,12 @@ namespace SpellStone.ActionBar
     {
       slotText.text = text;
     }
+
+    public override void AddItem(InventoryItem newItem, InventoryItemPrefab itemIconPrefab, int quantity = 1)
+    {
+      Debug.Log("Adding item to action bar slot. Item: " + newItem.itemName + " Quantity: " + quantity + " Can equip: " + newItem.canEquip);
+
+      base.AddItem(newItem, itemIconPrefab, quantity);
+    }
   }
 }

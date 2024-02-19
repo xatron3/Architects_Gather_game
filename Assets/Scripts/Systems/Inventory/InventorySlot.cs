@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using System;
 using System.Collections.Generic;
+using SpellStone.ActionBar;
 
 namespace SpellStone.Inventory
 {
@@ -9,7 +10,7 @@ namespace SpellStone.Inventory
   {
     private InventoryGrid parentGrid;
 
-    public void AddItem(InventoryItem newItem, InventoryItemPrefab itemIconPrefab, int quantity = 1)
+    public virtual void AddItem(InventoryItem newItem, InventoryItemPrefab itemIconPrefab, int quantity = 1)
     {
       // Check if the item is stackable and if it's already in the slot
       if (newItem.isStackable && !IsSlotEmpty() && transform.GetChild(0).GetComponent<InventoryItemPrefab>().GetItem().itemName == newItem.itemName)
@@ -75,12 +76,19 @@ namespace SpellStone.Inventory
       if (droppedTransform == null)
       {
         Debug.Log("Dropped item on non-slot object");
-        return false; // Drop failed if the item was dropped on a non-slot objec
+        return false; // Drop failed if the item was dropped on a non-slot object
       }
 
       // Based on the eventData we know what slot the item was dropped on
       InventorySlot droppedSlot = droppedTransform.GetComponent<InventorySlot>();
       InventorySlot previousSlot = itemPrefab.parentToReturnTo.GetComponent<InventorySlot>();
+
+      // Check if the dropped slot is an ActionBarSlot and the item can't be equipped
+      if (droppedSlot is ActionBarSlot && !itemPrefab.GetItem().canEquip)
+      {
+        Debug.Log("Cannot equip this item to ActionBar because canEquip is false.");
+        return false;
+      }
 
       droppedSlot.parentGrid.items.Add(itemPrefab.GetItem());
       previousSlot.parentGrid.items.Remove(itemPrefab.GetItem());
