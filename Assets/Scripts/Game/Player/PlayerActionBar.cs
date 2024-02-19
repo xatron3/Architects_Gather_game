@@ -32,7 +32,8 @@ public class PlayerActionBar : MonoBehaviour
       {
         foreach (var item in savedItems)
         {
-          playerActionBarGrid.AddItem(item, itemIconPrefab);
+          Debug.Log("Adding saved item to action bar slot: " + item.slotIndex);
+          playerActionBarGrid.AddItem(item, itemIconPrefab, item.currentStackSize, true, item.slotIndex);
         }
       }
       else

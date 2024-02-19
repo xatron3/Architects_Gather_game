@@ -7,6 +7,7 @@ namespace SpellStone.Inventory
   public class InventoryItem : ScriptableObject
   {
     [HideInInspector] public Guid uniqueID;
+    public int slotIndex = -1;
     public string itemName = "New Item";
     public Sprite icon = null;
     public bool canEquip = false;
@@ -24,6 +25,16 @@ namespace SpellStone.Inventory
     public Guid GetUniqueID()
     {
       return uniqueID;
+    }
+
+    public void SetSlotIndex(int index)
+    {
+      slotIndex = index;
+    }
+
+    public int GetSlotIndex()
+    {
+      return slotIndex;
     }
 
     public virtual void Use()

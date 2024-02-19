@@ -20,6 +20,7 @@ namespace SpellStone.Inventory
       }
 
       InventoryItemPrefab itemPrefab = Instantiate(itemIconPrefab, transform);
+      newItem.SetSlotIndex(GetSlotIndex());
       itemPrefab.SetItem(newItem);
       parentGrid.items.Add(newItem);
     }
@@ -84,6 +85,8 @@ namespace SpellStone.Inventory
       droppedSlot.parentGrid.items.Add(itemPrefab.GetItem());
       previousSlot.parentGrid.items.Remove(itemPrefab.GetItem());
 
+      itemPrefab.GetItem().SetSlotIndex(droppedSlot.GetSlotIndex());
+
       Debug.Log("Dropping item to: " + droppedTransform.name);
       itemPrefab.parentToReturnTo = droppedTransform;
       itemPrefab.transform.SetParent(droppedTransform); // Set the parent of the dropped item to the new slot
@@ -94,6 +97,11 @@ namespace SpellStone.Inventory
     public void SetParentGrid(InventoryGrid grid)
     {
       parentGrid = grid;
+    }
+
+    public int GetSlotIndex()
+    {
+      return transform.GetSiblingIndex();
     }
   }
 }

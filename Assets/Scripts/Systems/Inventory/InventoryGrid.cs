@@ -20,10 +20,11 @@ namespace SpellStone.Inventory
       }
     }
 
-    public bool AddItem(InventoryItem newItem, InventoryItemPrefab itemIconPrefab, int quantity = 1, bool lookForUnique = false)
+    public bool AddItem(InventoryItem newItem, InventoryItemPrefab itemIconPrefab, int quantity = 1, bool lookForUnique = false, int slotIndex = -1)
     {
-      foreach (InventorySlot slot in slots)
+      if (slotIndex != -1)
       {
+        InventorySlot slot = (InventorySlot)slots[slotIndex];
         bool IsSlotEmpty = slot.IsSlotEmpty();
         bool isStackable = false;
         bool isMaxStackSize = true;
@@ -53,6 +54,42 @@ namespace SpellStone.Inventory
           slot.AddItem(newItem, itemIconPrefab, quantity);
 
           return true;
+        }
+      }
+      else
+      {
+        foreach (InventorySlot slot in slots)
+        {
+          bool IsSlotEmpty = slot.IsSlotEmpty();
+          bool isStackable = false;
+          bool isMaxStackSize = true;
+
+          if (slot.GetComponentInChildren<InventoryItemPrefab>() != null)
+          {
+            InventoryItemPrefab _inventoryItemPrefab = slot.GetComponentInChildren<InventoryItemPrefab>();
+            InventoryItem _inventoryItem = _inventoryItemPrefab.GetItem();
+
+            if (lookForUnique)
+            {
+              if (_inventoryItem.uniqueID == newItem.uniqueID)
+              {
+                isStackable = true;
+                isMaxStackSize = _inventoryItem.currentStackSize + quantity > _inventoryItem.maxStackSize;
+              }
+            }
+            else
+            {
+              isStackable = _inventoryItem.itemName == newItem.itemName;
+              isMaxStackSize = _inventoryItem.currentStackSize + quantity > _inventoryItem.maxStackSize;
+            }
+          }
+
+          if (IsSlotEmpty || isStackable && !isMaxStackSize)
+          {
+            slot.AddItem(newItem, itemIconPrefab, quantity);
+
+            return true;
+          }
         }
       }
 

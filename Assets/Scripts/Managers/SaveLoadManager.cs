@@ -48,7 +48,7 @@ public class SaveLoadManager
     List<SerializableInventoryItem> serializableItems = new List<SerializableInventoryItem>();
     foreach (var item in items)
     {
-      serializableItems.Add(new SerializableInventoryItem(item.itemName, item.currentStackSize, item.GetType().ToString()));
+      serializableItems.Add(new SerializableInventoryItem(item.itemName, item.currentStackSize, item.slotIndex));
     }
 
     formatter.Serialize(stream, serializableItems);
@@ -69,8 +69,6 @@ public class SaveLoadManager
       List<InventoryItem> items = new List<InventoryItem>();
       foreach (var serializableItem in serializableItems)
       {
-        Type itemType = Type.GetType(serializableItem.ItemType);
-
         // Find the item prefab in the resources folder
         InventoryItem item = Resources.Load<InventoryItem>("Items/" + serializableItem.PrefabName);
         if (item == null)
@@ -160,7 +158,7 @@ public class SaveLoadManager
     List<SerializableInventoryItem> serializableItems = new List<SerializableInventoryItem>();
     foreach (var item in items)
     {
-      serializableItems.Add(new SerializableInventoryItem(item.itemName, item.currentStackSize, item.GetType().ToString()));
+      serializableItems.Add(new SerializableInventoryItem(item.itemName, item.currentStackSize, item.slotIndex));
     }
 
     formatter.Serialize(stream, serializableItems);
@@ -181,7 +179,6 @@ public class SaveLoadManager
       List<InventoryItem> items = new List<InventoryItem>();
       foreach (var serializableItem in serializableItems)
       {
-        Type itemType = Type.GetType(serializableItem.ItemType);
 
         // Find the item prefab in the resources folder
         InventoryItem item = Resources.Load<InventoryItem>("Items/" + serializableItem.PrefabName);
@@ -193,6 +190,7 @@ public class SaveLoadManager
 
         // Create a new instance of the item and set its stack size
         item = item.GetCopy();
+        item.SetSlotIndex(serializableItem.SlotIndex);
         item.currentStackSize = serializableItem.CurrentStackSize;
         items.Add(item);
       }
@@ -280,13 +278,13 @@ class SerializableInventoryItem
 {
   public string PrefabName;
   public int CurrentStackSize;
-  public string ItemType;
+  public int SlotIndex;
 
-  public SerializableInventoryItem(string prefabName, int currentStackSize, string itemType)
+  public SerializableInventoryItem(string prefabName, int currentStackSize, int slotIndex)
   {
     PrefabName = prefabName;
     CurrentStackSize = currentStackSize;
-    ItemType = itemType;
+    SlotIndex = slotIndex;
   }
 }
 #endregion
