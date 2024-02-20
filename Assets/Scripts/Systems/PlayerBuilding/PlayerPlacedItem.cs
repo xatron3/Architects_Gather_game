@@ -20,9 +20,13 @@ public class PlayerPlacedItem : MonoBehaviour
       RaycastHit hit;
       Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
+      // Get rotation from the PlayerPlacedItems singleton
+      Quaternion rotation = Quaternion.Euler(0, (int)PlayerPlacedItems.Instance.placingSettings.rotation * 90, 0);
+
       if (Physics.Raycast(ray, out hit, Mathf.Infinity))
       {
         transform.position = new Vector3(hit.point.x, transform.position.y, hit.point.z);
+        transform.rotation = rotation;
       }
     }
   }
@@ -30,6 +34,7 @@ public class PlayerPlacedItem : MonoBehaviour
   public void SetIsPreview(bool isPreview = false)
   {
     IsPreview = isPreview;
+    PlayerPlacedItems.Instance.IsPlacingItem = isPreview;
 
     // Set the item to be semi-transparent
     Color itemColor = GetComponent<Renderer>().material.color;

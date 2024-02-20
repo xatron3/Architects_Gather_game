@@ -8,6 +8,10 @@ public class PlayerPlacedItems : MonoBehaviour
   public Transform itemsParent; // Parent object to hold all items
   public List<PlayerPlacedItem> items = new List<PlayerPlacedItem>(); // List of items
 
+  public bool IsPlacingItem { get; set; } // Flag to check if the player is currently placing an item
+
+  public PlacingSettings placingSettings; // Placing settings
+
   private void Awake()
   {
     if (Instance == null)
@@ -17,6 +21,18 @@ public class PlayerPlacedItems : MonoBehaviour
     else
     {
       Destroy(gameObject);
+    }
+  }
+
+  void Update()
+  {
+    if (IsPlacingItem)
+    {
+      // Rotate the item
+      if (Input.GetKeyDown(KeyCode.R))
+      {
+        placingSettings.rotation = (PlacingSettings.Rotation)(((int)placingSettings.rotation + 1) % 2);
+      }
     }
   }
 
@@ -65,5 +81,30 @@ public class PlayerPlacedItems : MonoBehaviour
       Destroy(item);
     }
     items.Clear();
+  }
+}
+
+// Placing settings
+[System.Serializable]
+public class PlacingSettings
+{
+  // Rotation of the item
+  public enum Rotation
+  {
+    Snap90,
+    Snap45
+  }
+
+  public Rotation rotation;
+
+  public PlacingSettings()
+  {
+    rotation = Rotation.Snap90;
+  }
+
+  // Get the settings
+  public PlacingSettings GetSettings()
+  {
+    return this;
   }
 }
