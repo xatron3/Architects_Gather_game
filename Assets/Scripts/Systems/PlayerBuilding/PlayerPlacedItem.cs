@@ -35,14 +35,13 @@ public class PlayerPlacedItem : MonoBehaviour
   {
     IsPreview = isPreview;
     PlayerPlacedItems.Instance.IsPlacingItem = isPreview;
-
-    // Set the item to be semi-transparent
-    Color itemColor = GetComponent<Renderer>().material.color;
-    itemColor.a = isPreview ? 0.5f : 1f; // Set alpha to make it semi-transparent
-    GetComponent<Renderer>().material.color = itemColor;
-
-    // Disable the collider
     GetComponent<Collider>().enabled = !isPreview;
+
+    // Check if there is childs in the object and disable / enable their colliders
+    foreach (Transform child in transform)
+    {
+      child.GetComponent<Collider>().enabled = !isPreview;
+    }
   }
 
   public virtual SerializedPlayerPlacedItems Serialize()
