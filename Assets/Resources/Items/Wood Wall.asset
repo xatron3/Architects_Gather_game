@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf49ebedbc90a8942b3eb9ca65f12f0f, type: 3}
   m_Name: Wood Wall
   m_EditorClassIdentifier: 
+  slotIndex: -1
   itemName: Wood Wall
   icon: {fileID: 21300000, guid: f51d6abe976bb7a4ea81f5713d1db7fe, type: 3}
   canEquip: 1
   isStackable: 1
   maxStackSize: 5
   currentStackSize: 1
+  breakOnUse: 1
   itemToPlace: {fileID: 8059607506449150279, guid: e5889f5194fe288459346ffc67a83629, type: 3}

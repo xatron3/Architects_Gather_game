@@ -6,24 +6,53 @@ public class PlaceOnGroundItem : InventoryItem
 {
   [Header("Placeable Item")]
   public PlayerPlacedItem itemToPlace;
+  private PlayerPlacedItem previewItem;
 
   public override void Use(PlayerController player)
   {
     base.Use(player);
     Debug.Log("Placing " + itemName + " on the ground");
 
-    PlaceItem(player);
+    if (previewItem != null)
+    {
+      PlaceItem(player, previewItem);
+      Destroy(previewItem.gameObject); // Destroy the preview item after placing
+    }
+    else
+    {
+      Debug.LogError("No preview item available.");
+    }
   }
 
-  private void PlaceItem(PlayerController player)
+  private void PlaceItem(PlayerController player, PlayerPlacedItem itemToPlace)
   {
-    PlaceOnGroundItem placeableItem = (PlaceOnGroundItem)GetCopy();
-    // Set the Y position of the item to be at 0 but in front of the player
-    Vector3 itemPosition = new Vector3(player.transform.position.x, placeableItem.itemToPlace.transform.position.y, player.transform.position.z) + player.transform.forward;
+    RaycastHit hit;
+    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-    PlayerPlacedItem placedItem = Instantiate(placeableItem.itemToPlace, itemPosition, placeableItem.itemToPlace.transform.rotation);
+    if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+    {
+      Vector3 itemPosition = new Vector3(hit.point.x, itemToPlace.transform.position.y, hit.point.z);
+      PlayerPlacedItem placedItem = Instantiate(itemToPlace, itemPosition, itemToPlace.transform.rotation);
 
-    placedItem.transform.SetParent(PlayerPlacedItems.Instance.itemsParent);
-    PlayerPlacedItems.Instance.items.Add(placedItem);
+      placedItem.SetIsPreview(false);
+      placedItem.transform.SetParent(PlayerPlacedItems.Instance.itemsParent);
+
+      PlayerPlacedItems.Instance.items.Add(placedItem);
+    }
+  }
+
+  public override void Equip()
+  {
+    previewItem = Instantiate(itemToPlace);
+    previewItem.SetIsPreview(true);
+  }
+
+  public override void Unequip()
+  {
+    if (previewItem != null)
+    {
+      Destroy(previewItem.gameObject);
+      previewItem = null; // Reset preview item
+    }
   }
 }
