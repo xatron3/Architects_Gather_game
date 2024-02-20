@@ -31,8 +31,7 @@ public class PlaceOnGroundItem : InventoryItem
 
     if (Physics.Raycast(ray, out hit, Mathf.Infinity))
     {
-      Vector3 itemPosition = new Vector3(hit.point.x, itemToPlace.transform.position.y, hit.point.z);
-      PlayerPlacedItem placedItem = Instantiate(itemToPlace, itemPosition, itemToPlace.transform.rotation);
+      PlayerPlacedItem placedItem = Instantiate(itemToPlace, itemToPlace.transform.position, itemToPlace.transform.rotation);
 
       placedItem.SetIsPreview(false);
       placedItem.transform.SetParent(PlayerPlacedItems.Instance.itemsParent);

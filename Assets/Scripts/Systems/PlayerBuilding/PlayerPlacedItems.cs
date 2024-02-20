@@ -33,6 +33,12 @@ public class PlayerPlacedItems : MonoBehaviour
       {
         placingSettings.rotation = (PlacingSettings.Rotation)(((int)placingSettings.rotation + 1) % 2);
       }
+
+      // Toggle snapping
+      if (Input.GetKeyDown(KeyCode.T))
+      {
+        placingSettings.isSnapping = !placingSettings.isSnapping;
+      }
     }
   }
 
@@ -88,23 +94,25 @@ public class PlayerPlacedItems : MonoBehaviour
 [System.Serializable]
 public class PlacingSettings
 {
-  // Rotation of the item
-  public enum Rotation
-  {
-    Snap90,
-    Snap45
-  }
-
   public Rotation rotation;
+  public bool isSnapping;
 
   public PlacingSettings()
   {
     rotation = Rotation.Snap90;
+    isSnapping = true;
   }
 
   // Get the settings
   public PlacingSettings GetSettings()
   {
     return this;
+  }
+
+  // Rotation of the item
+  public enum Rotation
+  {
+    Snap90,
+    Snap45
   }
 }
