@@ -17,6 +17,9 @@ namespace SpellStone.Inventory
     public int maxStackSize = 1;
     public int currentStackSize = 1;
 
+    [Header("Others")]
+    public bool breakOnUse = false;
+
     private void OnEnable()
     {
       uniqueID = Guid.NewGuid();
@@ -37,7 +40,7 @@ namespace SpellStone.Inventory
       return slotIndex;
     }
 
-    public virtual void Use()
+    public virtual void Use(PlayerController player)
     {
       Debug.Log("Using " + itemName);
     }

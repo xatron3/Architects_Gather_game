@@ -15,11 +15,11 @@ namespace SpellStone.Inventory
 
     private InventorySlot currentSlot;
 
-    public void UseItem()
+    public void UseItem(PlayerController player)
     {
       if (item != null)
       {
-        item.Use();
+        item.Use(player);
       }
     }
 

@@ -10,43 +10,15 @@ public class PlayerActionBar : MonoBehaviour
   private InventoryGrid playerActionBarGrid;
 
   private InventoryItemPrefab itemIconPrefab;
+
   public InventoryItem equppedItem;
+  private int equippedItemSlotIndex;
 
   void Start()
   {
-    GameObject UI_Canvas_GO = GetComponentInChildren<Canvas>().gameObject;
+    SetupActionBarGrid();
 
-    if (UI_Canvas_GO != null)
-    {
-      playerActionBarGrid = Instantiate(actionBarGrid, transform);
-      playerActionBarGrid.transform.SetParent(UI_Canvas_GO.transform.Find("Container").transform, false);
-
-      itemIconPrefab = Resources.Load<InventoryItemPrefab>("Prefabs/Player/Inventory/UI_InventoryItem");
-
-      playerActionBarGrid.InitializeGrid(8, actionBarSlotPrefab, playerActionBarGrid.transform);
-
-      for (int i = 0; i < playerActionBarGrid.slots.Count; i++)
-      {
-        ActionBarSlot slot = playerActionBarGrid.slots[i] as ActionBarSlot;
-        slot.SetSlotText((i + 1).ToString());
-      }
-
-      List<InventoryItem> savedItems = SaveLoadManager.LoadPlayerActionbar();
-      if (savedItems != null)
-      {
-        foreach (var item in savedItems)
-        {
-          InventoryItemPrefab newItemPrefab = playerActionBarGrid.AddItem(item, itemIconPrefab, item.currentStackSize, true, item.slotIndex);
-
-          if (newItemPrefab != null)
-          {
-            newItemPrefab.transform.SetAsFirstSibling();
-          }
-        }
-      }
-
-      playerActionBarGrid.gameObject.SetActive(true);
-    }
+    LoadSavedActionBarItems();
   }
 
   void OnApplicationQuit()
@@ -71,34 +43,15 @@ public class PlayerActionBar : MonoBehaviour
     {
       if (equppedItem != null)
       {
-        // If the equipped item is a placeable item, place it on the ground in front of the player
-        if (equppedItem is PlaceOnGroundItem)
+        equppedItem.Use(GetComponent<PlayerController>());
+
+        if (equppedItem.breakOnUse)
         {
-          PlaceItem();
-        }
-        else
-        {
-          equppedItem.Use();
+          playerActionBarGrid.RemoveItem(equppedItem);
+          UnequipItem();
         }
       }
     }
-  }
-
-  private void PlaceItem()
-  {
-    PlaceOnGroundItem placeableItem = (PlaceOnGroundItem)equppedItem.GetCopy();
-    // Set the Y position of the item to be at 0 but in front of the player
-    Vector3 itemPosition = new Vector3(transform.position.x, placeableItem.itemToPlace.transform.position.y, transform.position.z) + transform.forward;
-
-    PlayerPlacedItem placedItem = Instantiate(placeableItem.itemToPlace, itemPosition, placeableItem.itemToPlace.transform.rotation);
-
-    placedItem.transform.SetParent(PlayerPlacedItems.Instance.itemsParent);
-    PlayerPlacedItems.Instance.items.Add(placedItem);
-
-    // Remove the item from the player's action bar grid
-    playerActionBarGrid.RemoveItem(equppedItem);
-
-    UnequipItem();
   }
 
   public bool AddItem(InventoryItem item)
@@ -118,12 +71,68 @@ public class PlayerActionBar : MonoBehaviour
 
     if (itemPrefab != null)
     {
+      equippedItemSlotIndex = slotIndex;
+      HighlightSlot(slotIndex);
       equppedItem = itemPrefab.GetItem();
     }
   }
 
   private void UnequipItem()
   {
+    UnhighlightSlot(equippedItemSlotIndex);
+    equippedItemSlotIndex = -1;
     equppedItem = null;
+  }
+
+  private void HighlightSlot(int slotIndex)
+  {
+    ActionBarSlot slot = playerActionBarGrid.slots[slotIndex] as ActionBarSlot;
+    slot.HighlightSlot();
+  }
+
+  private void UnhighlightSlot(int slotIndex)
+  {
+    ActionBarSlot slot = playerActionBarGrid.slots[slotIndex] as ActionBarSlot;
+    slot.UnhighlightSlot();
+  }
+
+  private void SetupActionBarGrid()
+  {
+    GameObject UI_Canvas_GO = GetComponentInChildren<Canvas>().gameObject;
+
+    if (UI_Canvas_GO != null)
+    {
+      playerActionBarGrid = Instantiate(actionBarGrid, transform);
+      playerActionBarGrid.transform.SetParent(UI_Canvas_GO.transform.Find("Container").transform, false);
+
+      itemIconPrefab = Resources.Load<InventoryItemPrefab>("Prefabs/Player/Inventory/UI_InventoryItem");
+
+      playerActionBarGrid.InitializeGrid(8, actionBarSlotPrefab, playerActionBarGrid.transform);
+
+      for (int i = 0; i < playerActionBarGrid.slots.Count; i++)
+      {
+        ActionBarSlot slot = playerActionBarGrid.slots[i] as ActionBarSlot;
+        slot.SetSlotText((i + 1).ToString());
+      }
+
+      playerActionBarGrid.gameObject.SetActive(true);
+    }
+  }
+
+  private void LoadSavedActionBarItems()
+  {
+    List<InventoryItem> savedItems = SaveLoadManager.LoadPlayerActionbar();
+    if (savedItems != null)
+    {
+      foreach (var item in savedItems)
+      {
+        InventoryItemPrefab newItemPrefab = playerActionBarGrid.AddItem(item, itemIconPrefab, item.currentStackSize, true, item.slotIndex);
+
+        if (newItemPrefab != null)
+        {
+          newItemPrefab.transform.SetAsFirstSibling();
+        }
+      }
+    }
   }
 }
