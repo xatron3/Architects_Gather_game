@@ -33,7 +33,9 @@ public class PlayerActionBar : MonoBehaviour
       if (Input.GetKeyDown(KeyCode.Alpha1 + i)) // Assuming keys 1-8
       {
         if (equppedItem != null)
+        {
           UnequipItem();
+        }
 
         EquipItem(i);
       }
@@ -47,7 +49,7 @@ public class PlayerActionBar : MonoBehaviour
 
         if (equppedItem.breakOnUse)
         {
-          playerActionBarGrid.RemoveItem(equppedItem);
+          playerActionBarGrid.RemoveItem(equppedItem, 1);
           UnequipItem();
         }
       }
@@ -71,16 +73,18 @@ public class PlayerActionBar : MonoBehaviour
 
     if (itemPrefab != null)
     {
-      equippedItemSlotIndex = slotIndex;
       HighlightSlot(slotIndex);
+      equippedItemSlotIndex = slotIndex;
       equppedItem = itemPrefab.GetItem();
+      equppedItem.Equip();
     }
   }
 
   private void UnequipItem()
   {
-    UnhighlightSlot(equippedItemSlotIndex);
+    UnhighlightSlot();
     equippedItemSlotIndex = -1;
+    equppedItem.Unequip();
     equppedItem = null;
   }
 
@@ -90,9 +94,9 @@ public class PlayerActionBar : MonoBehaviour
     slot.HighlightSlot();
   }
 
-  private void UnhighlightSlot(int slotIndex)
+  private void UnhighlightSlot()
   {
-    ActionBarSlot slot = playerActionBarGrid.slots[slotIndex] as ActionBarSlot;
+    ActionBarSlot slot = playerActionBarGrid.slots[equippedItemSlotIndex] as ActionBarSlot;
     slot.UnhighlightSlot();
   }
 

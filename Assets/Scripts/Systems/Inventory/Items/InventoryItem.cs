@@ -40,6 +40,16 @@ namespace SpellStone.Inventory
       return slotIndex;
     }
 
+    public virtual void Equip()
+    {
+      Debug.Log("Equipping " + itemName);
+    }
+
+    public virtual void Unequip()
+    {
+      Debug.Log("Unequipping " + itemName);
+    }
+
     public virtual void Use(PlayerController player)
     {
       Debug.Log("Using " + itemName);
