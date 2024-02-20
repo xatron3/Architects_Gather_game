@@ -2542,6 +2542,7 @@ MonoBehaviour:
   items: []
   placingSettings:
     rotation: 0
+    isSnapping: 1
 --- !u!1001 &965641360
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3556,8 +3557,8 @@ Transform:
   m_Children:
   - {fileID: 2136038612}
   - {fileID: 543430011}
-  - {fileID: 9006282581081926233}
   - {fileID: 938359077}
+  - {fileID: 9006282581081926233}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
