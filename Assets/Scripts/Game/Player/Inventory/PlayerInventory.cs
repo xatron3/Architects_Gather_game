@@ -109,7 +109,7 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
 
     if (toolBelt != null)
     {
-      toolBelt.InitializeToolBelt(3, inventoryUI.transform);
+      toolBelt.InitializeToolBelt(2, inventoryUI.transform);
     }
     else
       Debug.LogError("ToolBelt not found. Could not create tool belt.");

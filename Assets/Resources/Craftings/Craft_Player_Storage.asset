@@ -15,8 +15,8 @@ MonoBehaviour:
   craftingName: Player Storage
   craftableItem: {fileID: 11400000, guid: 6ddfe487b69a62c4f99bcb6f2d1be7d7, type: 2}
   ingredients:
-  - {fileID: 11400000, guid: 5ef759a06290c4945b72e05210da81a3, type: 2}
+  - {fileID: 11400000, guid: 240bd21f3ca2a3040b1dd2dc8ba8b028, type: 2}
   - {fileID: 11400000, guid: fee30db7020baaa478b13ba35d8117c5, type: 2}
-  - {fileID: 11400000, guid: 1ccd6c2819a39a749b57afcc7d1139a6, type: 2}
+  - {fileID: 11400000, guid: d1e018b028cb11a468ce9b8fae6718d9, type: 2}
   craftingExperienceGain: 80
   craftingSkillLevelRequirement: 1

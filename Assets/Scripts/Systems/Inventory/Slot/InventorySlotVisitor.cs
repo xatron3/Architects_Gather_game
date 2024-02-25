@@ -1,5 +1,6 @@
 using UnityEngine;
 using SpellStone.Inventory;
+using SpellStone.Messages;
 
 public class InventorySlotVisitor : ISlotVisitor
 {
@@ -52,6 +53,17 @@ public class InventorySlotVisitor : ISlotVisitor
     {
       DropSuccessful = false;
       return;
+    }
+
+    // Check if the player already has an tool of this type in the tool belt
+    foreach (var item in slot.parentGrid.items)
+    {
+      if (item is ToolItem toolItem && toolItem.toolType == (_itemPrefab.GetItem() as ToolItem).toolType)
+      {
+        MessagingService.Instance.ShowMessage("You already have an tool of this type in your tool belt.", Color.red);
+        DropSuccessful = false;
+        return;
+      }
     }
 
     slot.parentGrid.items.Add(_itemPrefab.GetItem());

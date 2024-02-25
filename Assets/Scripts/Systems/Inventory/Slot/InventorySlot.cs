@@ -33,6 +33,11 @@ namespace SpellStone.Inventory
       }
     }
 
+    public virtual InventoryItem GetItem()
+    {
+      return transform.GetChild(0).GetComponent<InventoryItemPrefab>().GetItem();
+    }
+
     public virtual bool IsSlotEmpty()
     {
       return transform.childCount == 0;
