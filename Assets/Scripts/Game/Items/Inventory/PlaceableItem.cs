@@ -2,7 +2,7 @@ using UnityEngine;
 using SpellStone.Inventory;
 
 [CreateAssetMenu(fileName = "New Item", menuName = "Items/New Placeable Item")]
-public class PlaceOnGroundItem : InventoryItem
+public class PlaceableItem : InventoryItem
 {
   [Header("Placeable Item")]
   public PlayerPlacedItem itemToPlace;

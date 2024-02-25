@@ -69,8 +69,8 @@ public class SaveLoadManager
       List<InventoryItem> items = new List<InventoryItem>();
       foreach (var serializableItem in serializableItems)
       {
-        // Find the item prefab in the resources folder
-        InventoryItem item = Resources.Load<InventoryItem>("Items/" + serializableItem.PrefabName);
+        InventoryItem item = ItemsManager.Instance.GetItem(serializableItem.PrefabName);
+
         if (item == null)
         {
           Debug.LogError("Item not found in Resources/Items/" + serializableItem.PrefabName);
@@ -180,9 +180,64 @@ public class SaveLoadManager
       List<InventoryItem> items = new List<InventoryItem>();
       foreach (var serializableItem in serializableItems)
       {
+        InventoryItem item = ItemsManager.Instance.GetItem(serializableItem.PrefabName);
 
-        // Find the item prefab in the resources folder
-        InventoryItem item = Resources.Load<InventoryItem>("Items/" + serializableItem.PrefabName);
+        if (item == null)
+        {
+          Debug.LogError("Item not found in Resources/Items/" + serializableItem.PrefabName);
+          continue;
+        }
+
+        // Create a new instance of the item and set its stack size
+        item = item.GetCopy();
+        item.SetSlotIndex(serializableItem.SlotIndex);
+        item.currentStackSize = serializableItem.CurrentStackSize;
+        items.Add(item);
+      }
+
+      return items;
+    }
+    else
+    {
+      Debug.LogError("Save file not found in " + path);
+      return null;
+    }
+  }
+  #endregion
+
+  #region Player Toolbelt
+  public static void SavePlayerToolbelt(List<InventoryItem> items)
+  {
+    BinaryFormatter formatter = new BinaryFormatter();
+    string path = Application.persistentDataPath + "/playerToolbelt.data";
+    FileStream stream = new FileStream(path, FileMode.Create);
+
+    List<SerializableInventoryItem> serializableItems = new List<SerializableInventoryItem>();
+    foreach (var item in items)
+    {
+      serializableItems.Add(new SerializableInventoryItem(item.itemName, item.currentStackSize, item.slotIndex));
+    }
+
+    formatter.Serialize(stream, serializableItems);
+    stream.Close();
+  }
+
+  public static List<InventoryItem> LoadPlayerToolbelt()
+  {
+    string path = Application.persistentDataPath + "/playerToolbelt.data";
+    if (File.Exists(path))
+    {
+      BinaryFormatter formatter = new BinaryFormatter();
+      FileStream stream = new FileStream(path, FileMode.Open);
+
+      List<SerializableInventoryItem> serializableItems = formatter.Deserialize(stream) as List<SerializableInventoryItem>;
+      stream.Close();
+
+      List<InventoryItem> items = new List<InventoryItem>();
+      foreach (var serializableItem in serializableItems)
+      {
+        InventoryItem item = ItemsManager.Instance.GetItem(serializableItem.PrefabName);
+
         if (item == null)
         {
           Debug.LogError("Item not found in Resources/Items/" + serializableItem.PrefabName);

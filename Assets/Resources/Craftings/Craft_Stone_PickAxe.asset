@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Craft_Stone_PickAxe
   m_EditorClassIdentifier: 
   craftingName: Stone Pickaxe
-  craftableItem: {fileID: 11400000, guid: 1ccd6c2819a39a749b57afcc7d1139a6, type: 2}
+  craftableItem: {fileID: 11400000, guid: d1e018b028cb11a468ce9b8fae6718d9, type: 2}
   ingredients:
   - {fileID: 11400000, guid: 90465517a14a9674da520a3f47516f37, type: 2}
   - {fileID: 11400000, guid: fee30db7020baaa478b13ba35d8117c5, type: 2}

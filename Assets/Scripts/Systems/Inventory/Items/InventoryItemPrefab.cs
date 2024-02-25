@@ -74,7 +74,14 @@ namespace SpellStone.Inventory
       currentSlot = GetComponentInParent<InventorySlot>();
 
       parentToReturnTo = transform.parent;
-      transform.SetParent(transform.parent.parent);
+
+      if (transform.root.GetComponent<Canvas>() != null)
+        transform.SetParent(transform.root.GetComponent<Canvas>().transform, true);
+      else if (transform.root.GetComponentInChildren<Canvas>() != null)
+        transform.SetParent(transform.root.GetComponentInChildren<Canvas>().transform, true);
+      else
+        transform.SetParent(transform.parent.parent, true);
+
       transform.SetAsLastSibling();
       icon.raycastTarget = false;
     }

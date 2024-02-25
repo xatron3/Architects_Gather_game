@@ -4,10 +4,11 @@ using SpellStone.Inventory;
 
 public class PlayerInventory : MonoBehaviour, IPlayerInventory
 {
-  public InventoryGrid inventoryGridPrefab;
+  public GameObject inventoryUIPrefab;
   public InventorySlot inventorySlotPrefab;
   public IInventorySlotHander inventorySlot;
 
+  private GameObject inventoryUI;
   private InventoryGrid inventoryGrid;
   public InventoryItemPrefab itemIconPrefab;
 
@@ -15,7 +16,7 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
 
   private void Start()
   {
-    CreateInventoryGrid();
+    CreateInventory();
   }
 
   private void OnApplicationQuit()
@@ -43,8 +44,7 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
   {
     if (Input.GetKeyDown(KeyCode.B))
     {
-      // Toggle the inventory grid when pressing "B"
-      inventoryGrid.gameObject.SetActive(!inventoryGrid.gameObject.activeSelf);
+      inventoryUI.gameObject.SetActive(!inventoryUI.gameObject.activeSelf);
     }
 
     if (Input.GetKeyDown(KeyCode.U))
@@ -63,34 +63,53 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
     }
   }
 
-  private void CreateInventoryGrid()
+  private void CreateInventory()
   {
     GameObject UI_Canvas_GO = GetComponentInChildren<Canvas>().gameObject;
 
     if (UI_Canvas_GO != null)
     {
-      inventoryGrid = Instantiate(inventoryGridPrefab, inventoryGridPrefab.transform.position, Quaternion.identity);
-      inventoryGrid.transform.SetParent(UI_Canvas_GO.transform.Find("Container").transform, false);
+      inventoryUI = Instantiate(inventoryUIPrefab, inventoryUIPrefab.transform.position, Quaternion.identity);
+      inventoryUI.transform.SetParent(UI_Canvas_GO.transform.Find("Container").transform, false);
 
-      itemIconPrefab = Resources.Load<InventoryItemPrefab>("Prefabs/Player/Inventory/UI_InventoryItem");
-      inventoryGrid.InitializeGrid(20, inventorySlotPrefab, inventoryGrid.transform);
+      CreateInventoryGrid();
 
-      ItemEventManager.Instance.onItemPickedUp.AddListener(OnItemPickedUp);
+      inventoryUI.gameObject.SetActive(false);
 
-      // Load the player inventory from the save file
-      List<InventoryItem> items = SaveLoadManager.LoadPlayerInventory();
-      if (items != null)
-      {
-        foreach (InventoryItem item in items)
-        {
-          AddItem(item.GetCopy(), item.currentStackSize, false, item.slotIndex);
-        }
-      }
-
-      inventoryGrid.gameObject.SetActive(false);
+      CreateToolBelt();
     }
     else
-      Debug.LogError("UI_Canvas not found. Could not create inventory grid.");
+      Debug.LogError("UI_Canvas not found. Could not create inventory UI.");
+  }
+
+  private void CreateInventoryGrid()
+  {
+    // Find the inventory grid in the UI
+    inventoryGrid = inventoryUI.GetComponentInChildren<InventoryGrid>();
+    inventoryGrid.InitializeGrid(20, inventorySlotPrefab, inventoryGrid.transform);
+
+    ItemEventManager.Instance.onItemPickedUp.AddListener(OnItemPickedUp);
+
+    // Load the player inventory from the save file
+    List<InventoryItem> items = SaveLoadManager.LoadPlayerInventory();
+    if (items != null)
+    {
+      foreach (InventoryItem item in items)
+      {
+        AddItem(item.GetCopy(), item.currentStackSize, false, item.slotIndex);
+      }
+    }
+  }
+
+  private void CreateToolBelt()
+  {
+    ToolBelt toolBelt = GetComponent<ToolBelt>();
+    if (toolBelt != null)
+    {
+      toolBelt.InitializeToolBelt(3, inventoryUI.transform);
+    }
+    else
+      Debug.LogError("ToolBelt not found. Could not create tool belt.");
   }
 
   public bool AddItem(InventoryItem item, int quantity = 1, bool lookForUnique = false, int slotIndex = -1)

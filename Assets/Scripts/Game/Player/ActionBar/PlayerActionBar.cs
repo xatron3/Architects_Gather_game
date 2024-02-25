@@ -23,7 +23,7 @@ public class PlayerActionBar : MonoBehaviour
 
   void OnApplicationQuit()
   {
-    SaveLoadManager.SavePlayerActionbar(playerActionBarGrid.items);
+    SaveLoadManager.SavePlayerActionbar(playerActionBarGrid.GetItems());
   }
 
   void Update()

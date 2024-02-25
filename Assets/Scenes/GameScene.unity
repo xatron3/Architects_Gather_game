@@ -961,9 +961,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6943645368083579065, guid: 3d1ad2a2ad033c94bb17e4df8a0f75e6, type: 3}
+      propertyPath: toolBeltGrid
+      value: 
+      objectReference: {fileID: 3659350268285280961, guid: 49048412d2d584d459dbc264fe60f0b0, type: 3}
+    - target: {fileID: 6943645368083579065, guid: 3d1ad2a2ad033c94bb17e4df8a0f75e6, type: 3}
+      propertyPath: itemIconPrefab
+      value: 
+      objectReference: {fileID: 5711586562131788456, guid: e844d5edda8cdd74fb187232d6e4d33e, type: 3}
+    - target: {fileID: 6943645368083579065, guid: 3d1ad2a2ad033c94bb17e4df8a0f75e6, type: 3}
+      propertyPath: toolBeltGridPrefab
+      value: 
+      objectReference: {fileID: 3659350268285280961, guid: 49048412d2d584d459dbc264fe60f0b0, type: 3}
+    - target: {fileID: 6943645368083579065, guid: 3d1ad2a2ad033c94bb17e4df8a0f75e6, type: 3}
+      propertyPath: toolBeltSlotPrefab
+      value: 
+      objectReference: {fileID: 4302701433614227646, guid: 41c07d84c9d0cf0439a48ff87243fb2e, type: 3}
     - target: {fileID: 8681910300537303083, guid: 3d1ad2a2ad033c94bb17e4df8a0f75e6, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8681910300537303083, guid: 3d1ad2a2ad033c94bb17e4df8a0f75e6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3454,7 +3470,7 @@ RectTransform:
   m_Children:
   - {fileID: 1633966942}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3560,7 +3576,7 @@ Transform:
   - {fileID: 938359077}
   - {fileID: 9006282581081926233}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1297107415
 PrefabInstance:
@@ -4023,6 +4039,7 @@ GameObject:
   - component: {fileID: 1745112654}
   - component: {fileID: 1745112655}
   - component: {fileID: 1745112656}
+  - component: {fileID: 1745112657}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -4067,6 +4084,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f89a97e8cdebf6a4db0a7d6ae175d770, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1745112657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1745112653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c1c08b95ca72be46a88c38129df3790, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &1882287718 stripped
@@ -4241,7 +4270,7 @@ Transform:
   m_Children:
   - {fileID: 866938257}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &2015400261 stripped
 Transform:

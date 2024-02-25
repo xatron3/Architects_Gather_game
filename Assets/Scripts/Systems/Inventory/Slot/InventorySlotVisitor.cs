@@ -44,4 +44,24 @@ public class InventorySlotVisitor : ISlotVisitor
 
     DropSuccessful = true;
   }
+
+  public void Visit(ToolBeltSlot slot)
+  {
+    // Check if item is an tool item
+    if (_itemPrefab.GetItem() is not ToolItem)
+    {
+      DropSuccessful = false;
+      return;
+    }
+
+    slot.parentGrid.items.Add(_itemPrefab.GetItem());
+    _itemPrefab.parentToReturnTo.GetComponent<InventorySlot>().parentGrid.items.Remove(_itemPrefab.GetItem());
+    _itemPrefab.GetItem().SetSlotIndex(slot.GetSlotIndex());
+
+    _itemPrefab.parentToReturnTo = slot.transform;
+    _itemPrefab.transform.SetParent(slot.transform);
+    _itemPrefab.transform.localPosition = Vector3.zero;
+
+    DropSuccessful = true;
+  }
 }
