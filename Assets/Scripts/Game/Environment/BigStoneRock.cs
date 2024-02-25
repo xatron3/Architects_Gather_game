@@ -23,7 +23,7 @@ public class BigStoneRock : MonoBehaviour, IInteractable, ISkillProvider
 
     if (!HasRequiredItem)
     {
-      MessagingService.Instance.ShowMessage("You need a stone pickaxe to mine this rock.", Color.red);
+      MessagingService.Instance.ShowMessage("You need an pickaxe in your Tool Belt to mine this rock.", Color.red);
       return;
     }
 
@@ -77,5 +77,5 @@ public class BigStoneRock : MonoBehaviour, IInteractable, ISkillProvider
 
   public int RequiredLevel => 2;
 
-  public bool HasRequiredItem => player.scripts.inventory.ContainsItem("Stone Pickaxe");
+  public bool HasRequiredItem => player.scripts.inventory.toolBelt.ContainsToolOfType(ToolType.Pickaxe) != null;
 }

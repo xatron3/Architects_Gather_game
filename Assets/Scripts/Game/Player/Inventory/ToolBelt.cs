@@ -39,4 +39,20 @@ public class ToolBelt : MonoBehaviour
       }
     }
   }
+
+  public ToolItem ContainsToolOfType(ToolType toolType)
+  {
+    foreach (InventoryItem item in toolBeltGrid.GetItems())
+    {
+      if (item is ToolItem toolItem)
+      {
+        if (toolItem.toolType == toolType)
+        {
+          return toolItem;
+        }
+      }
+    }
+
+    return null;
+  }
 }

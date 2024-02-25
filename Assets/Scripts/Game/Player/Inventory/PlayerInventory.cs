@@ -12,6 +12,8 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
   private InventoryGrid inventoryGrid;
   public InventoryItemPrefab itemIconPrefab;
 
+  public ToolBelt toolBelt;
+
   private InventoryManager inventoryManager = new();
 
   private void Start()
@@ -103,7 +105,8 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
 
   private void CreateToolBelt()
   {
-    ToolBelt toolBelt = GetComponent<ToolBelt>();
+    toolBelt = GetComponent<ToolBelt>();
+
     if (toolBelt != null)
     {
       toolBelt.InitializeToolBelt(3, inventoryUI.transform);

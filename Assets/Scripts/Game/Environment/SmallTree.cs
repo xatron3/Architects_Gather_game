@@ -27,7 +27,7 @@ public class SmallTree : MonoBehaviour, IInteractable, ISkillProvider
 
     if (!HasRequiredItem)
     {
-      MessagingService.Instance.ShowMessage("You need a stone axe to chop down this tree.", Color.red);
+      MessagingService.Instance.ShowMessage("You need a axe in your Tool Belt to chop down this tree.", Color.red);
       return;
     }
 
@@ -80,5 +80,5 @@ public class SmallTree : MonoBehaviour, IInteractable, ISkillProvider
 
   public int RequiredLevel => 1;
 
-  public bool HasRequiredItem => playerController.scripts.inventory.ContainsItem("Stone Axe");
+  public bool HasRequiredItem => playerController.scripts.inventory.toolBelt.ContainsToolOfType(ToolType.Axe) != null;
 }
