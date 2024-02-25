@@ -13,6 +13,7 @@ public class StorageChest : PlayerPlacedItem, IInteractable
   public InventoryGrid playerStorageUIPrefab;
   public InventorySlot playerStorageSlotPrefab;
   public IInventorySlotHander playerStorageSlot;
+  public InventoryItemPrefab inventoryItemPrefab;
 
   private InventoryGrid playerStorageUI;
   public List<InventoryItem> storageChestItems = new List<InventoryItem>();
@@ -35,7 +36,7 @@ public class StorageChest : PlayerPlacedItem, IInteractable
 
     foreach (InventoryItem item in storageChestItems)
     {
-      playerStorageUI.AddItem(item, Resources.Load<InventoryItemPrefab>("Prefabs/Player/Inventory/UI_InventoryItem"), item.currentStackSize, true, item.slotIndex);
+      playerStorageUI.AddItem(item, inventoryItemPrefab, item.currentStackSize, true, item.slotIndex);
     }
   }
 
@@ -100,7 +101,8 @@ public class StorageChest : PlayerPlacedItem, IInteractable
       List<StorageChestItemData> itemsData = serializedItem.CustomAttributesData.StorageChestContents;
       foreach (var itemData in itemsData)
       {
-        InventoryItem item = Resources.Load<InventoryItem>("Items/" + itemData.ItemName);
+        InventoryItem item = ItemsManager.Instance.GetItem(itemData.ItemName);
+
         if (item == null)
         {
           Debug.LogError("Item not found in Resources/Items/" + itemData.ItemName);

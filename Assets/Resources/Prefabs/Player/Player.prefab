@@ -291,6 +291,7 @@ MonoBehaviour:
   inventoryUIPrefab: {fileID: 7252540502410972500, guid: fbe3faa784ffb2f42addb014f713da51, type: 3}
   inventorySlotPrefab: {fileID: -4101563308793355892, guid: 45b5662a79641c546bce57ebd3ad3e62, type: 3}
   itemIconPrefab: {fileID: 5711586562131788456, guid: e844d5edda8cdd74fb187232d6e4d33e, type: 3}
+  toolBelt: {fileID: 0}
 --- !u!114 &7668315351857400377
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -374,6 +375,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f40a63435c60ba4a9e23d3c58aa5ecc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  toolBeltGridPrefab: {fileID: 3659350268285280961, guid: 49048412d2d584d459dbc264fe60f0b0, type: 3}
+  itemIconPrefab: {fileID: 5711586562131788456, guid: e844d5edda8cdd74fb187232d6e4d33e, type: 3}
+  toolBeltSlotPrefab: {fileID: 4302701433614227646, guid: 41c07d84c9d0cf0439a48ff87243fb2e, type: 3}
 --- !u!1 &5642735344281588823
 GameObject:
   m_ObjectHideFlags: 0

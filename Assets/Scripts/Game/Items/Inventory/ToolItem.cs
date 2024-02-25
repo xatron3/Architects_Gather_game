@@ -22,6 +22,11 @@ public class ToolItem : InventoryItem
   {
     Debug.Log("Unequipping " + itemName);
   }
+
+  public override string GetTooltipContent()
+  {
+    return base.GetTooltipContent() + "\n" + "Type: " + toolType.ToString() + "\n";
+  }
 }
 
 public enum ToolType

@@ -54,4 +54,9 @@ public class PlaceableItem : InventoryItem
       previewItem = null; // Reset preview item
     }
   }
+
+  public override string GetTooltipContent()
+  {
+    return base.GetTooltipContent() + "\n" + "Placeable Item";
+  }
 }

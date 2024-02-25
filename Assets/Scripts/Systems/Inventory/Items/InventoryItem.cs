@@ -59,5 +59,12 @@ namespace SpellStone.Inventory
     {
       return Instantiate(this);
     }
+
+    public virtual string GetTooltipContent()
+    {
+      string stackSize = isStackable ? $"x{currentStackSize}/{maxStackSize}" : null;
+
+      return $"{itemName} {stackSize} \n";
+    }
   }
 }

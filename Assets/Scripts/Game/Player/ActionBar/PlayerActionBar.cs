@@ -9,7 +9,7 @@ public class PlayerActionBar : MonoBehaviour
   public IInventorySlotHander actionBarSlot;
   private InventoryGrid playerActionBarGrid;
 
-  private InventoryItemPrefab itemIconPrefab;
+  public InventoryItemPrefab inventoryItemPrefab;
 
   public InventoryItem equppedItem;
   private int equippedItemSlotIndex;
@@ -58,7 +58,7 @@ public class PlayerActionBar : MonoBehaviour
 
   public bool AddItem(InventoryItem item)
   {
-    if (playerActionBarGrid.AddItem(item, itemIconPrefab))
+    if (playerActionBarGrid.AddItem(item, inventoryItemPrefab))
     {
       return true;
     }
@@ -109,8 +109,6 @@ public class PlayerActionBar : MonoBehaviour
       playerActionBarGrid = Instantiate(actionBarGrid, transform);
       playerActionBarGrid.transform.SetParent(UI_Canvas_GO.transform.Find("Container").transform, false);
 
-      itemIconPrefab = Resources.Load<InventoryItemPrefab>("Prefabs/Player/Inventory/UI_InventoryItem");
-
       playerActionBarGrid.InitializeGrid(8, actionBarSlotPrefab, playerActionBarGrid.transform);
 
       for (int i = 0; i < playerActionBarGrid.slots.Count; i++)
@@ -130,7 +128,7 @@ public class PlayerActionBar : MonoBehaviour
     {
       foreach (var item in savedItems)
       {
-        InventoryItemPrefab newItemPrefab = playerActionBarGrid.AddItem(item, itemIconPrefab, item.currentStackSize, true, item.slotIndex);
+        InventoryItemPrefab newItemPrefab = playerActionBarGrid.AddItem(item, inventoryItemPrefab, item.currentStackSize, true, item.slotIndex);
 
         if (newItemPrefab != null)
         {

@@ -15,7 +15,7 @@ MonoBehaviour:
   slotIndex: -1
   itemName: Stone Pickaxe
   icon: {fileID: 21300000, guid: 898ea090cdd9a29468b9544189b3768d, type: 3}
-  canEquip: 1
+  canEquip: 0
   isStackable: 0
   maxStackSize: 1
   currentStackSize: 1

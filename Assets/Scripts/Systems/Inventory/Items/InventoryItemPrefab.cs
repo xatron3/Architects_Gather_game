@@ -2,11 +2,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
-using System;
 
 namespace SpellStone.Inventory
 {
-  public class InventoryItemPrefab : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+  public class InventoryItemPrefab : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, ITooltip, IPointerEnterHandler, IPointerExitHandler
   {
     [HideInInspector] public Transform parentToReturnTo = null;
     public Image icon { get; private set; }
@@ -96,6 +95,38 @@ namespace SpellStone.Inventory
       currentSlot?.HandleItemDrop(this, eventData);
       transform.SetParent(parentToReturnTo, true);
       icon.raycastTarget = true;
+    }
+
+    public string GetTooltipContent()
+    {
+      if (item != null)
+      {
+        return item.GetTooltipContent();
+      }
+      else
+      {
+        return "Unknown item";
+      }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+      if (item != null)
+      {
+        // Get the width of the tooltip panel and the width of the game object that we are hovering over
+        float tooltipPanelWidth = TooltipManager.Instance.tooltipPanel.GetComponent<RectTransform>().rect.width;
+        float itemWidth = GetComponent<RectTransform>().rect.width;
+
+        // Calculate the position of the tooltip panel
+        Vector2 position = new Vector2(transform.position.x + (itemWidth / 2) + (tooltipPanelWidth / 2), transform.position.y);
+
+        TooltipManager.Instance.ShowTooltip(GetTooltipContent(), position);
+      }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+      TooltipManager.Instance.HideTooltip();
     }
   }
 }
