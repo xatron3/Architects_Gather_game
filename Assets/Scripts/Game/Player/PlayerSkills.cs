@@ -29,10 +29,16 @@ public class PlayerSkills : MonoBehaviour, IPlayerSkills
     }
   }
 
-  public void PerformSkillAction(ISkillProvider skillProvider)
+  public void PerformSkillAction(ISkillProvider skillProvider, ToolItem toolItem)
   {
     SkillBase skill = skillProvider.GetSkill();
     int experienceGain = skillProvider.GetExperienceGain();
+    float expIncreaseFromTool = 0;
+
+    if (toolItem != null)
+    {
+      expIncreaseFromTool = toolItem.GetToolAttributes().expGainIncrease;
+    }
 
     // Perform the skill action on my skill
     SkillBase mySkill = skills.Find(s => s.GetName() == skill.GetName());
@@ -42,7 +48,7 @@ public class PlayerSkills : MonoBehaviour, IPlayerSkills
       return;
     }
 
-    mySkill.PerformSkillAction(experienceGain);
+    mySkill.PerformSkillAction(experienceGain, expIncreaseFromTool);
     skillContainer.UpdateSkillRow(mySkill);
   }
 

@@ -98,7 +98,7 @@ namespace SpellStone.Crafting
       }
 
       playerInventory.RemoveItems(item.ingredients);
-      playerSkills.PerformSkillAction(this);
+      playerSkills.PerformSkillAction(this, RequiredItem);
 
       if (playerInventory.AddItem(item.craftableItem.GetCopy()))
       {
@@ -137,9 +137,7 @@ namespace SpellStone.Crafting
 
     public int RequiredLevel => GetRequiredCraftingLevel(selectedCraftingItem);
 
-    public InventoryItem RequiredItem { get; set; }
-
-    public bool HasRequiredItem => true;
+    public ToolItem RequiredItem => null;
   }
 
   [Serializable]

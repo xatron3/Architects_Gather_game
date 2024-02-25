@@ -55,7 +55,7 @@ namespace SpellStone.Inventory
       Debug.Log("Using " + itemName);
     }
 
-    public InventoryItem GetCopy()
+    public virtual InventoryItem GetCopy()
     {
       return Instantiate(this);
     }

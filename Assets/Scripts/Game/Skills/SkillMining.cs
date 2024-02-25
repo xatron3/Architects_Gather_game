@@ -10,9 +10,9 @@ public class SkillMining : SkillBase
     this.skillLevel = skillLevel;
   }
 
-  public override void PerformSkillAction(int experienceGain)
+  public override void PerformSkillAction(int experienceGain, float expGainMultiplier)
   {
-    base.PerformSkillAction(experienceGain);
+    base.PerformSkillAction(experienceGain, expGainMultiplier);
   }
 
   public override bool HasRequirementsMet()

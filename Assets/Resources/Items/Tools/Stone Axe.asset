@@ -21,3 +21,5 @@ MonoBehaviour:
   currentStackSize: 1
   breakOnUse: 0
   toolType: 0
+  toolAttributes:
+    expGainIncrease: 0

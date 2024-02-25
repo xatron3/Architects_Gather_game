@@ -6,6 +6,7 @@ public class ToolItem : InventoryItem
 {
   [Header("Tool Item")]
   public ToolType toolType;
+  public ToolAttributes toolAttributes;
 
   public override void Use(PlayerController player)
   {
@@ -25,7 +26,13 @@ public class ToolItem : InventoryItem
 
   public override string GetTooltipContent()
   {
-    return base.GetTooltipContent() + "\n" + "Type: " + toolType.ToString() + "\n";
+    return base.GetTooltipContent() + "\n" + "Type: " + toolType.ToString() + "\n" +
+           "Exp Gain (%): " + toolAttributes.expGainIncrease + "\n";
+  }
+
+  public ToolAttributes GetToolAttributes()
+  {
+    return toolAttributes;
   }
 }
 
@@ -33,4 +40,15 @@ public enum ToolType
 {
   Axe,
   Pickaxe,
+}
+
+[System.Serializable]
+public class ToolAttributes
+{
+  public float expGainIncrease;
+
+  public ToolAttributes(float expGainIncrease)
+  {
+    this.expGainIncrease = expGainIncrease;
+  }
 }

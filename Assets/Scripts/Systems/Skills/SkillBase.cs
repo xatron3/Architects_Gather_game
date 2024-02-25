@@ -17,9 +17,9 @@ public abstract class SkillBase : ISkill
 
   public abstract void SetupSkill(int experience, int skillLevel);
 
-  public virtual void PerformSkillAction(int experienceGain)
+  public virtual void PerformSkillAction(int experienceGain, float expGainMultiplier)
   {
-    AddExperience(experienceGain);
+    IncreaseExperience(experienceGain, expGainMultiplier);
 
     if (experience >= GetNextLevelExperience())
     {
@@ -33,6 +33,14 @@ public abstract class SkillBase : ISkill
   {
     this.experience += experience;
     MessagingService.Instance.ShowMessage("+" + experience + " " + GetName() + " experience", Color.magenta);
+  }
+
+  public void IncreaseExperience(int baseExperience, float expGainMultiplier)
+  {
+    int experienceGain = Mathf.RoundToInt(baseExperience * (1 + (expGainMultiplier / 100)));
+    int adjustedExperienceGain = Mathf.RoundToInt(experienceGain * (1 + (GetSkillLevel() * 0.1f)));
+
+    AddExperience(experienceGain);
   }
 
   public abstract bool HasRequirementsMet();
