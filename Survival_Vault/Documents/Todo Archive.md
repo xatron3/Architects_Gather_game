@@ -1,0 +1,63 @@
+- [x]  Toolbelt
+    - [x]  You put you axe, pickaxe and other tools here (a custom inventory for only tools)
+    - [x]  You should only be able to put one of each type
+- [x]  Create Unity Project
+- [x]  Add ground panel/terrain
+- [x]  Create player prefab
+    - [x]  Read on how to make the player abstract with the movement
+    - [x]  Attach the Camera to the player
+    - [x]  Add basic WASD movement to player
+    - [x]  Create basic inventory
+- [x]  Create items
+    - [x]  Check how to handle inventory items/interactable/pickup able
+    - [x]  Stone
+        - [x]  Found on ground
+        - [x]  Found in stone mine
+    - [x]  Tree
+        - [x]  Found on ground
+        - [x]  Found in tree
+- [x]  Create props prefabs
+    - [x]  Stone
+    - [x]  Log
+- [x]  Create “ToolBelt” where you can equip item based on 1-8
+- [x]  Create stone axe and stone pickaxe item
+- [x]  Make simple crafting board that is interactable
+    - [x]  When interacting open a basic UI
+    - [x]  Make the ingredients show in a list (remake the GRID to a list instead)
+    - [x]  Craft the item if you click craft and have the ingredients
+        - [x]  Remove the ingredients from player
+        - [x]  Add the crafted item to the player
+- [x]  Start implementing skill’s
+    - [x]  Create basic UI for the skills
+    - [x]  https://chat.openai.com/share/ca867016-6dde-4566-804b-ad152008530e
+    - [x]  Make it possible to perform skill action on tree’s and stone rock’s.
+    - [x]  Make it possible to set the gained exp per ISkillProvider
+    - [x]  Add some type of exp table for the skills
+    - [x]  Implement level up system for the skills
+    - [x]  Add Crafting skill
+        - [x]  Give player crafting exp when crafting
+            - [x]  Check if we need to make it more abstract to be able to do this or if we can handle it with existing code
+        - [x]  Check if the crafting recipe maybe should hold exp rewarded amount
+- [x]  Require tool for interacting with tree’s and rock’s
+- [x]  Fix so crafting item is added even though you have full inventory when starting to craft.
+    - [x]  Currently it is not added at all
+- [x]  Add player storage
+    - [x]  Create inventory item
+    - [x]  Add crafting recipe to craft the item
+    - [x]  Make the item usable
+        - [x]  Attach in PlayerActionBar which item is used
+        - [x]  If you have player storage used and click leftclick it should add a Player Storage intaractable item infront of you
+    - [x]  Make the player storage item intaractable
+        - [x]  Show a stroage UI when interacting
+        - [x]  Allow player to drag items into the storage
+        - [x]  Make the player storages individual (currently they share items)
+        - [x]  Handle add/remove items. Now you can add items but when re-ordering or removing the item it still stays when you re-open the UI.
+- [x]  Late Night Todos
+    - [x]  Make items stackable
+    - [x]  Implement a Interface for showing message on screen
+        - [x]  Will be used to show exp gain, when you can’t interact due to lack of item etc.
+- [x]  Store the slot index when saving all the different inventories.
+- [x]  Crafting does not remove the last item of a stack from the item list (only decreases the stacks)
+- [x]  The interaction range should be set on the specific items somehow. Then check if the player moves into this range add to interaction, if move out remove it.
+- [x]  In PlayerActionBar.cs check the mouse input handle for item usage. The PlaceItem should be place onto the actual item or some other interface.
+- [x]  Preview placeable items if they are equipped

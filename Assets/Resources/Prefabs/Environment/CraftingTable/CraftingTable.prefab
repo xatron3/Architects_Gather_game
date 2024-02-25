@@ -102,6 +102,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4e4f6a41d9494f04d9a27ffdae4577eb, type: 2}
   - {fileID: 11400000, guid: 8365e1dffdb825749b9541ec2d59a19f, type: 2}
   - {fileID: 11400000, guid: 678e31576e4d4a84fbe2d68fbfe024b7, type: 2}
+  - {fileID: 11400000, guid: 2ebd4c0f4fa1e814294c66ed39cf4675, type: 2}
   craftingTableUIPrefab: {fileID: 1745568042582775960, guid: a70d3d74ded87e24fbe03ed699f19768, type: 3}
 --- !u!64 &5099557905372159527
 MeshCollider:

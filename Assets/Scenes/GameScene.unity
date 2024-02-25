@@ -957,10 +957,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3582931893756927383, guid: 3d1ad2a2ad033c94bb17e4df8a0f75e6, type: 3}
-      propertyPath: inventoryItemPrefab
-      value: 
-      objectReference: {fileID: 5711586562131788456, guid: e844d5edda8cdd74fb187232d6e4d33e, type: 3}
     - target: {fileID: 3872832715286899580, guid: 3d1ad2a2ad033c94bb17e4df8a0f75e6, type: 3}
       propertyPath: m_Name
       value: Player
@@ -4804,10 +4800,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI_ToolTip
       objectReference: {fileID: 0}
-    - target: {fileID: 523149487022453874, guid: a176a0da5db183c4aae7bab9efb16662, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8419613617150329999, guid: a176a0da5db183c4aae7bab9efb16662, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -5098,14 +5090,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1280484974}
     m_Modifications:
-    - target: {fileID: 1578275675971060736, guid: 3d34c9991ec76fc449d2962dc4c0f8ca, type: 3}
-      propertyPath: craftingItems.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1578275675971060736, guid: 3d34c9991ec76fc449d2962dc4c0f8ca, type: 3}
-      propertyPath: craftingItems.Array.data[4]
-      value: 
-      objectReference: {fileID: 11400000, guid: 2ebd4c0f4fa1e814294c66ed39cf4675, type: 2}
     - target: {fileID: 5186982916624734167, guid: 3d34c9991ec76fc449d2962dc4c0f8ca, type: 3}
       propertyPath: m_RootOrder
       value: -1
