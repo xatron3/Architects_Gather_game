@@ -75,6 +75,6 @@ public class PlayerInteractable : MonoBehaviour, IInteractor
 
   public void InteractWith(IInteractable interactable)
   {
-    interactable.Interact();
+    interactable.Interact(this.gameObject);
   }
 }

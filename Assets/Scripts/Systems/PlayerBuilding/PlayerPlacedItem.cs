@@ -51,7 +51,7 @@ public class PlayerPlacedItem : MonoBehaviour, ISnappable
       ISnappable snappableItem = collider.GetComponent<ISnappable>();
 
       // Ensure the collider has an ISnappable component and is not the current item
-      if (snappableItem != null && snappableItem != this)
+      if (snappableItem != null && (object)snappableItem != this)
       {
         // Check if the snappable item is within snapping range and should be snapped to
         if (Vector3.Distance(transform.position, snappableItem.Transform.position) <= snappingRadius)

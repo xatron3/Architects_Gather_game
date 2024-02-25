@@ -7,12 +7,19 @@ public class BigStoneRock : MonoBehaviour, IInteractable, ISkillProvider
   public ItemPickupable stonePrefab;
   public string Tooltip => "Mine Big Stone Rock";
 
-  private PlayerInventory playerInventory;
+  private PlayerController player;
 
-  public void Interact()
+  public void Interact(GameObject interactor)
   {
-    PlayerSkills skill = FindObjectOfType<PlayerSkills>();
-    playerInventory = FindObjectOfType<PlayerInventory>();
+    interactor.TryGetComponent<PlayerController>(out PlayerController _playerController);
+    if (_playerController == null)
+    {
+      Debug.LogError("PlayerController not found on interactor");
+      return;
+    }
+
+    player = _playerController;
+
 
     if (!HasRequiredItem)
     {
@@ -20,13 +27,13 @@ public class BigStoneRock : MonoBehaviour, IInteractable, ISkillProvider
       return;
     }
 
-    if (skill.GetSkill("Mining").GetSkillLevel() < RequiredLevel)
+    if (player.scripts.skills.GetSkill("Mining").GetSkillLevel() < RequiredLevel)
     {
       MessagingService.Instance.ShowMessage($"You need level {RequiredLevel} mining to mine this rock.", Color.red);
       return;
     }
 
-    skill.PerformSkillAction(this);
+    player.scripts.skills.PerformSkillAction(this);
 
     Destroy(gameObject);
 
@@ -70,5 +77,5 @@ public class BigStoneRock : MonoBehaviour, IInteractable, ISkillProvider
 
   public int RequiredLevel => 2;
 
-  public bool HasRequiredItem => playerInventory.ContainsItem("Stone Pickaxe");
+  public bool HasRequiredItem => player.scripts.inventory.ContainsItem("Stone Pickaxe");
 }

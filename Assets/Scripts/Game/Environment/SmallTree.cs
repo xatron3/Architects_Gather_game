@@ -7,12 +7,23 @@ public class SmallTree : MonoBehaviour, IInteractable, ISkillProvider
   public string Tooltip => "Chop down tree";
 
   public ItemPickupable logPrefab;
-  private PlayerInventory playerInventory;
+  private PlayerController playerController;
 
-  public void Interact()
+  public void Interact(GameObject interactor)
   {
-    PlayerSkills skill = FindObjectOfType<PlayerSkills>();
-    playerInventory = FindObjectOfType<PlayerInventory>();
+    HandlePlayerInteract(interactor);
+  }
+
+  private void HandlePlayerInteract(GameObject interactor)
+  {
+    interactor.TryGetComponent<PlayerController>(out PlayerController _playerController);
+    if (_playerController == null)
+    {
+      Debug.LogError("PlayerController not found on interactor");
+      return;
+    }
+
+    playerController = _playerController;
 
     if (!HasRequiredItem)
     {
@@ -20,13 +31,13 @@ public class SmallTree : MonoBehaviour, IInteractable, ISkillProvider
       return;
     }
 
-    if (skill.GetSkill("Woodcutting").GetSkillLevel() < RequiredLevel)
+    if (playerController.scripts.skills.GetSkill("Woodcutting").GetSkillLevel() < RequiredLevel)
     {
       MessagingService.Instance.ShowMessage($"You need level {RequiredLevel} woodcutting to chop down this tree.", Color.red);
       return;
     }
 
-    skill.PerformSkillAction(this);
+    playerController.scripts.skills.PerformSkillAction(this);
 
     Destroy(gameObject);
 
@@ -69,5 +80,5 @@ public class SmallTree : MonoBehaviour, IInteractable, ISkillProvider
 
   public int RequiredLevel => 1;
 
-  public bool HasRequiredItem => playerInventory.ContainsItem("Stone Axe");
+  public bool HasRequiredItem => playerController.scripts.inventory.ContainsItem("Stone Axe");
 }

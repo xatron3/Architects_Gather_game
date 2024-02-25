@@ -9,19 +9,20 @@ public class CraftingTable : MonoBehaviour, IInteractable
   public CraftingUI craftingTableUIPrefab;
   private CraftingUI craftingTableUI;
 
-  private PlayerSkills playerSkills;
-  private PlayerInventory playerInventory;
+  private PlayerController player;
 
   public string Tooltip => "Open crafting table";
 
-  public void Interact()
+  public void Interact(GameObject interactor)
   {
-    // Find the player skills and inventory
-    if (playerSkills == null)
-      playerSkills = FindObjectOfType<PlayerSkills>();
+    interactor.TryGetComponent<PlayerController>(out PlayerController _playerController);
+    if (_playerController == null)
+    {
+      Debug.LogError("PlayerController not found on interactor");
+      return;
+    }
 
-    if (playerInventory == null)
-      playerInventory = FindObjectOfType<PlayerInventory>();
+    player = _playerController;
 
     if (craftingTableUI != null)
       return;
@@ -33,8 +34,8 @@ public class CraftingTable : MonoBehaviour, IInteractable
 
     // Find the crafting preview UI and set the player skills and inventory
     CraftingPreviewUI craftingPreviewUI = craftingTableUI.GetComponentInChildren<CraftingPreviewUI>();
-    craftingPreviewUI.SetPlayerSkills(playerSkills);
-    craftingPreviewUI.SetPlayerInventory(playerInventory);
+    craftingPreviewUI.SetPlayerSkills(player.scripts.skills);
+    craftingPreviewUI.SetPlayerInventory(player.scripts.inventory);
     craftingPreviewUI.SetupUI();
     craftingPreviewUI.AddEventListners();
   }
@@ -51,6 +52,7 @@ public class CraftingTable : MonoBehaviour, IInteractable
 
     Destroy(craftingTableUI.gameObject);
     craftingTableUI = null;
+    player = null;
   }
 
   public void OnDrawGizmos()

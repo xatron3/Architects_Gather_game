@@ -6,7 +6,7 @@ public class ItemPickupable : Item, IInteractable
   public float InteractionRadius => 3f;
   public InventoryItem inventoryItem;
 
-  public void Interact()
+  public void Interact(GameObject interactor)
   {
     Pickup();
   }

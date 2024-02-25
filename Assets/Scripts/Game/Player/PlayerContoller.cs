@@ -3,12 +3,13 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-  [HideInInspector] public PlayerScripts playerScripts;
+  [HideInInspector] public PlayerScripts scripts;
 
   void Start()
   {
-    playerScripts.actionBar = GetComponent<PlayerActionBar>();
-    playerScripts.inventory = GetComponent<PlayerInventory>();
+    scripts.actionBar = GetComponent<PlayerActionBar>();
+    scripts.inventory = GetComponent<PlayerInventory>();
+    scripts.skills = GetComponent<PlayerSkills>();
   }
 }
 
@@ -17,4 +18,5 @@ public class PlayerScripts
 {
   public PlayerActionBar actionBar;
   public PlayerInventory inventory;
+  public PlayerSkills skills;
 }

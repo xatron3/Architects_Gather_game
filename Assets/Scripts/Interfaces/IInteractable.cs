@@ -6,7 +6,7 @@ public interface IInteractable
   public string Tooltip { get; }
 
   Vector3 GetPosition();
-  void Interact();
+  void Interact(GameObject interactor);
   void OnMoveOutOfRange();
 
   void OnDrawGizmos();

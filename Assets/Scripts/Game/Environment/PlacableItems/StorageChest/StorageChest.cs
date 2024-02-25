@@ -17,9 +17,12 @@ public class StorageChest : PlayerPlacedItem, IInteractable
   private InventoryGrid playerStorageUI;
   public List<InventoryItem> storageChestItems = new List<InventoryItem>();
 
-  private PlayerController player = null;
+  public void Interact(GameObject interactor)
+  {
+    HandlePlayerInteract(interactor);
+  }
 
-  public void Interact()
+  private void HandlePlayerInteract(GameObject interactor)
   {
     if (playerStorageUI != null)
       return;
@@ -57,9 +60,6 @@ public class StorageChest : PlayerPlacedItem, IInteractable
 
   public void OnMoveOutOfRange()
   {
-    if (player == null)
-      player = FindObjectOfType<PlayerController>();
-
     if (playerStorageUI == null)
       return;
 
