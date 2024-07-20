@@ -21,7 +21,7 @@ TagManager:
   - Enemy
   - Pickup
   - EnemyProjectile
-  - 
+  - NPC
   - Environment Collision
   - 
   - 
