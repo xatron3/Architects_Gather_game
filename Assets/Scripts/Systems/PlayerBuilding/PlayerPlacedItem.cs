@@ -11,23 +11,23 @@ public class PlayerPlacedItem : MonoBehaviour, ISnappable
   public Transform Transform => transform;
 
   public bool IsPreview { get; set; }
-  private PlayerController player;
+  private PlayerController _player;
 
   void Update()
   {
-    if (player == null)
+    if (_player == null)
     {
-      player = FindObjectOfType<PlayerController>();
+      _player = FindObjectOfType<PlayerController>();
       return;
     }
 
-    if (IsPreview && player != null)
+    if (IsPreview && _player != null)
     {
       RaycastHit hit;
       Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
       // Get rotation from the PlayerPlacedItems singleton
-      Quaternion rotation = Quaternion.Euler(0, (int)PlayerPlacedItems.Instance.placingSettings.rotation * 90, 0);
+      Quaternion rotation = Quaternion.Euler(transform.eulerAngles.x, (int)PlayerPlacedItems.Instance.placingSettings.rotation * 90, transform.eulerAngles.z);
 
       if (Physics.Raycast(ray, out hit, Mathf.Infinity))
       {

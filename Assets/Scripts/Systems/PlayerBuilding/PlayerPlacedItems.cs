@@ -31,7 +31,7 @@ public class PlayerPlacedItems : MonoBehaviour
       // Rotate the item
       if (Input.GetKeyDown(KeyCode.R))
       {
-        placingSettings.rotation = (PlacingSettings.Rotation)(((int)placingSettings.rotation + 1) % 2);
+        placingSettings.rotation = (PlacingSettings.Rotation)(((int)placingSettings.rotation + 1) % 3);
       }
 
       // Toggle snapping
@@ -113,6 +113,7 @@ public class PlacingSettings
   public enum Rotation
   {
     Snap90,
-    Snap45
+    Snap45,
+    Snap0
   }
 }
